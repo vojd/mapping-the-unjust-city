@@ -4,23 +4,64 @@ import { matrix, pan, scale } from './math';
 import { getRedLineNodes } from './components/UndergroundLineDefinitions';
 import { MapNode, UndergroundManager } from './components/UndergroundLines';
 
-/* tslint:disable */
-const Station = (props: any) => {
-  interface Dim {
-    r: number;
+interface Dim {
+  r: number;
+}
+
+interface StationProps {
+  x: number;
+  y: number;
+  node: MapNode;
+
+  onClickCallback(node: MapNode): any;
+}
+
+interface StationState {
+  x: number;
+  y: number;
+  isActive: boolean;
+}
+
+class Station extends React.Component<StationProps, StationState> {
+
+  constructor(props: StationProps) {
+    super(props);
+    this.state = {
+      x: props.x,
+      y: props.y,
+      isActive: false,
+    };
   }
 
-  const dim: Dim = {
-    r: 10
-  };
+  public toggleActive = () => {
+    console.log('on mouse enter');
+    this.setState({
+      isActive: !this.state.isActive
+    });
+  }
 
-  return (
-    <circle cx={props.x}
-            cy={props.y}
-            {...dim}
-            fill="black"/>
-  );
-};
+  public onClick = () => {
+    this.props.onClickCallback(this.props.node);
+  }
+
+  render() {
+    const dim: Dim = {
+      r: 10
+    };
+
+    return (
+      <circle
+        cx={this.state.x}
+        cy={this.state.y}
+        r={this.state.isActive ? dim.r + 2 : dim.r}
+        fill="black"
+        onMouseEnter={this.toggleActive}
+        onMouseLeave={this.toggleActive}
+        onClick={this.onClick}
+      />
+    );
+  }
+}
 
 const width = 1024;
 const height = 768;
@@ -56,19 +97,20 @@ const yFromGrid = (y: number, direction: string) => {
   }
 };
 
-interface UndergrundLineProps {
+interface UndergroundLineProps {
   nodes: MapNode[];
   parentNode: MapNode;
   undergroundManager: UndergroundManager;
+
+  whenStationClicked(x: any): any;
 }
 
-const RedLine = (props: any | UndergrundLineProps) => {
+const RedLine = (props: UndergroundLineProps): any => {
   const nodes = props.nodes;
   const undergroundManager = props.undergroundManager;
   const parentNode = props.parentNode;
 
   const stations = [];
-
 
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes[i];
@@ -90,44 +132,60 @@ const RedLine = (props: any | UndergrundLineProps) => {
     stations.push(
       <g>
         <line {...lineCoords} stroke="red" strokeWidth="10"/>
-        <Station x={x} y={y}/>
+        <Station
+          x={x}
+          y={y}
+          node={node}
+          onClickCallback={props.whenStationClicked}
+        />
 
         // Branch off
         {
           node.branch
             ? node.branch.map((branchId: number) => {
               const n = undergroundManager.getNodesById(branchId);
-              return (<RedLine nodes={n}
-                               parentNode={node}
-                               undergroundManager={undergroundManager}/>)
+              return (
+                <RedLine
+                  key={node.name}
+                  nodes={n}
+                  parentNode={node}
+                  undergroundManager={undergroundManager}
+                  whenStationClicked={props.whenStationClicked}
+                />
+              );
             })
             : null
         }
       </g>
     )
+    ;
   }
 
   return (
     <g>
       {stations.map(s => s)}
     </g>
-  )
+  );
 };
 
 class App extends React.Component {
 
   undergroundManager = new UndergroundManager();
 
+  constructor(props: any) {
+    super(props);
+    this.state = {station: null};
+  }
+
+  public whenStationClicked = (node: MapNode) => {
+    console.log('when station clicked', node);
+    this.setState({
+      station: node
+    });
+
+  }
+
   render() {
-
-    const coords = {
-      x1: 100,
-      y1: 10,
-      x2: 100,
-      y2: 100,
-
-      strokeWidth: 2,
-    };
 
     const mat = [
       1, 0, 0,
@@ -149,14 +207,15 @@ class App extends React.Component {
     const redLineNodes = getRedLineNodes(this.undergroundManager);
     return (
       <div className="App">
-
+        
         <svg width="1024" height="768">
           <g transform={matrix(scale(pan(mat, panX, panY), scaleFactor))}>
-            <line {...coords} stroke="red"/>
-
-            <RedLine nodes={redLineNodes}
-                     parentNode={centralStation}
-                     undergroundManager={this.undergroundManager}/>
+            <RedLine
+              nodes={redLineNodes}
+              parentNode={centralStation}
+              undergroundManager={this.undergroundManager}
+              whenStationClicked={this.whenStationClicked}
+            />
           </g>
         </svg>
       </div>
