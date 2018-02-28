@@ -9,6 +9,7 @@
 
 # production
 /build
+*/**/uploads
 
 # misc
 .DS_Store
@@ -22,5 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 
-
+*.sqlite3
 *.pyc
+
+*.swp
