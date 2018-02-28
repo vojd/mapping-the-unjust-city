@@ -3,6 +3,7 @@ import './App.css';
 import { matrix, pan, scale } from './math';
 import { getRedLineNodes } from './components/UndergroundLineDefinitions';
 import { MapNode, UndergroundManager } from './components/UndergroundLines';
+import { StationInformation } from './components/StationInformation';
 
 interface Dim {
   r: number;
@@ -168,21 +169,27 @@ const RedLine = (props: UndergroundLineProps): any => {
   );
 };
 
-class App extends React.Component {
+interface AppProps {
+}
+
+interface AppState {
+  currentNode?: MapNode;
+}
+
+class App extends React.Component<AppProps, AppState> {
 
   undergroundManager = new UndergroundManager();
 
   constructor(props: any) {
     super(props);
-    this.state = {station: null};
+    this.state = {currentNode: undefined};
   }
 
   public whenStationClicked = (node: MapNode) => {
     console.log('when station clicked', node);
     this.setState({
-      station: node
+      currentNode: node
     });
-
   }
 
   render() {
@@ -207,7 +214,12 @@ class App extends React.Component {
     const redLineNodes = getRedLineNodes(this.undergroundManager);
     return (
       <div className="App">
-        
+        {
+          this.state.currentNode
+            ? <StationInformation node={this.state.currentNode}/>
+            : null
+        }
+
         <svg width="1024" height="768">
           <g transform={matrix(scale(pan(mat, panX, panY), scaleFactor))}>
             <RedLine
