@@ -1,8 +1,10 @@
 import * as React from 'react';
 
+const COLOR_ORANGE = 'rgb(243, 113, 30)';
+
 const RedLine = () => {
   const lineStyle = {
-    stroke: 'rgb(255,0,0)',
+    stroke: COLOR_ORANGE,
     strokeWidth: '2'
   };
 

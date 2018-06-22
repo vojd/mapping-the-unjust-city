@@ -5,6 +5,7 @@ import { getRedLineNodes } from './components/UndergroundLineDefinitions';
 import { MapNode, UndergroundManager } from './components/UndergroundLines';
 import { StationInformation } from './components/StationInformation';
 
+const COLOR_ORANGE = 'rgb(243, 113, 30)';
 interface Dim {
   r: number;
 }
@@ -55,7 +56,7 @@ class Station extends React.Component<StationProps, StationState> {
         cx={this.state.x}
         cy={this.state.y}
         r={this.state.isActive ? dim.r + 2 : dim.r}
-        fill="black"
+        fill={COLOR_ORANGE}
         onMouseEnter={this.toggleActive}
         onMouseLeave={this.toggleActive}
         onClick={this.onClick}
@@ -132,7 +133,7 @@ const RedLine = (props: UndergroundLineProps): any => {
 
     stations.push(
       <g>
-        <line {...lineCoords} stroke="red" strokeWidth="10"/>
+        <line {...lineCoords} stroke={COLOR_ORANGE} strokeWidth="10"/>
         <Station
           x={x}
           y={y}
@@ -147,7 +148,7 @@ const RedLine = (props: UndergroundLineProps): any => {
               const n = undergroundManager.getNodesById(branchId);
               return (
                 <RedLine
-                  key={node.name}
+                  key={`${node.name}-${branchId}`}
                   nodes={n}
                   parentNode={node}
                   undergroundManager={undergroundManager}
