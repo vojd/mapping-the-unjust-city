@@ -4,71 +4,13 @@ import { matrix, pan, scale } from './math';
 import { getRedLineNodes } from './components/UndergroundLineDefinitions';
 import { MapNode, UndergroundManager } from './components/UndergroundLines';
 import { StationInformation } from './components/StationInformation';
-
-const COLOR_ORANGE = 'rgb(243, 113, 30)';
-interface Dim {
-  r: number;
-}
-
-interface StationProps {
-  x: number;
-  y: number;
-  node: MapNode;
-
-  onClickCallback(node: MapNode): any;
-}
-
-interface StationState {
-  x: number;
-  y: number;
-  isActive: boolean;
-}
-
-class Station extends React.Component<StationProps, StationState> {
-
-  constructor(props: StationProps) {
-    super(props);
-    this.state = {
-      x: props.x,
-      y: props.y,
-      isActive: false,
-    };
-  }
-
-  public toggleActive = () => {
-    console.log('on mouse enter');
-    this.setState({
-      isActive: !this.state.isActive
-    });
-  }
-
-  public onClick = () => {
-    this.props.onClickCallback(this.props.node);
-  }
-
-  render() {
-    const dim: Dim = {
-      r: 10
-    };
-
-    return (
-      <circle
-        cx={this.state.x}
-        cy={this.state.y}
-        r={this.state.isActive ? dim.r + 2 : dim.r}
-        fill={COLOR_ORANGE}
-        onMouseEnter={this.toggleActive}
-        onMouseLeave={this.toggleActive}
-        onClick={this.onClick}
-      />
-    );
-  }
-}
+import { COLOR_ORANGE, Station } from './components/Station';
 
 const width = 1024;
 const height = 768;
 const gridX = 50;
 const gridY = 50;
+
 const xFromGrid = (x: number, direction: string) => {
   switch (direction) {
     case 'e':
