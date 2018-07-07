@@ -58,6 +58,13 @@ const redLineNorsborgNodes: MapNode[] = [
         name: 'Aspudden',
         x: 0, y: 0,
     },
+    {
+        filled: -1,
+        direction: 'w',
+
+        name: 'Örnsberg',
+        x: 0, y: 0,
+    },
 ];
 
 const redLineSouthBound: MapNode[] = [

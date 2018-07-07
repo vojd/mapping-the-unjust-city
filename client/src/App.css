@@ -1,28 +1,90 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
 }
 
 .App-title {
-  font-size: 1.5em;
+    font-size: 1.5em;
 }
 
 .App-intro {
-  font-size: large;
+    font-size: large;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.full-screen {
+
+    background: #ffffff;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.flex-vertical {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.height-two-thirds {
+    flex: 2;
+    background: #9933ff;
+
+}
+
+.height-one-third {
+    flex: 1;
+
+    background: #3399ff;
+}
+
+.station-information__content {
+
+}
+
+.station-information__toolbar {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    align-items: flex-end;
+    margin: 0 auto;
+}
+
+.station-information__toolbar__icon {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 12px;
+    padding: 4px;
+    background: #ffffff;
+
+    font-size: 2em;
+
 }
