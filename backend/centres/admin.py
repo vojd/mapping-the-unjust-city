@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from centers.models import Owner, CentreDocument, Centre, CentreImage
+from centres.models import Company, CentreDocument, Centre, CentreImage
 
 
-@admin.register(Owner)
-class OwnerAdmin(admin.ModelAdmin):
+@admin.register(Company)
+class CompanyAdmin(admin.ModelAdmin):
     pass
 
 
