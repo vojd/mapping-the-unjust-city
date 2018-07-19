@@ -1,18 +1,22 @@
-import { CentreInformation } from '../models/models';
-
-const mockData: CentreInformation = {
-  'owner': 'Corporation Corp',
-};
-
-const getData: any = () => mockData;
-
 export class HttpService {
 
-  public get<T>(param: string): Promise<T> {
-    console.log(param);
+  APIBase: string = 'http://localhost:8000/api';
 
-    return new Promise<T>((resolve, reject) => {
-      resolve(<T> getData());
-    });
+  public resolve = (data: any) => {
+    console.log('resolved::', data);
+
+    return data;
+  }
+
+  public get<T>(url: string): Promise<T> {
+
+    const promise = new Promise<T>(this.resolve);
+
+    fetch(`${this.APIBase}${url}?format=json`)
+      .then((response) => {
+        this.resolve(response.json());
+      });
+
+    return promise;
   }
 }

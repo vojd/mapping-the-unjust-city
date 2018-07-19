@@ -1,38 +1,63 @@
 import * as React from 'react';
 import { MapNode } from './UndergroundLines';
-import { HttpService } from '../services/HttpService';
-import { CentreInformation } from '../models/models';
 import { Link } from 'react-router-dom';
+import { APIService } from '../services/APIService';
+import { Centre, Company } from '../models/models';
 
-interface StationInformationProps {
+interface CentreInformationProps {
   node: MapNode;
 }
 
-interface StationInformationState {
-  stationInformation: {
-    owner: string;
+interface CentreInformationState {
+  centre: {
+    owner: {
+      name: string;
+      slug: string;
+    };
   };
 }
 
-export class StationInformation extends React.Component<StationInformationProps, StationInformationState> {
+const CentreOwnerInformation = (props: { owner: Company }) => {
+  return (
+    <div>
+      <h4>
+        Ägare:
+        <u>
+          <Link to={`/station-detail/${props.owner.slug}`}>
+            {props.owner.name ? props.owner.name : ''}
+          </Link>
+        </u>
+      </h4>
 
-  httpService: HttpService;
+      <span>
+        <p>Centrumbyggnader. Torg på allmän platsmark.</p>
+      </span>
+    </div>
+  );
+};
+
+export class CentreInformation extends React.Component<CentreInformationProps, CentreInformationState> {
+
+  apiService: APIService;
 
   constructor(props: any) {
     super(props);
 
     this.state = {
-      stationInformation: {
-        owner: ''
+      centre: {
+        owner: {
+          name: '',
+          slug: ''
+        },
       }
     };
 
-    this.httpService = new HttpService();
-    this.httpService
-      .get<CentreInformation>(props.node.name)
+    this.apiService = new APIService();
+    this.apiService
+      .getCentreBySlug<Centre>(props.node.name)
       .then(result => {
         this.setState({
-          stationInformation: result
+          centre: result
         });
       });
   }
@@ -45,20 +70,13 @@ export class StationInformation extends React.Component<StationInformationProps,
           <div className="height-two-thirds">
 
             <div className="flex-vertical">
+
               <div>
                 <h2>{this.props.node.name}</h2>
-                <h4>
-                  Ägare:
-                  <u>
-                    <Link to={`/station-detail/${this.state.stationInformation}`}>
-                      {this.state.stationInformation ? this.state.stationInformation.owner : null}
-                    </Link>
-                  </u>
-                </h4>
-
-                <span>
-                  <p>Centrumbyggnader. Torg på allmän platsmark.</p>
-                </span>
+                {
+                  this.state.centre && this.state.centre.owner &&
+                  <CentreOwnerInformation owner={this.state.centre.owner}/>
+                }
               </div>
 
               <div className="station-information__toolbar">
@@ -92,5 +110,5 @@ export class StationInformation extends React.Component<StationInformationProps,
   }
 }
 
-const stationInformation = StationInformation;
-console.log(stationInformation);
+const centreInformation = CentreInformation;
+console.log(centreInformation);
