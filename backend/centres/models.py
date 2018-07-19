@@ -4,6 +4,21 @@ from django.utils.text import slugify
 from backend import settings
 
 
+class Image(models.Model):
+    centre = models.ForeignKey('Centre', on_delete=models.SET_NULL, null=True, blank=True, related_name='images')
+    company = models.ForeignKey('Company', on_delete=models.SET_NULL, null=True, blank=True, related_name='images')
+    image = models.ImageField(upload_to=settings.UPLOAD_DIR)
+
+
+class Document(models.Model):
+    centre = models.ForeignKey('Centre', on_delete=models.SET_NULL, null=True, blank=True, related_name='documents')
+    company = models.ForeignKey('Company', on_delete=models.SET_NULL, null=True, blank=True, related_name='documents')
+
+    title = models.CharField(blank=True, max_length=255)
+    text = models.TextField(blank=True)
+    file = models.FileField(blank=True, upload_to=settings.UPLOAD_DIR)
+
+
 class Company(models.Model):
     name = models.CharField(blank=False, max_length=255)
     slug = models.SlugField(blank=True)
@@ -21,26 +36,10 @@ class Company(models.Model):
         verbose_name_plural = 'companies'
 
 
-############################
-# One Centre = One Station #
-############################
-class CentreImage(models.Model):
-    centre = models.ForeignKey('Centre', on_delete=models.SET_NULL, null=True,
-                               related_name='images',
-                               )
-    image = models.ImageField(upload_to=settings.UPLOAD_DIR)
-
-
-class CentreDocument(models.Model):
-    centre = models.ForeignKey('Centre', on_delete=models.SET_NULL, null=True,
-                               related_name='documents',
-                               )
-    title = models.CharField(blank=True, max_length=255)
-    text = models.TextField(blank=True)
-    file = models.FileField(blank=True, upload_to=settings.UPLOAD_DIR)
-
-
 class Centre(models.Model):
+    """
+    Each station has a centre
+    """
     name = models.CharField(blank=False, max_length=255)
     slug = models.SlugField(blank=True, max_length=255,
                             help_text='Mapping to the GUI. Do not change unless you have to')
@@ -52,3 +51,5 @@ class Centre(models.Model):
                               null=True,
                               related_name='centres'
                               )
+
+    description = models.TextField(blank=True)

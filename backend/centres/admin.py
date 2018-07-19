@@ -1,30 +1,30 @@
 from django.contrib import admin
 
-from centres.models import Company, CentreDocument, Centre, CentreImage
+from centres.models import Company, Document, Centre, Image
 
 
-@admin.register(Company)
-class CompanyAdmin(admin.ModelAdmin):
-    pass
-
-
-class CentreImageInline(admin.StackedInline):
-    model = CentreImage
+class ImageInline(admin.StackedInline):
+    model = Image
     extra = 0
     fields = ('centre', 'image')
 
 
-class CentreDocumentInline(admin.StackedInline):
-    model = CentreDocument
+class DocumentInline(admin.StackedInline):
+    model = Document
     extra = 0
     fields = ('centre', 'title', 'text', 'file')
 
 
 @admin.register(Centre)
 class CentreAdmin(admin.ModelAdmin):
-    inlines = [CentreImageInline, CentreDocumentInline]
+    inlines = [ImageInline, DocumentInline]
 
-    prepopulated_fields = {'slug': ('name', )}
+    prepopulated_fields = {'slug': ('name',)}
+
+
+@admin.register(Company)
+class CompanyAdmin(admin.ModelAdmin):
+    inlines = [ImageInline, DocumentInline]
 
 
 admin.site.site_title = 'Mapping the unjust city'
