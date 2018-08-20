@@ -2,113 +2,107 @@ import * as React from 'react';
 import { MapNode } from './UndergroundLines';
 import { Link } from 'react-router-dom';
 import { APIService } from '../services/APIService';
-import { Centre, Company } from '../models/models';
+import { Centre, CentreResponse, createCentre } from '../models/models';
 
-interface CentreInformationProps {
+interface CentreComponentProps {
   node: MapNode;
 }
 
-interface CentreInformationState {
-  centre: {
-    owner: {
-      name: string;
-      slug: string;
-    };
-  };
+interface CentreComponentState {
+  centre: Centre | null;
 }
 
-const CentreOwnerInformation = (props: { owner: Company }) => {
-  return (
-    <div>
-      <h4>
-        Ägare:
-        <u>
-          <Link to={`/station-detail/${props.owner.slug}`}>
-            {props.owner.name ? props.owner.name : ''}
-          </Link>
-        </u>
-      </h4>
+interface CentreInformationProps {
+  centre: Centre;
+}
 
-      <span>
-        <p>Centrumbyggnader. Torg på allmän platsmark.</p>
-      </span>
+/**
+ * Main page for a station
+ */
+export const CentreInformation = (props: CentreInformationProps) => {
+  return (
+    <div className="full-screen">
+
+      <div className="flex-vertical">
+        <div className="height-two-thirds">
+
+          <div className="flex-vertical">
+
+            <div>
+              <h2>{props.centre.name}</h2>
+              <p>{props.centre.name}</p>
+              <Link to={`something`}>Link</Link>
+            </div>
+
+            <div className="station-information__toolbar">
+              <Link to={`/company/${props.centre.owner}`}>
+                <div className="station-information__toolbar__icon">
+                  <i className="fas fa-users"/>
+                </div>
+              </Link>
+
+              <Link to={`/centre/${props.centre.name}/ownership-history`}>
+                <div className="station-information__toolbar__icon">
+                  <i className="fas fa-coins"/>
+                </div>
+              </Link>
+
+              {/*Detaljplan*/}
+              <Link to={`/centre/${props.centre.name}/detailed`}>
+                <div className="station-information__toolbar__icon">
+                  <i className="fas fa-map"/>
+                </div>
+              </Link>
+
+              <Link to={`/centre/${props.centre.name}/media-archive`}>
+                <div className="station-information__toolbar__icon">
+                  <i className="fas fa-question"/>
+                </div>
+              </Link>
+            </div>
+
+          </div>
+        </div>
+
+        <div className="height-one-third">
+          <p>bottom area</p>
+        </div>
+      </div>
+
     </div>
   );
 };
 
-export class CentreInformation extends React.Component<CentreInformationProps, CentreInformationState> {
+export class CentreComponent extends React.Component<CentreComponentProps, CentreComponentState> {
 
   apiService: APIService;
 
   constructor(props: any) {
     super(props);
-
     this.state = {
-      centre: {
-        owner: {
-          name: '',
-          slug: ''
-        },
-      }
+      centre: null
     };
 
     this.apiService = new APIService();
-    this.apiService
-      .getCentreBySlug<Centre>(props.node.name)
-      .then(result => {
-        this.setState({
-          centre: result
-        });
-      });
+    this.fetchAndSetState(props.node.name);
   }
 
   render() {
     return (
-      <div className="full-screen">
-
-        <div className="flex-vertical">
-          <div className="height-two-thirds">
-
-            <div className="flex-vertical">
-
-              <div>
-                <h2>{this.props.node.name}</h2>
-                {
-                  this.state.centre && this.state.centre.owner &&
-                  <CentreOwnerInformation owner={this.state.centre.owner}/>
-                }
-              </div>
-
-              <div className="station-information__toolbar">
-                <div className="station-information__toolbar__icon">
-                  <i className="fas fa-users"/>
-                </div>
-
-                <div className="station-information__toolbar__icon">
-                  <i className="fas fa-coins"/>
-                </div>
-
-                <div className="station-information__toolbar__icon">
-                  <i className="fas fa-map"/>
-                </div>
-
-                <div className="station-information__toolbar__icon">
-                  <i className="fas fa-question"/>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <div className="height-one-third">
-            <p>bottom area</p>
-          </div>
-        </div>
-
-      </div>
+      this.state.centre ? <CentreInformation centre={this.state.centre}/> : ''
     );
   }
-}
 
-const centreInformation = CentreInformation;
-console.log(centreInformation);
+  private fetchAndSetState = (centreName: string) => {
+    this.apiService
+      .getCentreBySlug<CentreResponse>(centreName)
+      .then(centreResponse => {
+
+        if (centreResponse) {
+          this.setState({
+            centre: createCentre(centreResponse)
+          });
+        }
+      });
+  }
+}

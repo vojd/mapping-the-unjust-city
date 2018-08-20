@@ -1,15 +1,11 @@
-from django.template.defaultfilters import slugify
 from rest_framework import serializers, viewsets
 
+from api.company import CompanySerializer
 from centres.models import Centre
 
 
 class CentreSerializer(serializers.HyperlinkedModelSerializer):
-    owner = serializers.HyperlinkedRelatedField(
-        view_name='api:company-detail',
-        lookup_field='slug',
-        read_only=True,
-    )
+    owner = CompanySerializer()
 
     documents = serializers.HyperlinkedRelatedField(
         view_name='api:document-detail',

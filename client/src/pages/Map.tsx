@@ -2,7 +2,7 @@ import * as React from 'react';
 import { matrix, pan, scale } from '../math';
 import { getRedLineNodes } from '../components/UndergroundLineDefinitions';
 import { MapNode, UndergroundManager } from '../components/UndergroundLines';
-import { CentreInformation } from '../components/CentreInformation';
+import { CentreComponent } from '../components/CentreInformation';
 import { COLOR_ORANGE, Station } from '../components/Station';
 
 const width = 1024;
@@ -127,7 +127,6 @@ export class Map extends React.Component<AppProps, AppState> {
   }
 
   public whenStationClicked = (node: MapNode) => {
-    console.log('when station clicked', node);
     this.setState({
       currentNode: node
     });
@@ -157,7 +156,7 @@ export class Map extends React.Component<AppProps, AppState> {
       <div className="full-screen">
         {
           this.state.currentNode
-            ? <CentreInformation node={this.state.currentNode}/>
+            ? <CentreComponent node={this.state.currentNode}/>
             : null
         }
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import { Map } from './pages/Map';
-import { CentreInformation } from './components/CentreInformation';
+import { CentreComponent } from './components/CentreInformation';
 import { getRedLineNodes } from './components/UndergroundLineDefinitions';
 import { MapNode, UndergroundManager } from './components/UndergroundLines';
 import { Route } from 'react-router';
@@ -32,11 +32,12 @@ class App extends React.Component<any, AppState> {
               <li><Link to="/">Home</Link></li>
             </ul>
           </div>
+
           <Map/>
-          <CentreInformation node={this.state.currentNode}/>
 
           {/*<Route exact path="/" component={Map}/>*/}
           <Route exact path="/" component={Map}/>
+          <Route path="/centre/:centre-name/" component={CentreComponent}/>
           <Route path="/about" component={Map}/>
           <Route path="/topics" component={Map}/>
         </div>

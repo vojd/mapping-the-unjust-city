@@ -2,7 +2,7 @@ export interface MapNode {
     filled: number;
     direction: string;
 
-    name?: string;
+    name: string;
     branch?: number[];
     x: number;
     y: number;

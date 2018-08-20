@@ -23,7 +23,7 @@ class Company(models.Model):
     name = models.CharField(blank=False, max_length=255)
     slug = models.SlugField(blank=True)
 
-    text = models.TextField(blank=True)
+    description = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -53,3 +53,6 @@ class Centre(models.Model):
                               )
 
     description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name

@@ -9,10 +9,10 @@ export class APIService extends HttpService {
   }
 
   public getCentreBySlug<Centre>(slug: string): Promise<Centre> {
-    return this.httpService.get(`/centre/${this.sluggify(slug)}`);
+    return this.httpService.get(`/centre/${this.slugify(slug)}`);
   }
 
-  public sluggify = (slug: string): string => {
+  public slugify = (slug: string): string => {
     return slug
       .toLocaleLowerCase()
       .trim()
