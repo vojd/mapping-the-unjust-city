@@ -6,6 +6,9 @@ import { MapNode, UndergroundManager } from './components/UndergroundLines';
 import { Route } from 'react-router';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { CentreComponent } from './components/CentreInformation';
+import { CentreDetail } from './components/CentreDetail';
+import { CentreOwnershipHistory } from './components/CentreOwnershipHistory';
+import { CentreMediaArchive } from './components/CentreMediaArchive';
 
 interface AppState {
   currentNode: MapNode;
@@ -37,7 +40,10 @@ class App extends React.Component<any, AppState> {
 
           {/*<Route exact path="/" component={Map}/>*/}
           <Route exact path="/" component={Map}/>
-          <Route path="/centre/:name/" component={CentreComponent}/>
+          <Route path="/centre/:slug/" component={CentreComponent}/>
+          <Route path="/centre/:slug/ownership-history" component={CentreOwnershipHistory}/>
+          <Route path="/centre/:slug/detail" component={CentreDetail}/>
+          <Route path="/centre/:slug/media-archive" component={CentreMediaArchive}/>
           <Route path="/about" component={Map}/>
           <Route path="/topics" component={Map}/>
         </div>

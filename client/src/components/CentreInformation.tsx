@@ -5,7 +5,7 @@ import { Centre, CentreResponse, createCentre } from '../models/models';
 import { Map } from '../pages/Map';
 
 interface RouteParams {
-  name: string;
+  slug: string;
 }
 
 interface RouteMatch {
@@ -33,7 +33,7 @@ export const CentreInformation = (props: CentreInformationProps) => {
     backgroundImage: 'http://lokaler.citycon.se/system/images/W1siZiIsIjIwMTUvMDEvMDkvMTBfNDVfMzBfNjUwX3N0b2NraG9sbV8xMjk1MF9mcnVhbmdzZ2FuZ2VuX3V1c2lfY2l0eWNvbl8yLmpwZyJdLFsicCIsImNvbnZlcnQiLCItc3RyaXAgLWludGVybGFjZSBQbGFuZSAtcXVhbGl0eSA4MCUiLG51bGxdLFsicCIsInRodW1iIiwiNzk4eCJdXQ/stockholm_12950_fruangsgangen_uusi_citycon_2.jpg'
   };
   return (
-    <div className="full-screen">
+    <div className="full-screen centre-information">
 
       <div className="flex-vertical">
         {/*centre information*/}
@@ -101,7 +101,7 @@ export class CentreComponent extends React.Component<CentreComponentProps, Centr
     };
 
     this.apiService = new APIService();
-    this.fetchAndSetState(props.match.params.name);
+    this.fetchAndSetState(props.match.params.slug);
   }
 
   render() {
@@ -120,6 +120,9 @@ export class CentreComponent extends React.Component<CentreComponentProps, Centr
             centre: createCentre(centreResponse)
           });
         }
+      })
+      .catch(reason => {
+        console.log('failed', reason);
       });
   }
 }

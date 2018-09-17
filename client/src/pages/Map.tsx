@@ -46,8 +46,6 @@ interface UndergroundLineProps {
   nodes: MapNode[];
   parentNode: MapNode;
   undergroundManager: UndergroundManager;
-
-  whenStationClicked(x: any): any;
 }
 
 const RedLine = (props: UndergroundLineProps): any => {
@@ -81,7 +79,6 @@ const RedLine = (props: UndergroundLineProps): any => {
           x={x}
           y={y}
           node={node}
-          onClickCallback={props.whenStationClicked}
         />
 
         <MapText
@@ -101,7 +98,6 @@ const RedLine = (props: UndergroundLineProps): any => {
                   nodes={n}
                   parentNode={node}
                   undergroundManager={undergroundManager}
-                  whenStationClicked={props.whenStationClicked}
                 />
               );
             })
@@ -134,12 +130,6 @@ export class Map extends React.Component<AppProps, AppState> {
     this.state = {currentNode: undefined};
   }
 
-  public whenStationClicked = (node: MapNode) => {
-    this.setState({
-      currentNode: node
-    });
-  }
-
   render() {
 
     const mat = [
@@ -168,7 +158,6 @@ export class Map extends React.Component<AppProps, AppState> {
               nodes={redLineNodes}
               parentNode={centralStation}
               undergroundManager={this.undergroundManager}
-              whenStationClicked={this.whenStationClicked}
             />
           </g>
         </svg>

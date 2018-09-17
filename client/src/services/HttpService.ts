@@ -13,7 +13,11 @@ export class HttpService {
     const promise = new Promise<T>((resolve, reject) => {
       fetch(`${this.APIBase}${url}?format=json`)
         .then((response) => {
-          resolve(response.json());
+          if (response.ok) {
+            resolve(response.json());
+          } else {
+            reject(response.json());
+          }
         });
     });
 

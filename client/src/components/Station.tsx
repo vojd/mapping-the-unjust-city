@@ -17,6 +17,12 @@ interface RouteCircleProps {
   node: MapNode;
 }
 
+/**
+ * A clickable station node
+ * @param {RouteCircleProps} props
+ * @returns {any}
+ * @constructor
+ */
 const RouteCircle = (props: RouteCircleProps) => {
 
   return (
@@ -38,8 +44,6 @@ export interface StationProps {
   x: number;
   y: number;
   node: MapNode;
-
-  onClickCallback(node: MapNode): any;
 }
 
 export interface StationState {
