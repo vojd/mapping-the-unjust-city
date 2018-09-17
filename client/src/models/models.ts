@@ -59,8 +59,8 @@ export const createCentre = (centreResponse: CentreResponse): Centre => {
 
   const company = createCompany(centreResponse.owner);
   return new Centre(
-    centreResponse.slug,
     centreResponse.name,
+    centreResponse.slug,
     centreResponse.description,
     centreResponse.status,
     company

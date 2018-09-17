@@ -1,11 +1,19 @@
 import * as React from 'react';
-import { MapNode } from './UndergroundLines';
 import { Link } from 'react-router-dom';
 import { APIService } from '../services/APIService';
 import { Centre, CentreResponse, createCentre } from '../models/models';
+import { Map } from '../pages/Map';
+
+interface RouteParams {
+  name: string;
+}
+
+interface RouteMatch {
+  params: RouteParams;
+}
 
 interface CentreComponentProps {
-  node: MapNode;
+  match: RouteMatch;
 }
 
 interface CentreComponentState {
@@ -20,41 +28,49 @@ interface CentreInformationProps {
  * Main page for a station
  */
 export const CentreInformation = (props: CentreInformationProps) => {
+  const pageBackground = {
+    //tslint:disable
+    backgroundImage: 'http://lokaler.citycon.se/system/images/W1siZiIsIjIwMTUvMDEvMDkvMTBfNDVfMzBfNjUwX3N0b2NraG9sbV8xMjk1MF9mcnVhbmdzZ2FuZ2VuX3V1c2lfY2l0eWNvbl8yLmpwZyJdLFsicCIsImNvbnZlcnQiLCItc3RyaXAgLWludGVybGFjZSBQbGFuZSAtcXVhbGl0eSA4MCUiLG51bGxdLFsicCIsInRodW1iIiwiNzk4eCJdXQ/stockholm_12950_fruangsgangen_uusi_citycon_2.jpg'
+  };
   return (
     <div className="full-screen">
 
       <div className="flex-vertical">
-        <div className="height-two-thirds">
+        {/*centre information*/}
+        <div className="height-two-thirds" style={pageBackground}>
 
           <div className="flex-vertical">
 
-            <div>
+            <div className="station-information__content">
               <h2>{props.centre.name}</h2>
-              <p>{props.centre.name}</p>
-              <Link to={`something`}>Link</Link>
+              <p>Ägare: {props.centre.owner ? props.centre.owner.name : 'N/A'}</p>
+
+              <div>
+                <p>{props.centre.description}</p>
+              </div>
             </div>
 
             <div className="station-information__toolbar">
-              <Link to={`/company/${props.centre.owner}`}>
+              <Link to={`/company/${props.centre.owner ? props.centre.owner.slug : ''}`}>
                 <div className="station-information__toolbar__icon">
                   <i className="fas fa-users"/>
                 </div>
               </Link>
 
-              <Link to={`/centre/${props.centre.name}/ownership-history`}>
+              <Link to={`/centre/${props.centre.slug}/ownership-history`}>
                 <div className="station-information__toolbar__icon">
                   <i className="fas fa-coins"/>
                 </div>
               </Link>
 
               {/*Detaljplan*/}
-              <Link to={`/centre/${props.centre.name}/detailed`}>
+              <Link to={`/centre/${props.centre.slug}/detailed`}>
                 <div className="station-information__toolbar__icon">
                   <i className="fas fa-map"/>
                 </div>
               </Link>
 
-              <Link to={`/centre/${props.centre.name}/media-archive`}>
+              <Link to={`/centre/${props.centre.slug}/media-archive`}>
                 <div className="station-information__toolbar__icon">
                   <i className="fas fa-question"/>
                 </div>
@@ -64,8 +80,9 @@ export const CentreInformation = (props: CentreInformationProps) => {
           </div>
         </div>
 
+        {/*lower mini map*/}
         <div className="height-one-third">
-          <p>bottom area</p>
+          <Map />
         </div>
       </div>
 
@@ -77,14 +94,14 @@ export class CentreComponent extends React.Component<CentreComponentProps, Centr
 
   apiService: APIService;
 
-  constructor(props: any) {
+  constructor(props: CentreComponentProps) {
     super(props);
     this.state = {
       centre: null
     };
 
     this.apiService = new APIService();
-    this.fetchAndSetState(props.node.name);
+    this.fetchAndSetState(props.match.params.name);
   }
 
   render() {

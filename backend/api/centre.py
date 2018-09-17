@@ -16,7 +16,7 @@ class CentreSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Centre
-        fields = ('slug', 'name', 'description', 'status', 'owner', 'documents',)
+        fields = ('name', 'slug', 'description', 'status', 'owner', 'documents',)
         lookup_field = 'slug'
 
 

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import './App.css';
 import { Map } from './pages/Map';
-import { CentreComponent } from './components/CentreInformation';
 import { getRedLineNodes } from './components/UndergroundLineDefinitions';
 import { MapNode, UndergroundManager } from './components/UndergroundLines';
 import { Route } from 'react-router';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { CentreComponent } from './components/CentreInformation';
 
 interface AppState {
   currentNode: MapNode;
@@ -37,7 +37,7 @@ class App extends React.Component<any, AppState> {
 
           {/*<Route exact path="/" component={Map}/>*/}
           <Route exact path="/" component={Map}/>
-          <Route path="/centre/:centre-name/" component={CentreComponent}/>
+          <Route path="/centre/:name/" component={CentreComponent}/>
           <Route path="/about" component={Map}/>
           <Route path="/topics" component={Map}/>
         </div>

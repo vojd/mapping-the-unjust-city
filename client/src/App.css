@@ -52,26 +52,24 @@
 
 .height-two-thirds {
     flex: 2;
-    background: #9933ff;
-
 }
 
 .height-one-third {
     flex: 1;
-
-    background: #3399ff;
 }
 
 .station-information__content {
-
+    flex-grow: 1;
+    background: url(https://upload.wikimedia.org/wikipedia/commons/3/36/Fru%C3%A4ngen_2010a.jpg);
 }
 
 .station-information__toolbar {
     display: flex;
     flex-direction: row;
+}
+
+.station-information__toolbar > a {
     flex: 1;
-    align-items: flex-end;
-    margin: 0 auto;
 }
 
 .station-information__toolbar__icon {
@@ -86,5 +84,18 @@
     background: #ffffff;
 
     font-size: 2em;
+    color: #000000;
 
 }
+
+
+.map-text {
+    font: 12pt sans-serif;
+}
+
+.map-text-bold {
+    font: bold 12pt sans-serif;
+}
+
+
+

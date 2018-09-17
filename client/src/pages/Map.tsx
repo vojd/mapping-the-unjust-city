@@ -2,8 +2,8 @@ import * as React from 'react';
 import { matrix, pan, scale } from '../math';
 import { getRedLineNodes } from '../components/UndergroundLineDefinitions';
 import { MapNode, UndergroundManager } from '../components/UndergroundLines';
-import { CentreComponent } from '../components/CentreInformation';
 import { COLOR_ORANGE, Station } from '../components/Station';
+import { MapText } from '../components/MapText';
 
 const width = 1024;
 const height = 768;
@@ -13,10 +13,12 @@ const gridY = 50;
 const xFromGrid = (x: number, direction: string) => {
   switch (direction) {
     case 'e':
+      return x + (gridX * 3);
     case 'ne':
     case 'se':
       return x + gridX;
     case 'w':
+      return x - (gridX * 3);
     case 'nw':
     case 'sw':
       return x - gridX;
@@ -82,6 +84,12 @@ const RedLine = (props: UndergroundLineProps): any => {
           onClickCallback={props.whenStationClicked}
         />
 
+        <MapText
+          x={x}
+          y={y}
+          node={node}
+        />
+
         // Branch off
         {
           node.branch
@@ -139,8 +147,8 @@ export class Map extends React.Component<AppProps, AppState> {
       1, 0, 0
     ];
 
-    const scaleFactor = 1;
-    const panX = 10;
+    const scaleFactor = 0.8;
+    const panX = 1000;
     const panY = 20;
     const centralStation = {
       filled: 0,
@@ -154,12 +162,6 @@ export class Map extends React.Component<AppProps, AppState> {
     const redLineNodes = getRedLineNodes(this.undergroundManager);
     return (
       <div className="full-screen">
-        {
-          this.state.currentNode
-            ? <CentreComponent node={this.state.currentNode}/>
-            : null
-        }
-
         <svg width="1024" height="768">
           <g transform={matrix(scale(pan(mat, panX, panY), scaleFactor))}>
             <RedLine
