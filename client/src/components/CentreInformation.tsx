@@ -122,7 +122,7 @@ export class CentreComponent extends React.Component<CentreComponentProps, Centr
         }
       })
       .catch(reason => {
-        console.log('failed', reason);
+        console.log('failed', reason);1
       });
   }
 }

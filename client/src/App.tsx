@@ -9,6 +9,7 @@ import { CentreComponent } from './components/CentreInformation';
 import { CentreDetail } from './components/CentreDetail';
 import { CentreOwnershipHistory } from './components/CentreOwnershipHistory';
 import { CentreMediaArchive } from './components/CentreMediaArchive';
+import { CompanyDetail } from './components/CompanyDetail';
 
 interface AppState {
   currentNode: MapNode;
@@ -44,6 +45,7 @@ class App extends React.Component<any, AppState> {
           <Route path="/centre/:slug/ownership-history" component={CentreOwnershipHistory}/>
           <Route path="/centre/:slug/detail" component={CentreDetail}/>
           <Route path="/centre/:slug/media-archive" component={CentreMediaArchive}/>
+          <Route path="/company/:slug" component={CompanyDetail}/>
           <Route path="/about" component={Map}/>
           <Route path="/topics" component={Map}/>
         </div>
