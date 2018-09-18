@@ -9,7 +9,7 @@ import CentreComponent from './components/CentreComponent';
 import { CentreDetail } from './components/CentreDetail';
 import { CentreOwnershipHistory } from './components/CentreOwnershipHistory';
 import { CentreMediaArchive } from './components/CentreMediaArchive';
-import { CompanyDetail } from './components/CompanyDetail';
+import CompanyDetail from './components/CompanyDetail';
 import { Provider } from 'react-redux';
 import store from './store';
 

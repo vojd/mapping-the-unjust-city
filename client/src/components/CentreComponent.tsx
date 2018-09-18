@@ -11,7 +11,7 @@ interface RouteParams {
   slug: string;
 }
 
-interface RouteMatch {
+export interface RouteMatch {
   params: RouteParams;
 }
 

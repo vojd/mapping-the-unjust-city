@@ -8,7 +8,7 @@ export interface BaseModel {
 export class Company implements BaseModel {
   constructor(public name: string,
               public slug: string,
-              public text: string,
+              public description: string,
               public centres: URL[],
               public documents: URL[]) {
   }
