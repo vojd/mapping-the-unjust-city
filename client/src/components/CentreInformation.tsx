@@ -1,24 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { APIService } from '../services/APIService';
-import { Centre, CentreResponse, createCentre } from '../models/models';
+import { Centre } from '../models/models';
 import { Map } from '../pages/Map';
-
-interface RouteParams {
-  slug: string;
-}
-
-interface RouteMatch {
-  params: RouteParams;
-}
-
-interface CentreComponentProps {
-  match: RouteMatch;
-}
-
-interface CentreComponentState {
-  centre: Centre | null;
-}
 
 interface CentreInformationProps {
   centre: Centre;
@@ -90,39 +73,3 @@ export const CentreInformation = (props: CentreInformationProps) => {
   );
 };
 
-export class CentreComponent extends React.Component<CentreComponentProps, CentreComponentState> {
-
-  apiService: APIService;
-
-  constructor(props: CentreComponentProps) {
-    super(props);
-    this.state = {
-      centre: null
-    };
-
-    this.apiService = new APIService();
-    this.fetchAndSetState(props.match.params.slug);
-  }
-
-  render() {
-    return (
-      this.state.centre ? <CentreInformation centre={this.state.centre}/> : ''
-    );
-  }
-
-  private fetchAndSetState = (centreName: string) => {
-    this.apiService
-      .getCentreBySlug<CentreResponse>(centreName)
-      .then(centreResponse => {
-
-        if (centreResponse) {
-          this.setState({
-            centre: createCentre(centreResponse)
-          });
-        }
-      })
-      .catch(reason => {
-        console.log('failed', reason);1
-      });
-  }
-}

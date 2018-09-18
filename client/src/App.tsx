@@ -5,11 +5,13 @@ import { getRedLineNodes } from './components/UndergroundLineDefinitions';
 import { MapNode, UndergroundManager } from './components/UndergroundLines';
 import { Route } from 'react-router';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
-import { CentreComponent } from './components/CentreInformation';
+import CentreComponent from './components/CentreComponent';
 import { CentreDetail } from './components/CentreDetail';
 import { CentreOwnershipHistory } from './components/CentreOwnershipHistory';
 import { CentreMediaArchive } from './components/CentreMediaArchive';
 import { CompanyDetail } from './components/CompanyDetail';
+import { Provider } from 'react-redux';
+import store from './store';
 
 interface AppState {
   currentNode: MapNode;
@@ -28,6 +30,7 @@ class App extends React.Component<any, AppState> {
 
   render() {
     return (
+      <Provider store={store}>
       <Router>
         <div className="App">
 
@@ -50,6 +53,7 @@ class App extends React.Component<any, AppState> {
           <Route path="/topics" component={Map}/>
         </div>
       </Router>
+      </Provider>
     );
   }
 }
