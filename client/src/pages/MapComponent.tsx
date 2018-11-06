@@ -4,6 +4,9 @@ import { getRedLineNodes } from '../components/UndergroundLineDefinitions';
 import { MapNode, UndergroundManager } from '../components/UndergroundLines';
 import { COLOR_ORANGE, Station } from '../components/Station';
 import { MapText } from '../components/MapText';
+import { AppState } from '../state/AppState';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 
 const width = 1024;
 const height = 768;
@@ -114,20 +117,50 @@ const RedLine = (props: UndergroundLineProps): any => {
   );
 };
 
-interface AppProps {
+export class MapProps {
+    mouseDown: Function;
+    // mouseUp: Function;
+    // mouseMove: Function;
 }
 
-interface AppState {
-  currentNode?: MapNode;
+export class MapState {
+  isMoving: boolean;
+  panX: number;
+  panY: number;
+  scaleFactor: number;
+  mat: number[];
 }
 
-export class Map extends React.Component<AppProps, AppState> {
+export class MapComponent extends React.Component<MapProps, AppState> {
 
   undergroundManager = new UndergroundManager();
 
   constructor(props: any) {
     super(props);
-    this.state = {currentNode: undefined};
+    // this.setState({
+    //   scaleFactor: 0.8,
+    //   panX: 0,
+    //   panY: 20,
+    //   mat: [
+    //     1, 0, 0,
+    //     1, 0, 0
+    //   ]
+    // });
+  }
+
+  onMouseDown = (e: any) => {
+    console.log('mouse down');
+    this.props.mouseDown();
+  }
+
+  onMouseUp = (e: any) => {
+    console.log('mouse up');
+    // this.props.mouseUp();
+  }
+
+  onMouseMove = (e: any) => {
+    console.log('mouse move', e);
+    // this.props.mouseMove();
   }
 
   render() {
@@ -136,10 +169,10 @@ export class Map extends React.Component<AppProps, AppState> {
       1, 0, 0,
       1, 0, 0
     ];
-
     const scaleFactor = 0.8;
-    const panX = 1000;
+    const panX = 0;
     const panY = 20;
+
     const centralStation = {
       filled: 0,
       direction: '',
@@ -149,11 +182,29 @@ export class Map extends React.Component<AppProps, AppState> {
       y: height / 2
     };
 
+    const svgContainerStyle = {
+      backgroundColor: '#000',
+      position: 'fixed' as 'fixed'
+    };
     const redLineNodes = getRedLineNodes(this.undergroundManager);
     return (
-      <div className="full-screen">
-        <svg width="1024" height="768">
-          <g transform={matrix(scale(pan(mat, panX, panY), scaleFactor))}>
+      <div className="full-screen" style={svgContainerStyle}>
+        <svg
+          width="1024"
+          height="768"
+          onMouseMove={this.onMouseMove}
+          onMouseDown={this.onMouseDown}
+          onTouchMove={this.onMouseMove}
+        >
+          <g
+           transform={
+             matrix(
+               scale(
+                 pan(mat, panX, panY),
+                 scaleFactor)
+             )
+           }
+          >
             <RedLine
               nodes={redLineNodes}
               parentNode={centralStation}
@@ -165,3 +216,15 @@ export class Map extends React.Component<AppProps, AppState> {
     );
   }
 }
+
+const mapStateToProps = (state: AppState) => state.mapState;
+
+const mapDispatchToProps = (dispatch: Dispatch): MapProps => {
+  return {
+    // mouseDown: () => dispatch(mapMouseDown()),
+    // mouseUp: () => dispatch(mapMouseUp()),
+    // mouseMove: () => dispatch(mapMouseMove()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapComponent);

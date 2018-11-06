@@ -1,8 +1,8 @@
 import * as React from 'react';
 import './App.css';
-import { Map } from './pages/Map';
+import { MapComponent } from './pages/MapComponent';
 import { getRedLineNodes } from './components/UndergroundLineDefinitions';
-import { MapNode, UndergroundManager } from './components/UndergroundLines';
+import { UndergroundManager } from './components/UndergroundLines';
 import { Route } from 'react-router';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import CentreComponent from './components/CentreComponent';
@@ -12,10 +12,7 @@ import { CentreMediaArchive } from './components/CentreMediaArchive';
 import CompanyDetail from './components/CompanyDetail';
 import { Provider } from 'react-redux';
 import store from './store';
-
-interface AppState {
-  currentNode: MapNode;
-}
+import { AppState } from './state/AppState';
 
 class App extends React.Component<any, AppState> {
 
@@ -23,9 +20,7 @@ class App extends React.Component<any, AppState> {
     super(props);
 
     const currentNode = getRedLineNodes(new UndergroundManager())[0];
-    this.state = {
-      currentNode: currentNode
-    };
+    this.state = {...this.state ,currentNode: currentNode };
   }
 
   render() {
@@ -40,17 +35,17 @@ class App extends React.Component<any, AppState> {
             </ul>
           </div>
 
-          <Map/>
+          <MapComponent/>
 
           {/*<Route exact path="/" component={Map}/>*/}
-          <Route exact path="/" component={Map}/>
+          <Route exact path="/" component={MapComponent}/>
           <Route path="/centre/:slug/" component={CentreComponent}/>
           <Route path="/centre/:slug/ownership-history" component={CentreOwnershipHistory}/>
           <Route path="/centre/:slug/detail" component={CentreDetail}/>
           <Route path="/centre/:slug/media-archive" component={CentreMediaArchive}/>
           <Route path="/company/:slug" component={CompanyDetail}/>
-          <Route path="/about" component={Map}/>
-          <Route path="/topics" component={Map}/>
+          <Route path="/about" component={MapComponent}/>
+          <Route path="/topics" component={MapComponent}/>
         </div>
       </Router>
       </Provider>
