@@ -5,7 +5,7 @@ import { AppState } from './state/AppState';
 
 const getInitialState = (): AppState => {
   return <AppState> {
-    centre: null
+    centre: null,
   };
 };
 

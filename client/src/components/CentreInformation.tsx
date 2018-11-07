@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Centre } from '../models/models';
-import { MapComponent } from '../pages/MapComponent';
 
 interface CentreInformationProps {
   centre: Centre;
@@ -65,7 +64,7 @@ export const CentreInformation = (props: CentreInformationProps) => {
 
         {/*lower mini map*/}
         <div className="height-one-third">
-          <MapComponent />
+          {/*<MapComponent />*/}
         </div>
       </div>
 

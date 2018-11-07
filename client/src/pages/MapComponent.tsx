@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { SyntheticEvent } from 'react';
 import { matrix, pan, scale } from '../math';
 import { getRedLineNodes } from '../components/UndergroundLineDefinitions';
 import { MapNode, UndergroundManager } from '../components/UndergroundLines';
@@ -7,13 +8,14 @@ import { MapText } from '../components/MapText';
 import { AppState } from '../state/AppState';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { mapMouseDown, mapMouseMove, mapMouseUp } from '../actions/mapActions';
 
 const width = 1024;
 const height = 768;
 const gridX = 50;
 const gridY = 50;
 
-const xFromGrid = (x: number, direction: string) => {
+const xFromGrid = ( x: number, direction: string ) => {
   switch (direction) {
     case 'e':
       return x + (gridX * 3);
@@ -30,7 +32,7 @@ const xFromGrid = (x: number, direction: string) => {
   }
 };
 
-const yFromGrid = (y: number, direction: string) => {
+const yFromGrid = ( y: number, direction: string ) => {
   switch (direction) {
     case 's':
     case 'se':
@@ -51,7 +53,7 @@ interface UndergroundLineProps {
   undergroundManager: UndergroundManager;
 }
 
-const RedLine = (props: UndergroundLineProps): any => {
+const RedLine = ( props: UndergroundLineProps ): any => {
   const nodes = props.nodes;
   const undergroundManager = props.undergroundManager;
   const parentNode = props.parentNode;
@@ -93,7 +95,7 @@ const RedLine = (props: UndergroundLineProps): any => {
         // Branch off
         {
           node.branch
-            ? node.branch.map((branchId: number) => {
+            ? node.branch.map(( branchId: number ) => {
               const n = undergroundManager.getNodesById(branchId);
               return (
                 <RedLine
@@ -117,10 +119,28 @@ const RedLine = (props: UndergroundLineProps): any => {
   );
 };
 
+export const getInitialMapState = (): MapState => {
+  return {
+    scaleFactor: 0.8,
+    panX: 0,
+    panY: 20,
+    mat: [
+      1, 0, 0,
+      1, 0, 0
+    ],
+    isMoving: false,
+
+    previousMouseCoords: {x: 0, y: 0},
+  };
+};
+
 export class MapProps {
-    mouseDown: Function;
-    // mouseUp: Function;
-    // mouseMove: Function;
+  mouseDown: Function;
+  mouseUp: Function;
+  mouseMove: Function;
+
+  panX: number;
+  panY: number;
 }
 
 export class MapState {
@@ -129,38 +149,31 @@ export class MapState {
   panY: number;
   scaleFactor: number;
   mat: number[];
+
+  previousMouseCoords: {
+    x: number;
+    y: number;
+  };
 }
 
-export class MapComponent extends React.Component<MapProps, AppState> {
+class MapComponent extends React.Component<MapProps, AppState> {
 
   undergroundManager = new UndergroundManager();
 
-  constructor(props: any) {
+  constructor( props: MapProps ) {
     super(props);
-    // this.setState({
-    //   scaleFactor: 0.8,
-    //   panX: 0,
-    //   panY: 20,
-    //   mat: [
-    //     1, 0, 0,
-    //     1, 0, 0
-    //   ]
-    // });
   }
 
-  onMouseDown = (e: any) => {
-    console.log('mouse down');
-    this.props.mouseDown();
+  onMouseDown = ( e: SyntheticEvent ) => {
+    this.props.mouseDown(e);
   }
 
-  onMouseUp = (e: any) => {
-    console.log('mouse up');
-    // this.props.mouseUp();
+  onMouseUp = ( e: any ) => {
+    this.props.mouseUp();
   }
 
-  onMouseMove = (e: any) => {
-    console.log('mouse move', e);
-    // this.props.mouseMove();
+  onMouseMove = ( e: SyntheticEvent ) => {
+    this.props.mouseMove(e);
   }
 
   render() {
@@ -170,8 +183,6 @@ export class MapComponent extends React.Component<MapProps, AppState> {
       1, 0, 0
     ];
     const scaleFactor = 0.8;
-    const panX = 0;
-    const panY = 20;
 
     const centralStation = {
       filled: 0,
@@ -192,18 +203,21 @@ export class MapComponent extends React.Component<MapProps, AppState> {
         <svg
           width="1024"
           height="768"
-          onMouseMove={this.onMouseMove}
           onMouseDown={this.onMouseDown}
+          onTouchStart={this.onMouseDown}
+          onMouseUp={this.onMouseUp}
+          onTouchEnd={this.onMouseUp}
+          onMouseMove={this.onMouseMove}
           onTouchMove={this.onMouseMove}
         >
           <g
-           transform={
-             matrix(
-               scale(
-                 pan(mat, panX, panY),
-                 scaleFactor)
-             )
-           }
+            transform={
+              matrix(
+                scale(
+                  pan(mat, this.props.panX, this.props.panY),
+                  scaleFactor)
+              )
+            }
           >
             <RedLine
               nodes={redLineNodes}
@@ -217,13 +231,15 @@ export class MapComponent extends React.Component<MapProps, AppState> {
   }
 }
 
-const mapStateToProps = (state: AppState) => state.mapState;
+const mapStateToProps = ( state: AppState ) => {
+  return state.mapState;
+};
 
-const mapDispatchToProps = (dispatch: Dispatch): MapProps => {
+const mapDispatchToProps = ( dispatch: Dispatch ) => {
   return {
-    // mouseDown: () => dispatch(mapMouseDown()),
-    // mouseUp: () => dispatch(mapMouseUp()),
-    // mouseMove: () => dispatch(mapMouseMove()),
+    mouseDown: (e: MouseEvent | TouchEvent ) => dispatch(mapMouseDown(e)),
+    mouseUp: () => dispatch(mapMouseUp()),
+    mouseMove: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseMove(e)),
   };
 };
 
