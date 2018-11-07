@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
 import { matrix, pan, scale } from '../math';
-import { getRedLineNodes } from '../components/UndergroundLineDefinitions';
+import { getRedLineNodes } from '../models/UndergroundLineDefinitions';
 import { MapNode, UndergroundManager } from '../components/UndergroundLines';
 import { COLOR_ORANGE, Station } from '../components/Station';
 import { MapText } from '../components/MapText';
@@ -63,8 +63,8 @@ const RedLine = ( props: UndergroundLineProps ): any => {
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes[i];
     const previousNode = i === 0 ? parentNode : nodes[i - 1];
-    let x = xFromGrid(previousNode.x, node.direction);
-    let y = yFromGrid(previousNode.y, node.direction);
+    const x = xFromGrid(previousNode.x, node.direction);
+    const y = yFromGrid(previousNode.y, node.direction);
 
     // store the positions inside the node objects
     node.x = x;
@@ -85,7 +85,7 @@ const RedLine = ( props: UndergroundLineProps ): any => {
           y={y}
           node={node}
         />
-
+        
         <MapText
           x={x}
           y={y}
@@ -194,7 +194,6 @@ class MapComponent extends React.Component<MapProps, AppState> {
     };
 
     const svgContainerStyle = {
-      backgroundColor: '#000',
       position: 'fixed' as 'fixed'
     };
     const redLineNodes = getRedLineNodes(this.undergroundManager);
@@ -237,7 +236,7 @@ const mapStateToProps = ( state: AppState ) => {
 
 const mapDispatchToProps = ( dispatch: Dispatch ) => {
   return {
-    mouseDown: (e: MouseEvent | TouchEvent ) => dispatch(mapMouseDown(e)),
+    mouseDown: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseDown(e)),
     mouseUp: () => dispatch(mapMouseUp()),
     mouseMove: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseMove(e)),
   };

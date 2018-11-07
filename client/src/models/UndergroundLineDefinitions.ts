@@ -1,4 +1,5 @@
-import { MapNode, UndergroundManager } from './UndergroundLines';
+import { MapNode, UndergroundManager } from '../components/UndergroundLines';
+import CompanyDefinitions from './CompanyDefinitions';
 
 const addPropsToNodelist = (nodeList: MapNode[]): MapNode[] => {
   return nodeList.map(n => {
@@ -19,7 +20,7 @@ const redLineFruangenNodes: MapNode[] = [
     direction: 'sw',
 
     name: 'Midsommarkransen',
-    owner: '',
+    owner: null,
     x: 0, y: 0,
   },
   {
@@ -27,7 +28,7 @@ const redLineFruangenNodes: MapNode[] = [
     direction: 'sw',
 
     name: 'Telefonplan',
-    owner: '',
+    owner: null,
     x: 0, y: 0,
   },
   {
@@ -35,7 +36,7 @@ const redLineFruangenNodes: MapNode[] = [
     direction: 'sw',
 
     name: 'Hägerstensåsen',
-    owner: '',
+    owner: null,
     x: 0, y: 0,
   },
   {
@@ -43,7 +44,7 @@ const redLineFruangenNodes: MapNode[] = [
     direction: 'sw',
 
     name: 'Västertorp',
-    owner: '',
+    owner: null,
     x: 0, y: 0,
   },
   {
@@ -51,7 +52,7 @@ const redLineFruangenNodes: MapNode[] = [
     direction: 'sw',
 
     name: 'Fruängen',
-    owner: 'Citycon',
+    owner: CompanyDefinitions.CITYCON,
     x: 0, y: 0,
   },
 ];
@@ -62,7 +63,7 @@ const redLineMalarhojdenNodes: MapNode[] = [
     direction: 'w',
 
     name: 'Aspudden',
-    owner: '',
+    owner: null,
     x: 0, y: 0,
   },
   {
@@ -70,7 +71,7 @@ const redLineMalarhojdenNodes: MapNode[] = [
     direction: 'w',
 
     name: 'Örnsberg',
-    owner: '',
+    owner: null,
     x: 0, y: 0,
   },
 
@@ -79,7 +80,7 @@ const redLineMalarhojdenNodes: MapNode[] = [
     direction: 'w',
 
     name: 'Mälarhöjden',
-    owner: '',
+    owner: null,
     x: 0, y: 0,
     branch: [Branches.RED_LINE_NORSBORG]
   },
@@ -91,7 +92,7 @@ const redLineNorsborgNodes: MapNode[] = [
     direction: 'sw',
 
     name: 'Bredäng',
-    owner: 'FastPartner',
+    owner: CompanyDefinitions.FAST_PARTNER,
     x: 0, y: 0,
   },
   {
@@ -99,7 +100,7 @@ const redLineNorsborgNodes: MapNode[] = [
     direction: 'sw',
 
     name: 'Sätra',
-    owner: 'Sätra Förvaltnings AB',
+    owner: CompanyDefinitions.SATRA,
     x: 0, y: 0,
   },
 
@@ -108,7 +109,7 @@ const redLineNorsborgNodes: MapNode[] = [
     direction: 'sw',
 
     name: 'Skärholmen',
-    owner: 'Grosvenor Fund Management',
+    owner: CompanyDefinitions.GROSVENOR,
     x: 0, y: 0,
   },
 
@@ -117,7 +118,7 @@ const redLineNorsborgNodes: MapNode[] = [
     direction: 'sw',
 
     name: 'Vårberg',
-    owner: 'Agora',
+    owner: CompanyDefinitions.AGORA,
     x: 0, y: 0,
   },
 
@@ -126,7 +127,7 @@ const redLineNorsborgNodes: MapNode[] = [
     direction: 'sw',
 
     name: 'Vårby Gård',
-    owner: 'Balder',
+    owner: CompanyDefinitions.BALDER,
     x: 0, y: 0,
   },
 
@@ -135,7 +136,7 @@ const redLineNorsborgNodes: MapNode[] = [
     direction: 'sw',
 
     name: 'Fittja',
-    owner: 'Fittja Centrumfastigheter',
+    owner: CompanyDefinitions.FITTJA_CENTRUMFASTIGHETER,
     x: 0, y: 0,
   },
 
@@ -144,7 +145,7 @@ const redLineNorsborgNodes: MapNode[] = [
     direction: 'sw',
 
     name: 'Alby',
-    owner: 'Botkyrkabyggen',
+    owner: CompanyDefinitions.BOTKYRKABYGGEN,
     x: 0, y: 0,
   },
 
@@ -153,7 +154,7 @@ const redLineNorsborgNodes: MapNode[] = [
     direction: 'sw',
 
     name: 'Hallunda',
-    owner: 'Sterner Stenhus Fastigheter AB',
+    owner: CompanyDefinitions.STERNER,
     x: 0, y: 0,
   },
 
@@ -162,7 +163,7 @@ const redLineNorsborgNodes: MapNode[] = [
     direction: 'sw',
 
     name: 'Norsborg',
-    owner: 'Bolaget Norsborg',
+    owner: CompanyDefinitions.NORSBORG,
     x: 0, y: 0,
   },
 ];
@@ -174,7 +175,7 @@ const redLineSouthBound: MapNode[] = [
     direction: 's',
 
     name: 'Gamla stan',
-    owner: '',
+    owner: null,
     x: 0, y: 0,
   },
   {
@@ -182,35 +183,35 @@ const redLineSouthBound: MapNode[] = [
     direction: 'w',
 
     name: 'Slussen',
-    owner: '',
+    owner: null,
     x: 0, y: 0,
   },
   {
     filled: -1, // negative means non-circular station
     direction: 'w',
     name: 'Mariatorget',
-    owner: '',
+    owner: null,
     x: 0, y: 0,
   },
   {
     filled: -1, // negative means non-circular station
     direction: 'w',
     name: 'Zinkensdamm',
-    owner: '',
+    owner: null,
     x: 0, y: 0,
   },
   {
     filled: -1, // negative means non-circular station
     direction: 'w',
     name: 'Hornstull',
-    owner: '',
+    owner: null,
     x: 0, y: 0,
   },
   {
     filled: -1, // negative means non-circular station
     direction: 'w',
     name: 'Liljeholmen',
-    owner: '',
+    owner: null,
 
     branch: [Branches.RED_LINE_MALARHOJDEN, Branches.RED_LINE_FRUANGEN],
     x: 0, y: 0,

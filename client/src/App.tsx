@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import MapComponent from './pages/MapComponent';
-import { getRedLineNodes } from './components/UndergroundLineDefinitions';
+import { getRedLineNodes } from './models/UndergroundLineDefinitions';
 import { UndergroundManager } from './components/UndergroundLines';
 import { Route } from 'react-router';
 import { BrowserRouter as Router, Link } from 'react-router-dom';

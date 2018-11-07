@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { MapNode } from './UndergroundLines';
+import { Route } from 'react-router';
 
 interface MapTextProps {
   x: number;
@@ -7,7 +8,7 @@ interface MapTextProps {
   node: MapNode;
 }
 
-export const MapTextAbove = (props: MapTextProps) => {
+export const MapTextAbove = ( props: MapTextProps ) => {
   const tx = props.x + -40;
   const ty = props.y + -220;
   const transform = `rotate(20, ${tx}, ${ty})`;
@@ -23,7 +24,26 @@ export const MapTextAbove = (props: MapTextProps) => {
   );
 };
 
-export const MapTextRight = (props: MapTextProps) => {
+const MapCompanyName = ( props: any ) => {
+  return (
+    <Route
+     render={( {history} ) => (
+        <text
+          x={props.x + 120}
+          y={props.y + 8}
+          className="map-text"
+          onClick={() => history.push(`/company/${props.company.slug}/`)}
+        >
+          {props.company.name}
+        </text>
+      )}
+    />
+  );
+};
+
+export const MapTextRight = ( props: MapTextProps ) => {
+  const companySlug = props.node.owner ? props.node.owner.slug : null;
+
   return (
     <g>
       <text
@@ -34,18 +54,14 @@ export const MapTextRight = (props: MapTextProps) => {
         {props.node.name}
       </text>
 
-      <text
-        x={props.x + 120}
-        y={props.y + 8}
-        className="map-text"
-      >
-        {props.node.owner}
-      </text>
+      {companySlug ? <MapCompanyName x={props.x} y={props.y} company={props.node.owner}/> : null}
+      // company name
+
     </g>
   );
 };
 
-export const MapText = (props: MapTextProps) => {
+export const MapText = ( props: MapTextProps ) => {
   switch (props.node.direction) {
     case 'sw':
     case 'ne':
@@ -75,11 +91,5 @@ export const MapText = (props: MapTextProps) => {
         />
       );
   }
-  // return (
-  // <MapTextRight
-  //   x={props.x}
-  //   y={props.y}
-  //   node={props.node}
-  // />
-  // );
+
 };

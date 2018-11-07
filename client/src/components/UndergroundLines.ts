@@ -3,7 +3,10 @@ export interface MapNode {
     direction: string;
 
     name: string;
-    owner: string;
+    owner?: {
+        name: string;
+        slug: string;
+    } | null;
     branch?: number[];
     x: number;
     y: number;
