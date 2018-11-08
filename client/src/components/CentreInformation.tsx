@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Centre } from '../models/models';
+import { CentreToolbar } from './CentreToolbar';
 
 interface CentreInformationProps {
   centre: Centre;
@@ -33,32 +34,7 @@ export const CentreInformation = ( props: CentreInformationProps ) => {
         </div>
       </div>
 
-      <div className="station-information__toolbar">
-        <Link to={`/company/${props.centre.owner ? props.centre.owner.slug : ''}`}>
-          <div className="station-information__toolbar__icon">
-            <i className="fas fa-users"/>
-          </div>
-        </Link>
-
-        <Link to={`/ownership-history/${props.centre.slug}`}>
-          <div className="station-information__toolbar__icon">
-            <i className="fas fa-coins"/>
-          </div>
-        </Link>
-
-        {/*Detaljplan*/}
-        <Link to={`/centre/${props.centre.slug}/detailed`}>
-          <div className="station-information__toolbar__icon">
-            <i className="fas fa-map"/>
-          </div>
-        </Link>
-
-        <Link to={`/centre/${props.centre.slug}/media-archive`}>
-          <div className="station-information__toolbar__icon">
-            <i className="fas fa-question"/>
-          </div>
-        </Link>
-      </div>
+      <CentreToolbar centreSlug={props.centre.slug} companySlug={props.centre.owner.slug} />
 
       <div className="station-information__minimap"/>
     </div>
