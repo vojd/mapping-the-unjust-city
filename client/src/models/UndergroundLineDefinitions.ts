@@ -45,7 +45,7 @@ const redLineFruangenNodes: MapNode[] = [
   station('Telefonplan', 'sw'),
   station('Hägerstensåsen', 'sw'),
   station('Västertorp', 'sw'),
-  station('Fruängen', 'sw'),
+  station('Fruängen', 'sw', 1),
 ];
 
 const redLineMalarhojdenNodes: MapNode[] = [
