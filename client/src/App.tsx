@@ -27,13 +27,12 @@ class App extends React.Component<any, AppState> {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App">
-
-            <div className="header">
+          <div className="box">
+            <header className="row header">
               <ul>
                 <li><Link to="/">Home</Link></li>
               </ul>
-            </div>
+            </header>
 
             {/*<MapComponent/>*/}
             <Switch>
@@ -46,6 +45,12 @@ class App extends React.Component<any, AppState> {
               <Route path="/about" component={MapComponent}/>
               <Route path="/topics" component={MapComponent}/>
             </Switch>
+
+            <footer className="row footer">
+              <div className="go-back">
+                <Link to="/"> &#8592; </Link>
+              </div>
+            </footer>
           </div>
         </Router>
       </Provider>

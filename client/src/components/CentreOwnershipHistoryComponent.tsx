@@ -36,10 +36,12 @@ class CentreOwnershipHistoryComponent extends React.Component<OwnershipHistoryPr
 
   render() {
     return (
-
       <div className="full-screen" style={positionFixed}>
-        <div className="content">
-          <p>hello!</p>
+        <div className="content-header">
+          <h2>ÄGARHISTORIK</h2>
+        </div>
+
+        <div className="content flex-vertical">
           <table>
             <tbody>
             {

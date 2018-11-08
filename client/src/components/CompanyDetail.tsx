@@ -16,13 +16,25 @@ interface CompanyDetailProps {
 class CompanyDetail extends React.Component<CompanyDetailProps, any> {
   constructor( props: any ) {
     super(props);
-    const companySlug = props.match.params.slug;
-    props.fetchCompanyDetails(companySlug);
+    // const companySlug = props.match.params.slug;
+    // props.fetchCompanyDetails(companySlug);
+  }
+
+  componentDidMount() {
+    const companySlug = this.props.match.params.slug;
+    this.props.fetchCompanyDetails(companySlug);
   }
 
   render() {
-    return (
-      <div className="full-screen centre-information">
+    {
+      if (!this.props.company) {
+        return null;
+      }
+    }
+
+    let a = (
+
+      <div className="full-screen">
 
         <div className="flex-vertical">
           {/*centre information*/}
@@ -31,6 +43,22 @@ class CompanyDetail extends React.Component<CompanyDetailProps, any> {
             <div className="flex-vertical">
               <p>{this.props.company ? this.props.company.name : null}</p>
 
+              <p>{this.props.company ? this.props.company.description : null}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+    console.log(a);
+
+    return (
+      <div className="full-screen">
+        <div className="flex-vertical">
+          <div className="height-two-thirds">
+            <div className="flex-vertical">
+              <div className="content-header">
+                <h2>{this.props.company.name}</h2>
+              </div>
               <p>{this.props.company ? this.props.company.description : null}</p>
             </div>
           </div>
