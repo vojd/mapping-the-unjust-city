@@ -6,6 +6,18 @@ import * as React from 'react';
  * @returns {any}
  * @constructor
  */
-export const CentreDetail = (props: any) => {
-    return (<div/>);
+export const CentreDetail = ( props: any ) => {
+  // tslint:disable-next-line
+  const url = "https://www.citycon.com/sites/default/files/styles/full/public/fruangen_centrum_a_g_floorplan.png?itok=2DPLC0Jf";
+  return (
+    <div className="row content flex-vertical">
+      <div className="station-information__content">
+        <h2>DETALJPLAN</h2>
+        <div>
+          <img src={url} style={{width: '100%'}}/>
+        </div>
+      </div>
+
+    </div>
+  );
 };

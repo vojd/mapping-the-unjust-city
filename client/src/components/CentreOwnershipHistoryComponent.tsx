@@ -42,15 +42,17 @@ class CentreOwnershipHistoryComponent extends React.Component<OwnershipHistoryPr
         </div>
 
         <div className="content flex-vertical">
-          <table>
-            <tbody>
-            {
-              this.props.centre
-                ? this.props.centre.historicalOwners.map(( oh ) => <TableRow row={oh} key={oh.name}/>)
-                : null
-            }
-            </tbody>
-          </table>
+          <div className="content-padded">
+            <table>
+              <tbody>
+              {
+                this.props.centre
+                  ? this.props.centre.historicalOwners.map(( oh ) => <TableRow row={oh} key={oh.name}/>)
+                  : null
+              }
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     );

@@ -1,7 +1,13 @@
 from rest_framework import serializers, viewsets
 
 from api.company import CompanySerializer
-from centres.models import Centre, HistoricalOwner
+from centres.models import Centre, HistoricalOwner, Image
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = ('image',)
 
 
 class HistoricalOwnerSerializer(serializers.ModelSerializer):
@@ -20,6 +26,7 @@ class CentreSerializer(serializers.HyperlinkedModelSerializer):
         read_only=True
     )
 
+    images = ImageSerializer(many=True, read_only=True, )
     historicalOwners = HistoricalOwnerSerializer(many=True, read_only=True, source='historical_owners')
 
     class Meta:
@@ -28,6 +35,7 @@ class CentreSerializer(serializers.HyperlinkedModelSerializer):
             'name', 'slug',
             'description', 'status',
             'owner', 'documents',
+            'images',
             'historicalOwners',
         )
         lookup_field = 'slug'

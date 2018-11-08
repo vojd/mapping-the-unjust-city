@@ -3,12 +3,13 @@ import './App.css';
 import MapComponent from './pages/MapComponent';
 import { getRedLineNodes } from './models/UndergroundLineDefinitions';
 import { UndergroundManager } from './components/UndergroundLines';
-import { Switch, Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
-import CentreComponent from './components/CentreComponent';
-import { CentreDetail } from './components/CentreDetail';
-import CentreOwnershipHistoryComponent from './components/CentreOwnershipHistoryComponent';
 import { CentreMediaArchive } from './components/CentreMediaArchive';
+import { CentreDetail } from './components/CentreDetail';
+import CentreComponent from './components/CentreComponent';
+import CentreOwnershipHistoryComponent from './components/CentreOwnershipHistoryComponent';
+import CompanyOwnedCentres from './components/CompanyOwnedCentres';
 import CompanyDetail from './components/CompanyDetail';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -39,9 +40,10 @@ class App extends React.Component<any, AppState> {
               <Route exact path="/" component={MapComponent}/>
               <Route path="/centre/:slug/" component={CentreComponent}/>/
               <Route path="/ownership-history/:slug/" component={CentreOwnershipHistoryComponent}/>
-              <Route path="/centre/:slug/detail" component={CentreDetail}/>
+              <Route path="/detail-plan/:slug/" component={CentreDetail}/>
               <Route path="/centre/:slug/media-archive" component={CentreMediaArchive}/>
               <Route path="/company/:slug" component={CompanyDetail}/>
+              <Route path="/company-owned-centres/:slug" component={CompanyOwnedCentres}/>
               <Route path="/about" component={MapComponent}/>
               <Route path="/topics" component={MapComponent}/>
             </Switch>

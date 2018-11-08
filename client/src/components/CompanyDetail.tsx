@@ -58,7 +58,7 @@ class CompanyDetail extends React.Component<CompanyDetailProps, any> {
           <h2>{this.props.company.name}</h2>
         </div>
 
-        <div className="text-content" style={{overflowX : 'auto', fontSize: '14px'}}>
+        <div className="content-padded" style={{overflowX : 'auto', fontSize: '14px'}}>
           <p>{this.props.company.description}</p>
         </div>
       </div>
