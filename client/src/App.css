@@ -44,6 +44,10 @@ ul li {
     color: rgb(222, 102, 56);
 }
 
+.text-content {
+    padding: 24;
+}
+
 .flex-vertical {
     display: flex;
     flex-direction: column;

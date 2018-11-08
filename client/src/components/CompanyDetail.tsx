@@ -52,16 +52,14 @@ class CompanyDetail extends React.Component<CompanyDetailProps, any> {
     console.log(a);
 
     return (
-      <div className="full-screen">
-        <div className="flex-vertical">
-          <div className="height-two-thirds">
-            <div className="flex-vertical">
-              <div className="content-header">
-                <h2>{this.props.company.name}</h2>
-              </div>
-              <p>{this.props.company ? this.props.company.description : null}</p>
-            </div>
-          </div>
+
+      <div className="row content flex-vertical">
+        <div className="content-header">
+          <h2>{this.props.company.name}</h2>
+        </div>
+
+        <div className="text-content" style={{overflowX : 'auto', fontSize: '14px'}}>
+          <p>{this.props.company.description}</p>
         </div>
       </div>
     );
