@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
 import { matrix, pan, scale } from '../math';
-import { getRedLineNodes } from '../models/UndergroundLineDefinitions';
+import { getRedLineNodes, getRedLineNodesNorth } from '../models/UndergroundLineDefinitions';
 import { MapNode, UndergroundManager } from '../components/UndergroundLines';
 import { COLOR_ORANGE, Station } from '../components/Station';
 import { MapText } from '../components/MapText';
@@ -16,35 +16,35 @@ const height = 768;
 const gridX = 50;
 const gridY = 50;
 
-const xFromGrid = ( x: number, direction: string ) => {
+const xFromGrid = ( x: number, direction: string, lengthMultiplier: number = 1 ) => {
   switch (direction) {
     case 'e':
-      return x + (gridX * 3);
+      return x + (gridX * 3 * lengthMultiplier);
     case 'ne':
     case 'se':
-      return x + gridX;
+      return x + gridX * lengthMultiplier;
     case 'w':
-      return x - (gridX * 3);
+      return x - (gridX * 3 * lengthMultiplier);
     case 'nw':
     case 'sw':
-      return x - gridX;
+      return x - gridX * lengthMultiplier;
     default:
       return x;
   }
 };
 
-const yFromGrid = ( y: number, direction: string ) => {
+const yFromGrid = ( y: number, direction: string, lengthMultiplier: number = 1) => {
   switch (direction) {
     case 's':
     case 'se':
     case 'sw':
-      return y + gridY;
+      return y + gridY * lengthMultiplier;
     case 'n':
     case 'ne':
     case 'nw':
-      return y - gridY;
+      return y - gridY * lengthMultiplier;
     default:
-      return y;
+      return y * lengthMultiplier;
   }
 };
 
@@ -64,8 +64,10 @@ const RedLine = ( props: UndergroundLineProps ): any => {
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes[i];
     const previousNode = i === 0 ? parentNode : nodes[i - 1];
-    const x = xFromGrid(previousNode.x, node.direction);
-    const y = yFromGrid(previousNode.y, node.direction);
+
+    const lengthMultiplier = node.lengthMultiplier ? node.lengthMultiplier : 1;
+    const x = xFromGrid(previousNode.x, node.direction, lengthMultiplier);
+    const y = yFromGrid(previousNode.y, node.direction, lengthMultiplier);
 
     // store the positions inside the node objects
     node.x = x;
@@ -123,7 +125,7 @@ const RedLine = ( props: UndergroundLineProps ): any => {
 export const getInitialMapState = (): MapState => {
   return {
     scaleFactor: 0.8,
-    panX: 0,
+    panX: -350,
     panY: 20,
     mat: [
       1, 0, 0,
@@ -195,6 +197,8 @@ class MapComponent extends React.Component<MapProps, AppState> {
     };
 
     const redLineNodes = getRedLineNodes(this.undergroundManager);
+    const redLineNodesNorth = getRedLineNodesNorth(this.undergroundManager);
+
     return (
       <div className="full-screen" style={positionFixed}>
         <svg
@@ -218,6 +222,12 @@ class MapComponent extends React.Component<MapProps, AppState> {
           >
             <RedLine
               nodes={redLineNodes}
+              parentNode={centralStation}
+              undergroundManager={this.undergroundManager}
+            />
+
+            <RedLine
+              nodes={redLineNodesNorth}
               parentNode={centralStation}
               undergroundManager={this.undergroundManager}
             />

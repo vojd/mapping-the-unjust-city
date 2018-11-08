@@ -8,22 +8,6 @@ interface MapTextProps {
   node: MapNode;
 }
 
-export const MapTextAbove = ( props: MapTextProps ) => {
-  const tx = props.x + -40;
-  const ty = props.y + -220;
-  const transform = `rotate(20, ${tx}, ${ty})`;
-  return (
-    <text
-      x={props.x - 8}
-      y={props.y - 40}
-      transform={transform}
-      className="map-text-bold"
-    >
-      {props.node.name}
-    </text>
-  );
-};
-
 const MapCompanyName = ( props: any ) => {
   return (
     <Route
@@ -38,6 +22,39 @@ const MapCompanyName = ( props: any ) => {
         </text>
       )}
     />
+  );
+};
+
+export const MapTextTiltRight = ( props: MapTextProps ) => {
+  const tx = props.x + -40;
+  const ty = props.y + -220;
+  const rotation = `rotate(20, ${tx}, ${ty})`;
+  const translate = `translate(20, 0)`;
+  return (
+    <text
+      x={props.x - 8}
+      y={props.y - 40}
+      transform={`${rotation} ${translate}`}
+      className="map-text-bold"
+    >
+      {props.node.name}
+    </text>
+  );
+};
+
+export const MapTextAbove = ( props: MapTextProps ) => {
+  const tx = props.x + -40;
+  const ty = props.y + -220;
+  const transform = `rotate(20, ${tx}, ${ty})`;
+  return (
+    <text
+      x={props.x - 8}
+      y={props.y - 40}
+      transform={transform}
+      className="map-text-bold"
+    >
+      {props.node.name}
+    </text>
   );
 };
 
@@ -64,7 +81,6 @@ export const MapTextRight = ( props: MapTextProps ) => {
 export const MapText = ( props: MapTextProps ) => {
   switch (props.node.direction) {
     case 'sw':
-    case 'ne':
       return (
         <MapTextRight
           x={props.x}
@@ -81,7 +97,14 @@ export const MapText = ( props: MapTextProps ) => {
           node={props.node}
         />
       );
-
+    case 'ne':
+      return (
+        <MapTextTiltRight
+          x={props.x}
+          y={props.y}
+          node={props.node}
+        />
+      );
     default:
       return (
         <MapTextRight

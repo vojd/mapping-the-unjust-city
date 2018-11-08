@@ -23,11 +23,11 @@ interface RouteCircleProps {
  * @returns {any}
  * @constructor
  */
-const RouteCircle = (props: RouteCircleProps) => {
+const RouteCircle = ( props: RouteCircleProps ) => {
 
   return (
     <Route
-      render={({history}) => (
+      render={( {history} ) => (
         <circle
           cx={props.x}
           cy={props.y}
@@ -37,6 +37,26 @@ const RouteCircle = (props: RouteCircleProps) => {
         />
       )}
     />
+  );
+};
+
+const getLineDirection = ( direction: string ) => {
+  switch (direction) {
+    case 'w':
+    case 'e':
+      return {rx: 0, ry: -12};
+
+    default:
+      return {rx: -12, ry: 0};
+  }
+};
+
+const StationLine = ( props: any ) => {
+  // Should the lines be horizontal or vertical?
+  const { rx, ry } = getLineDirection(props.node.direction);
+  const coords = {x1: props.node.x - rx, y1: props.node.y - ry, x2: props.node.x + rx, y2: props.node.y + ry};
+  return (
+    <line {...coords} strokeWidth="10" stroke={COLOR_ORANGE} />
   );
 };
 
@@ -54,7 +74,7 @@ export interface StationState {
 
 export class Station extends React.Component<StationProps, StationState> {
 
-  constructor(props: StationProps) {
+  constructor( props: StationProps ) {
     super(props);
     this.state = {
       x: props.x,
@@ -76,13 +96,17 @@ export class Station extends React.Component<StationProps, StationState> {
     };
 
     return (
-      <RouteCircle
-        x={this.state.x}
-        y={this.state.y}
-        r={this.state.isActive ? dim.r + 2 : dim.r}
-        isActive={this.state.isActive}
-        node={this.props.node}
-      />
+      this.props.node.filled === -1
+        ? <StationLine node={this.props.node}/>
+        : (
+          <RouteCircle
+            x={this.state.x}
+            y={this.state.y}
+            r={this.state.isActive ? dim.r + 2 : dim.r}
+            isActive={this.state.isActive}
+            node={this.props.node}
+          />
+        )
     );
   }
 }
