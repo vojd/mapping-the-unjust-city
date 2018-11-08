@@ -3,11 +3,11 @@ import './App.css';
 import MapComponent from './pages/MapComponent';
 import { getRedLineNodes } from './models/UndergroundLineDefinitions';
 import { UndergroundManager } from './components/UndergroundLines';
-import { Route } from 'react-router';
+import { Switch, Route } from 'react-router';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import CentreComponent from './components/CentreComponent';
 import { CentreDetail } from './components/CentreDetail';
-import { CentreOwnershipHistory } from './components/CentreOwnershipHistory';
+import CentreOwnershipHistoryComponent from './components/CentreOwnershipHistoryComponent';
 import { CentreMediaArchive } from './components/CentreMediaArchive';
 import CompanyDetail from './components/CompanyDetail';
 import { Provider } from 'react-redux';
@@ -36,15 +36,16 @@ class App extends React.Component<any, AppState> {
             </div>
 
             {/*<MapComponent/>*/}
-
-            <Route exact path="/" component={MapComponent}/>
-            <Route path="/centre/:slug/" component={CentreComponent}/>/
-            <Route path="/centre/:slug/ownership-history" component={CentreOwnershipHistory}/>
-            <Route path="/centre/:slug/detail" component={CentreDetail}/>
-            <Route path="/centre/:slug/media-archive" component={CentreMediaArchive}/>
-            <Route path="/company/:slug" component={CompanyDetail}/>
-            <Route path="/about" component={MapComponent}/>
-            <Route path="/topics" component={MapComponent}/>
+            <Switch>
+              <Route exact path="/" component={MapComponent}/>
+              <Route path="/centre/:slug/" component={CentreComponent}/>/
+              <Route path="/ownership-history/:slug/" component={CentreOwnershipHistoryComponent}/>
+              <Route path="/centre/:slug/detail" component={CentreDetail}/>
+              <Route path="/centre/:slug/media-archive" component={CentreMediaArchive}/>
+              <Route path="/company/:slug" component={CompanyDetail}/>
+              <Route path="/about" component={MapComponent}/>
+              <Route path="/topics" component={MapComponent}/>
+            </Switch>
           </div>
         </Router>
       </Provider>

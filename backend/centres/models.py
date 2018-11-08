@@ -19,6 +19,19 @@ class Document(models.Model):
     file = models.FileField(blank=True, upload_to=settings.UPLOAD_DIR)
 
 
+class HistoricalOwner(models.Model):
+    centre = models.ForeignKey('Centre',
+                               on_delete=models.SET_NULL,
+                               blank=True,
+                               null=True,
+                               related_name='historical_owners'
+                               )
+    name = models.CharField(max_length=255)
+    year = models.IntegerField()
+    price = models.IntegerField(blank=True, null=True)
+    currency = models.CharField(blank=True, null=True, max_length=10)
+
+
 class Company(models.Model):
     name = models.CharField(blank=False, max_length=255)
     slug = models.SlugField(blank=True)

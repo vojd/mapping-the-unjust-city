@@ -27,8 +27,6 @@ interface CentreComponentState {
 
 class CentreComponent extends React.Component<CentreComponentProps, CentreComponentState> {
 
-  // apiService: APIService;
-
   constructor(props: CentreComponentProps) {
     super(props);
     const stationSlug = props.match.params.slug;

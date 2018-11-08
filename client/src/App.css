@@ -44,6 +44,10 @@
     height: 100%;
 }
 
+.content {
+    padding: 24px;
+}
+
 .flex-vertical {
     display: flex;
     flex-direction: column;
@@ -97,5 +101,10 @@
     font: bold 12pt sans-serif;
 }
 
+table {
 
+}
 
+table tr {
+
+}

@@ -14,13 +14,22 @@ export class Company implements BaseModel {
   }
 }
 
+export class HistoricalOwner {
+  name: string;
+  year: string;
+  price: string;
+  currency: string;
+}
+
 export class Centre implements BaseModel {
 
   constructor(public name: string,
               public slug: string,
               public description: string,
               public status: number,
-              public owner: Company | null) {
+              public owner: Company | null,
+              public historicalOwners: HistoricalOwner[]
+              ) {
   }
 }
 
@@ -39,6 +48,7 @@ export interface CentreResponse {
   status: number;
   owner: CompanyResponse;
   documents: string[];
+  historicalOwners: HistoricalOwner[];
 }
 
 export const createCompany = (companyResponse: CompanyResponse | null) => {
@@ -52,17 +62,5 @@ export const createCompany = (companyResponse: CompanyResponse | null) => {
     companyResponse.description,
     companyResponse.centres,
     companyResponse.documents
-  );
-};
-
-export const createCentre = (centreResponse: CentreResponse): Centre => {
-
-  const company = createCompany(centreResponse.owner);
-  return new Centre(
-    centreResponse.name,
-    centreResponse.slug,
-    centreResponse.description,
-    centreResponse.status,
-    company
   );
 };

@@ -39,7 +39,7 @@ export const CentreInformation = (props: CentreInformationProps) => {
                 </div>
               </Link>
 
-              <Link to={`/centre/${props.centre.slug}/ownership-history`}>
+              <Link to={`/ownership-history/${props.centre.slug}`}>
                 <div className="station-information__toolbar__icon">
                   <i className="fas fa-coins"/>
                 </div>

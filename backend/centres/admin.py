@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from centres.models import Company, Document, Centre, Image
+from centres.models import Company, Document, Centre, Image, HistoricalOwner
 
 
 class ImageInline(admin.StackedInline):
@@ -15,16 +15,22 @@ class DocumentInline(admin.StackedInline):
     fields = ('centre', 'title', 'text', 'file')
 
 
+class OwnershipHistoryInline(admin.StackedInline):
+    model = HistoricalOwner
+    extra = 0
+    fields = ('name', 'year', 'price', 'currency',)
+
+
 @admin.register(Centre)
 class CentreAdmin(admin.ModelAdmin):
-    inlines = [ImageInline, DocumentInline]
+    inlines = [ImageInline, DocumentInline, OwnershipHistoryInline]
 
     prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    inlines = [ImageInline, DocumentInline]
+    inlines = [ImageInline, DocumentInline, ]
 
 
 admin.site.site_title = 'Mapping the unjust city'

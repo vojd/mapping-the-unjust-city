@@ -9,6 +9,7 @@ import { AppState } from '../state/AppState';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { mapMouseDown, mapMouseMove, mapMouseUp } from '../actions/mapActions';
+import { positionFixed } from '../react-styles/styles';
 
 const width = 1024;
 const height = 768;
@@ -85,7 +86,7 @@ const RedLine = ( props: UndergroundLineProps ): any => {
           y={y}
           node={node}
         />
-        
+
         <MapText
           x={x}
           y={y}
@@ -193,12 +194,9 @@ class MapComponent extends React.Component<MapProps, AppState> {
       y: height / 2
     };
 
-    const svgContainerStyle = {
-      position: 'fixed' as 'fixed'
-    };
     const redLineNodes = getRedLineNodes(this.undergroundManager);
     return (
-      <div className="full-screen" style={svgContainerStyle}>
+      <div className="full-screen" style={positionFixed}>
         <svg
           width="1024"
           height="768"
