@@ -117,6 +117,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
+STATIC_ROOT = '/tmp/www/mapping-the-unjust-city/static'
+
+STATICFILES_DIR = [
+    '/tmp/www/mapping-the-unjust-city/static',
+]
 
 STATIC_URL = '/static/'
 
