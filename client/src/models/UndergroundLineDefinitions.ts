@@ -63,8 +63,6 @@ const redLineFruangenNodes: MapNode[] = [
   station('Fruängen', 'sw', 1),
 ];
 
-
-
 const redLineMalarhojdenNodes: MapNode[] = [
   station('Aspudden', 'w'),
   station('Örnsberg', 'w'),
@@ -200,7 +198,6 @@ const greenLineHagsatraNodes: MapNode[] = [
   station('Rågsved', 'sw'),
   station('Hagsätra', 'sw'),
 ];
-
 
 export const getRedLineNodes = ( undergroundManager: UndergroundManager ) => {
 
