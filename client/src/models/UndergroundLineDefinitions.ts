@@ -38,6 +38,21 @@ const enum Branches {
   RED_LINE_MALARHOJDEN,
   RED_LINE_NORSBORG,
   RED_LINE_FRUANGEN,
+
+  BLUE_LINE_KUNGSTRADGARDEN,
+
+  BLUE_LINE_WESTBOUND,
+  BLUE_LINE_AKALLA,
+  BLUE_LINE_HJULSTA,
+
+  GREEN_LINE_ALVIK,
+  GREEN_LINE_AKESHOV,
+  GREEN_LINE_HASSELBY_STRAND,
+
+  // GREEN_LINE_SOUTHBOUND,
+  // GREEN_LINE_HAGSATRA,
+  // GREEN_LINE_FARSTASTRAND,
+  // GREEN_LINE_SKARPNACK,
 }
 
 const redLineFruangenNodes: MapNode[] = [
@@ -47,6 +62,8 @@ const redLineFruangenNodes: MapNode[] = [
   station('Västertorp', 'sw'),
   station('Fruängen', 'sw', 1),
 ];
+
+
 
 const redLineMalarhojdenNodes: MapNode[] = [
   station('Aspudden', 'w'),
@@ -99,6 +116,74 @@ const redLineRopsten: MapNode[] = [
   station('Ropsten', 'ne', -1, 2),
 ];
 
+// east from t-centralen
+const blueLineKungstradgardenNodes: MapNode[] = [
+  station('Kungsträdgården', 'e'),
+];
+
+// west from t-centralen, continuing northwest
+const blueLineWestBoundNodes: MapNode[] = [
+  station('Rådhuset', 'w'),
+  station('Fridhemsplan', 'nw', -1, 1, null, [Branches.GREEN_LINE_ALVIK]),
+  station('Stadshagen', 'nw'),
+  station('Västra skogen', 'nw', -1, 1, null, [Branches.BLUE_LINE_AKALLA, Branches.BLUE_LINE_HJULSTA]),
+];
+
+const blueLineAkallaNodes: MapNode[] = [
+  station('Solna centrum', 'nw'),
+  station('Näckrosen', 'nw'),
+  station('Hallonbergen', 'nw'),
+  station('Kista', 'nw'),
+  station('Husby', 'nw'),
+  station('Akalla', 'nw'),
+];
+
+const blueLineHjulstaNodes: MapNode[] = [
+  station('Huvudsta', 'w'),
+  station('Solna strand', 'nw'),
+  station('Sundbybergs centrum', 'nw'),
+  station('Duvbo', 'nw'),
+  station('Rissne', 'nw'),
+  station('Rinkeby', 'nw'),
+  station('Tensta', 'nw'),
+  station('Hjulsta', 'nw'),
+];
+
+const greenLineAlvikNodes: MapNode[] = [
+  station('Hötorget', 'nw'),
+  station('Rådmansgatan', 'w'),
+  station('Odenplan', 'w'),
+  station('S:t Eriksplan', 'w'),
+  station('Fridshemplans', 'w', -1, 1, null, [
+    Branches.BLUE_LINE_AKALLA,
+    Branches.BLUE_LINE_HJULSTA,
+  ]),
+  station('Thorildsplan', 'w'),
+  station('Kristineberg', 'w'),
+  station('Alvik', 'w'),
+];
+
+const greenLineAkeshovNodes: MapNode[] = [
+  station('Stora mossen', 'w'),
+  station('Abrahamsberg', 'w'),
+  station('Brommaplan', 'w'),
+  station('Åkeshov', 'w',  -1, 1, null, [
+    Branches.GREEN_LINE_HASSELBY_STRAND,
+  ]),
+];
+
+const greenLineHasselbyStrandNodes: MapNode[] = [
+  station('Ängbyplan', 'w'),
+  station('Islandstorget', 'w'),
+  station('Blackeberg', 'w'),
+  station('Råcksta', 'w'),
+  station('Vällingby', 'w'),
+  station('Johannelund', 'w'),
+  station('Hässelby gård', 'w'),
+  station('Hässelby strand', 'w'),
+];
+
+
 export const getRedLineNodes = ( undergroundManager: UndergroundManager ) => {
 
   // NOTE: Register them in the same order as the enum
@@ -116,4 +201,28 @@ export const getRedLineNodesNorth = ( undergroundManager: UndergroundManager ) =
   undergroundManager.register(Branches.RED_LINE_MORBY_CENTRUM, redLineMorbyCentrum);
   undergroundManager.register(Branches.RED_LINE_ROPSTEN, redLineRopsten);
   return addPropsToNodelist(redLineNorthBound);
+};
+
+export const getBlueLineNodesEast = ( undergroundManager: UndergroundManager ) => {
+  // NOTE: Register them in the same order as the enum
+  undergroundManager.register(Branches.BLUE_LINE_KUNGSTRADGARDEN, blueLineKungstradgardenNodes);
+  return addPropsToNodelist(blueLineKungstradgardenNodes);
+};
+
+export const getBlueLineNodesWest = ( undergroundManager: UndergroundManager ) => {
+  undergroundManager.register(Branches.BLUE_LINE_WESTBOUND, blueLineWestBoundNodes);
+  undergroundManager.register(Branches.BLUE_LINE_AKALLA, blueLineAkallaNodes);
+  undergroundManager.register(Branches.BLUE_LINE_HJULSTA, blueLineHjulstaNodes);
+
+  const nodes: MapNode[] = addPropsToNodelist(blueLineWestBoundNodes);
+  return nodes;
+};
+
+export const getGreenLineNodesWest = ( undergroundManager: UndergroundManager ) => {
+  undergroundManager.register(Branches.GREEN_LINE_ALVIK, greenLineAlvikNodes);
+  undergroundManager.register(Branches.GREEN_LINE_AKESHOV, greenLineAkeshovNodes);
+  undergroundManager.register(Branches.GREEN_LINE_HASSELBY_STRAND, greenLineHasselbyStrandNodes);
+
+  const nodes: MapNode[] = addPropsToNodelist(greenLineAlvikNodes);
+  return nodes;
 };
