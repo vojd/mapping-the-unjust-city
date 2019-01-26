@@ -49,8 +49,8 @@ const enum Branches {
   GREEN_LINE_AKESHOV,
   GREEN_LINE_HASSELBY_STRAND,
 
-  // GREEN_LINE_SOUTHBOUND,
-  // GREEN_LINE_HAGSATRA,
+  GREEN_LINE_SOUTHBOUND,
+  GREEN_LINE_HAGSATRA,
   // GREEN_LINE_FARSTASTRAND,
   // GREEN_LINE_SKARPNACK,
 }
@@ -183,6 +183,24 @@ const greenLineHasselbyStrandNodes: MapNode[] = [
   station('Hässelby strand', 'w'),
 ];
 
+const greenLineSouthBoundNodes: MapNode[] = [
+  station('Medborgarplatsen', 's'),
+  station('Skanstull', 's'),
+  station('Gullmarsplan', 's', -1, 1, null, [Branches.GREEN_LINE_HAGSATRA]),
+];
+
+const greenLineHagsatraNodes: MapNode[] = [
+  station('Globen', 'sw'),
+  station('Enskede gård', 'sw'),
+  station('Sockenplan', 'sw'),
+  station('Svedmyra', 'sw'),
+  station('Stureby', 'sw'),
+  station('Bandhagen', 'sw'),
+  station('Högdalen', 'sw'),
+  station('Rågsved', 'sw'),
+  station('Hagsätra', 'sw'),
+];
+
 
 export const getRedLineNodes = ( undergroundManager: UndergroundManager ) => {
 
@@ -224,5 +242,13 @@ export const getGreenLineNodesWest = ( undergroundManager: UndergroundManager ) 
   undergroundManager.register(Branches.GREEN_LINE_HASSELBY_STRAND, greenLineHasselbyStrandNodes);
 
   const nodes: MapNode[] = addPropsToNodelist(greenLineAlvikNodes);
+  return nodes;
+};
+
+export const getGreenLineNodesSouth = ( undergroundManager: UndergroundManager ) => {
+  undergroundManager.register(Branches.GREEN_LINE_SOUTHBOUND, greenLineSouthBoundNodes);
+  undergroundManager.register(Branches.GREEN_LINE_HAGSATRA, greenLineHagsatraNodes);
+
+  const nodes: MapNode[] = addPropsToNodelist(greenLineSouthBoundNodes);
   return nodes;
 };
