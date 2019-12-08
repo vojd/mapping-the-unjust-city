@@ -7,7 +7,7 @@ import {
   getRedLineNodes,
   getRedLineNodesNorth
 } from '../models/UndergroundLineDefinitions';
-import { MapNode, UndergroundManager } from '../components/UndergroundLines';
+import { MapNode, MapNodeTag, UndergroundManager } from '../components/UndergroundLines';
 import { COLOR_ORANGE, Station } from '../components/Station';
 import { MapText } from '../components/MapText';
 import { AppState } from '../state/AppState';
@@ -88,7 +88,7 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
     };
 
     stations.push(
-      <g>
+      <g key={i}>
         <line {...lineCoords} stroke={COLOR_ORANGE} strokeWidth="10"/>
         <Station
           x={x}
@@ -106,7 +106,7 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
         {
           node.branch
             ? node.branch.map(( branchId: number ) => {
-              const n = undergroundManager.getNodesById(branchId);
+              const n = undergroundManager.getNodesByBranchId(branchId);
               return (
                 <UndergroundLine
                   key={`${node.name}-${branchId}`}
@@ -150,8 +150,50 @@ export const getInitialMapState = (): MapState => {
       blueLineNodesEast: getBlueLineNodesEast(undergroundManager),
       blueLineNodesWest: getBlueLineNodesWest(undergroundManager),
     },
+
+    tags: [
+      {
+        name: 'Private'
+      },
+      {
+        name: 'Municipality'
+      }
+    ]
   };
 };
+
+class ToggleProps {
+  value: string;
+}
+
+class ToggleState {
+  isToggleOn: boolean;
+}
+
+class Toggle extends React.Component<ToggleProps, ToggleState> {
+  constructor(props: any) {
+    super(props);
+    this.state = {isToggleOn: true};
+
+    // This binding is necessary to make `this` work in the callback
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState(state => ({
+      isToggleOn: !state.isToggleOn
+    }));
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+        {this.props.value}
+      </button>
+    );
+  }
+}
 
 export class MapProps {
   mouseDown: Function;
@@ -170,6 +212,10 @@ export class MapProps {
     blueLineNodesEast: MapNode[],
     blueLineNodesWest: MapNode[],
   };
+
+  tags: MapNodeTag[];
+
+  toggleVisibleTag: Function;
 }
 
 export class MapState {
@@ -191,11 +237,11 @@ export class MapState {
     blueLineNodesEast: MapNode[],
     blueLineNodesWest: MapNode[],
   };
+
+  tags: any[];
 }
 
 class MapComponent extends React.Component<MapProps, AppState> {
-
-  undergroundManager = new UndergroundManager();
 
   constructor( props: MapProps ) {
     super(props);
@@ -212,6 +258,11 @@ class MapComponent extends React.Component<MapProps, AppState> {
 
   onMouseMove = ( e: SyntheticEvent ) => {
     this.props.mouseMove(e);
+  }
+
+  toggleVisibleTag = (tag: MapNodeTag) => {
+    // this.props.toggleVisibleTag(tag);
+    console.log('toggleVisibleTag', tag);
   }
 
   render() {
@@ -294,6 +345,15 @@ class MapComponent extends React.Component<MapProps, AppState> {
 
           </g>
         </svg>
+
+        <div>
+          <h4>Legend</h4>
+          {
+            this.props.tags.map((t) => {
+              return (<Toggle key={t.name} value={t.name}/>);
+            })
+          }
+        </div>
       </div>
     );
   }
@@ -307,7 +367,7 @@ const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) =
   return {
     fetchMapData: () => dispatch(fetchMapDataAction()),
     mouseDown: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseDown(e)),
-    mouseUp: () => dispatch(mapMouseUp()),
+    mouseUp: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseUp(e)),
     mouseMove: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseMove(e)),
   };
 };

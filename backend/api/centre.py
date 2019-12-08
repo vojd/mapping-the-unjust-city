@@ -17,9 +17,11 @@ class HistoricalOwnerSerializer(serializers.ModelSerializer):
 
 
 class TagSerializer(serializers.ModelSerializer):
+    isActive = serializers.BooleanField(source='is_active', read_only=True)
+
     class Meta:
         model = Tag
-        fields = ('name', 'is_active',)
+        fields = ('name', 'isActive',)
 
 
 class CentreSerializer(serializers.HyperlinkedModelSerializer):

@@ -12,7 +12,7 @@ export class APIService extends HttpService {
     return this.httpService.get(`/centre/${this.slugify(slug)}`);
   }
 
-  public getMapData<MapData>(): Promise<MapData> {
+  public getMapData<Centre>(): Promise<Centre[]> {
     return this.httpService.get(`/centre/`);
   }
 

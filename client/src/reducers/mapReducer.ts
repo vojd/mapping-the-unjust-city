@@ -1,6 +1,7 @@
 import { Action } from 'redux';
 import { actionTypes } from '../actions/Action';
 import { getInitialMapState, MapState } from '../pages/MapComponent';
+import { MapNode } from '../components/UndergroundLines';
 
 interface MapReducer extends Action {
   result: MapState;
@@ -49,7 +50,7 @@ const getPan = ( state: MapState, action: MapReducer ) => {
   return state;
 };
 
-export default ( state: MapState, action: MapReducer ) => {
+export default ( state: MapState, action: any ) => {
   switch (action.type) {
     case actionTypes.MAP_MOUSE_DOWN:
       return {...state, isMoving: true, previousMouseCoords: getCoords(action)};
@@ -67,7 +68,31 @@ export default ( state: MapState, action: MapReducer ) => {
       };
       return s;
 
+    case actionTypes.MAP_DATA_FETCHED:
+      console.log('MAP_DATA_FETCHED');
+
+      // walk through each underground line
+      const result = state.undergroundManager.lines.map(( line ) => {
+        // which in turn has one or more nodes
+        const nodes = line.nodes.map(( node ) => {
+          // Now walk through the data we got from the backend
+          // and add missing data onto the node
+          action.result.map(( dataNode: MapNode ) => {
+            if (dataNode.name === node.name) {
+              node.owner = dataNode.owner;
+              node.tags = dataNode.tags;
+            }
+          });
+          return node;
+        });
+        return nodes;
+      });
+
+      return {...state, mapData: result};
+
     default:
+      console.log('returning initial map state', state);
+
       return getInitialMapState();
   }
 };

@@ -5,10 +5,9 @@ export const mapMouseDown = (e: MouseEvent | TouchEvent) => ({
   event: e
 });
 
-export const mapMouseUp = () => ({
+export const mapMouseUp = (e: MouseEvent | TouchEvent ) => ({
   type: actionTypes.MAP_MOUSE_UP,
-  data: {
-  }
+  data: e
 });
 
 export const mapMouseMove = (e: MouseEvent | TouchEvent) => ({

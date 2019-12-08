@@ -1,3 +1,8 @@
+export interface MapNodeTag {
+  name: string;
+  isActive: boolean;
+}
+
 export interface MapNode {
   filled: number;
   direction: string;
@@ -7,6 +12,8 @@ export interface MapNode {
     name: string;
     slug: string;
   } | null;
+  tags: MapNodeTag[];
+
   branch?: number[];
   x: number;
   y: number;
@@ -29,7 +36,12 @@ export class UndergroundManager {
     });
   }
 
-  getNodesById( id: number ): MapNode[] {
+  /**
+   * Return the lines beloning to a particular branch id
+   * @param {number} id
+   * @returns {MapNode[]}
+   */
+  getNodesByBranchId( id: number ): MapNode[] {
     const line = this.lines.filter(n => n.id === id)[0];
     return line.nodes;
   }
