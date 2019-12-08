@@ -1,0 +1,27 @@
+server {
+    listen 80;
+    server_name mapping-the-unjust-city.com ec2-54-77-233-42.eu-west-1.compute.amazonaws.com;
+    client_max_body_size 20m;
+
+    access_log /var/log/nginx/mapping-the-unjust-city.access.log;
+    access_log /var/log/nginx/mapping-the-unjust-city.error.log;
+
+    location /media {
+        alias /var/www/mapping-the-unjust-city/media;
+    }
+
+    location /static {
+        alias /var/www/mapping-the-unjust-city/static;
+    }
+
+    location / {
+        proxy_set_header Host $http_host;
+        proxy_pass_header Server;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_connect_timeout 60;
+        proxy_read_timeout 60;
+        proxy_pass http://localhost:8001/;
+    }
+}

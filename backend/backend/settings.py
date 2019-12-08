@@ -24,12 +24,16 @@ SECRET_KEY = 'czqr%oa6#8=09s*cyr(*i&aa8nu8(uzu!8hzp9y1ble)g0dq9j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    'mapping-the-unjust-city.com'
+    '54.77.233.42',
+]
 
 # Application definition
 
 INSTALLED_APPS = [
-    'jet',
+    # 'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

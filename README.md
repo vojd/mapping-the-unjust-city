@@ -8,6 +8,20 @@ Start with cloning the repository from GitHub.
 git clone git@github.com:vojd/mapping-the-unjust-city.git
 ```
 
+### Pre-install
+
+Install ``virtualenv``
+
+#### Linux
+```
+sudo apt install virtualenv
+
+virtualenv -p /usr/bin/python3 env
+
+. env/bin/activate
+
+```
+
 ### Build the backend
 
 ```commandline

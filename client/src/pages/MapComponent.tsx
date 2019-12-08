@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
 import { matrix, pan, scale } from '../math';
-import { getRedLineNodes, getRedLineNodesNorth } from '../models/UndergroundLineDefinitions';
+import {
+  getBlueLineNodesEast,
+  getBlueLineNodesWest,
+  getRedLineNodes,
+  getRedLineNodesNorth
+} from '../models/UndergroundLineDefinitions';
 import { MapNode, UndergroundManager } from '../components/UndergroundLines';
 import { COLOR_ORANGE, Station } from '../components/Station';
 import { MapText } from '../components/MapText';
@@ -54,7 +59,7 @@ interface UndergroundLineProps {
   undergroundManager: UndergroundManager;
 }
 
-const RedLine = ( props: UndergroundLineProps ): any => {
+const UndergroundLine = ( props: UndergroundLineProps ): any => {
   const nodes = props.nodes;
   const undergroundManager = props.undergroundManager;
   const parentNode = props.parentNode;
@@ -101,7 +106,7 @@ const RedLine = ( props: UndergroundLineProps ): any => {
             ? node.branch.map(( branchId: number ) => {
               const n = undergroundManager.getNodesById(branchId);
               return (
-                <RedLine
+                <UndergroundLine
                   key={`${node.name}-${branchId}`}
                   nodes={n}
                   parentNode={node}
@@ -199,6 +204,12 @@ class MapComponent extends React.Component<MapProps, AppState> {
     const redLineNodes = getRedLineNodes(this.undergroundManager);
     const redLineNodesNorth = getRedLineNodesNorth(this.undergroundManager);
 
+    const blueLineNodesEast = getBlueLineNodesEast(this.undergroundManager);
+    const blueLineNodesWest = getBlueLineNodesWest(this.undergroundManager);
+
+    // const greenLineNodesSouth = getGreenLineNodesSouth(this.undergroundManager);
+    // const greenLineNodesWest = getGreenLineNodesWest(this.undergroundManager);
+
     return (
       <div className="full-screen" style={positionFixed}>
         <svg
@@ -220,17 +231,42 @@ class MapComponent extends React.Component<MapProps, AppState> {
               )
             }
           >
-            <RedLine
+            <UndergroundLine
               nodes={redLineNodes}
               parentNode={centralStation}
               undergroundManager={this.undergroundManager}
             />
 
-            <RedLine
+            <UndergroundLine
               nodes={redLineNodesNorth}
               parentNode={centralStation}
               undergroundManager={this.undergroundManager}
             />
+
+            <UndergroundLine
+              nodes={blueLineNodesEast}
+              parentNode={centralStation}
+              undergroundManager={this.undergroundManager}
+            />
+
+            <UndergroundLine
+              nodes={blueLineNodesWest}
+              parentNode={centralStation}
+              undergroundManager={this.undergroundManager}
+            />
+
+            {/*<UndergroundLine*/}
+              {/*nodes={greenLineNodesSouth}*/}
+              {/*parentNode={centralStation}*/}
+              {/*undergroundManager={this.undergroundManager}*/}
+            {/*/>*/}
+
+            {/*<UndergroundLine*/}
+              {/*nodes={greenLineNodesWest}*/}
+              {/*parentNode={centralStation}*/}
+              {/*undergroundManager={this.undergroundManager}*/}
+            {/*/>*/}
+
           </g>
         </svg>
       </div>
