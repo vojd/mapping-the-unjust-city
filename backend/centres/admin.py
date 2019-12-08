@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from centres.models import Company, Document, Centre, Image, HistoricalOwner
+from centres.models import Company, Document, Centre, Image, HistoricalOwner, Tag
 
 
 class ImageInline(admin.StackedInline):
@@ -31,6 +31,11 @@ class CentreAdmin(admin.ModelAdmin):
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
     inlines = [ImageInline, DocumentInline, ]
+
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    extra = 2
 
 
 admin.site.site_title = 'Mapping the unjust city'

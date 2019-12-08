@@ -14,4 +14,7 @@ export const actionTypes = {
   MAP_MOUSE_DOWN: '@@map/MAP_MOUSE_DOWN',
   MAP_MOUSE_UP: '@@map/MAP_MOUSE_UP',
   MAP_MOUSE_MOVE: '@@map/MAP_MOUSE_MOVE',
+
+  MAP_DATA_FETCHED: '@@mapdata/FETCHED',
+  MAP_DATA_FETCH_FAILED: '@@mapdata/FETCH_FAILED',
 };

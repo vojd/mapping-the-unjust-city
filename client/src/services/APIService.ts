@@ -4,15 +4,19 @@ export class APIService extends HttpService {
 
   httpService: HttpService = new HttpService();
 
-  public getCompanyBySlug<CompanyInformation>(slug: string): Promise<CompanyInformation> {
+  public getCompanyBySlug<CompanyInformation>( slug: string ): Promise<CompanyInformation> {
     return this.httpService.get(`/company/${slug}`);
   }
 
-  public getCentreBySlug<Centre>(slug: string): Promise<Centre> {
+  public getCentreBySlug<Centre>( slug: string ): Promise<Centre> {
     return this.httpService.get(`/centre/${this.slugify(slug)}`);
   }
 
-  public slugify = (slug: string): string => {
+  public getMapData<MapData>(): Promise<MapData> {
+    return this.httpService.get(`/centre/`);
+  }
+
+  public slugify = ( slug: string ): string => {
     return slug
       .toLocaleLowerCase()
       .trim()

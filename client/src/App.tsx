@@ -1,8 +1,6 @@
 import * as React from 'react';
 import './App.css';
 import MapComponent from './pages/MapComponent';
-import { getRedLineNodes } from './models/UndergroundLineDefinitions';
-import { UndergroundManager } from './components/UndergroundLines';
 import { Route, Switch } from 'react-router';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { CentreMediaArchive } from './components/CentreMediaArchive';
@@ -19,9 +17,6 @@ class App extends React.Component<any, AppState> {
 
   constructor( props: any ) {
     super(props);
-
-    const currentNode = getRedLineNodes(new UndergroundManager())[0];
-    this.state = {...this.state, currentNode: currentNode};
   }
 
   render() {

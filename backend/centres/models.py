@@ -49,6 +49,22 @@ class Company(models.Model):
         verbose_name_plural = 'companies'
 
 
+class Tag(models.Model):
+    """
+    Tagging centres lets the client show only those of a selected tag
+    Example of tags:
+      * private
+      * municipality
+      * etc.
+    """
+
+    name = models.CharField(max_length=255, blank=False, null=False)
+    is_active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+
 class Centre(models.Model):
     """
     Each station has a centre
@@ -66,6 +82,8 @@ class Centre(models.Model):
                               )
 
     description = models.TextField(blank=True)
+
+    tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
         return self.name

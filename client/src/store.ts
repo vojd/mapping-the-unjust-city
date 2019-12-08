@@ -18,4 +18,5 @@ const configureStore = ( initialState: AppState ): Store<AppState> => {
 };
 
 const store = configureStore(getInitialState());
+
 export default store;

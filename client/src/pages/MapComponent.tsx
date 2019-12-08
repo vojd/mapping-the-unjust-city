@@ -11,10 +11,12 @@ import { MapNode, UndergroundManager } from '../components/UndergroundLines';
 import { COLOR_ORANGE, Station } from '../components/Station';
 import { MapText } from '../components/MapText';
 import { AppState } from '../state/AppState';
-import { Dispatch } from 'redux';
+import { Action } from 'redux';
 import { connect } from 'react-redux';
 import { mapMouseDown, mapMouseMove, mapMouseUp } from '../actions/mapActions';
 import { positionFixed } from '../react-styles/styles';
+import { fetchMapDataAction } from '../actions/fetchMapDataAction';
+import { ThunkDispatch } from 'redux-thunk';
 
 const width = 1024;
 const height = 768;
@@ -38,7 +40,7 @@ const xFromGrid = ( x: number, direction: string, lengthMultiplier: number = 1 )
   }
 };
 
-const yFromGrid = ( y: number, direction: string, lengthMultiplier: number = 1) => {
+const yFromGrid = ( y: number, direction: string, lengthMultiplier: number = 1 ) => {
   switch (direction) {
     case 's':
     case 'se':
@@ -149,6 +151,8 @@ export class MapProps {
 
   panX: number;
   panY: number;
+
+  fetchMapData: Function;
 }
 
 export class MapState {
@@ -170,6 +174,7 @@ class MapComponent extends React.Component<MapProps, AppState> {
 
   constructor( props: MapProps ) {
     super(props);
+    props.fetchMapData();
   }
 
   onMouseDown = ( e: SyntheticEvent ) => {
@@ -190,6 +195,7 @@ class MapComponent extends React.Component<MapProps, AppState> {
       1, 0, 0,
       1, 0, 0
     ];
+
     const scaleFactor = 0.8;
 
     const centralStation = {
@@ -256,15 +262,15 @@ class MapComponent extends React.Component<MapProps, AppState> {
             />
 
             {/*<UndergroundLine*/}
-              {/*nodes={greenLineNodesSouth}*/}
-              {/*parentNode={centralStation}*/}
-              {/*undergroundManager={this.undergroundManager}*/}
+            {/*nodes={greenLineNodesSouth}*/}
+            {/*parentNode={centralStation}*/}
+            {/*undergroundManager={this.undergroundManager}*/}
             {/*/>*/}
 
             {/*<UndergroundLine*/}
-              {/*nodes={greenLineNodesWest}*/}
-              {/*parentNode={centralStation}*/}
-              {/*undergroundManager={this.undergroundManager}*/}
+            {/*nodes={greenLineNodesWest}*/}
+            {/*parentNode={centralStation}*/}
+            {/*undergroundManager={this.undergroundManager}*/}
             {/*/>*/}
 
           </g>
@@ -278,8 +284,9 @@ const mapStateToProps = ( state: AppState ) => {
   return state.mapState;
 };
 
-const mapDispatchToProps = ( dispatch: Dispatch ) => {
+const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) => {
   return {
+    fetchMapData: () => dispatch(fetchMapDataAction()),
     mouseDown: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseDown(e)),
     mouseUp: () => dispatch(mapMouseUp()),
     mouseMove: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseMove(e)),

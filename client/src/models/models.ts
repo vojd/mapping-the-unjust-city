@@ -2,6 +2,10 @@ export interface BaseModel {
 
 }
 
+export class MapData implements BaseModel {
+
+}
+
 /**
  * Response data and model for what a centre at a station looks like
  */
