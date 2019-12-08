@@ -7,7 +7,7 @@ import mapReducer from './mapReducer';
 import mapDataReducer from './mapDataReducer';
 
 export default combineReducers<AppState>({
-  mapData: mapDataReducer,
+  mapData: mapDataReducer, // Data from backend
   centre: stationReducer,
   company: companyReducer,
   currentNode: currentNodeReducer,

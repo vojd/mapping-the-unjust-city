@@ -130,6 +130,7 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
 };
 
 export const getInitialMapState = (): MapState => {
+  const undergroundManager = new UndergroundManager();
   return {
     scaleFactor: 0.8,
     panX: -350,
@@ -141,6 +142,14 @@ export const getInitialMapState = (): MapState => {
     isMoving: false,
 
     previousMouseCoords: {x: 0, y: 0},
+
+    undergroundManager: undergroundManager,
+    nodes: {
+      redLineNodes: getRedLineNodes(undergroundManager),
+      redLineNodesNorth: getRedLineNodesNorth(undergroundManager),
+      blueLineNodesEast: getBlueLineNodesEast(undergroundManager),
+      blueLineNodesWest: getBlueLineNodesWest(undergroundManager),
+    },
   };
 };
 
@@ -153,6 +162,14 @@ export class MapProps {
   panY: number;
 
   fetchMapData: Function;
+
+  undergroundManager: UndergroundManager;
+  nodes: {
+    redLineNodes: MapNode[],
+    redLineNodesNorth: MapNode[],
+    blueLineNodesEast: MapNode[],
+    blueLineNodesWest: MapNode[],
+  };
 }
 
 export class MapState {
@@ -165,6 +182,14 @@ export class MapState {
   previousMouseCoords: {
     x: number;
     y: number;
+  };
+
+  undergroundManager: UndergroundManager;
+  nodes: {
+    redLineNodes: MapNode[],
+    redLineNodesNorth: MapNode[],
+    blueLineNodesEast: MapNode[],
+    blueLineNodesWest: MapNode[],
   };
 }
 
@@ -207,12 +232,6 @@ class MapComponent extends React.Component<MapProps, AppState> {
       y: height / 2
     };
 
-    const redLineNodes = getRedLineNodes(this.undergroundManager);
-    const redLineNodesNorth = getRedLineNodesNorth(this.undergroundManager);
-
-    const blueLineNodesEast = getBlueLineNodesEast(this.undergroundManager);
-    const blueLineNodesWest = getBlueLineNodesWest(this.undergroundManager);
-
     // const greenLineNodesSouth = getGreenLineNodesSouth(this.undergroundManager);
     // const greenLineNodesWest = getGreenLineNodesWest(this.undergroundManager);
 
@@ -238,27 +257,27 @@ class MapComponent extends React.Component<MapProps, AppState> {
             }
           >
             <UndergroundLine
-              nodes={redLineNodes}
+              nodes={this.props.nodes.redLineNodes}
               parentNode={centralStation}
-              undergroundManager={this.undergroundManager}
+              undergroundManager={this.props.undergroundManager}
             />
 
             <UndergroundLine
-              nodes={redLineNodesNorth}
+              nodes={this.props.nodes.redLineNodesNorth}
               parentNode={centralStation}
-              undergroundManager={this.undergroundManager}
+              undergroundManager={this.props.undergroundManager}
             />
 
             <UndergroundLine
-              nodes={blueLineNodesEast}
+              nodes={this.props.nodes.blueLineNodesEast}
               parentNode={centralStation}
-              undergroundManager={this.undergroundManager}
+              undergroundManager={this.props.undergroundManager}
             />
 
             <UndergroundLine
-              nodes={blueLineNodesWest}
+              nodes={this.props.nodes.blueLineNodesWest}
               parentNode={centralStation}
-              undergroundManager={this.undergroundManager}
+              undergroundManager={this.props.undergroundManager}
             />
 
             {/*<UndergroundLine*/}
