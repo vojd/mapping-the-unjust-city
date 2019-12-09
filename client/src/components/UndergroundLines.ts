@@ -18,6 +18,8 @@ export interface MapNode {
   x: number;
   y: number;
   lengthMultiplier?: number; // length multiplier, undefined = 1
+
+  isActive: boolean;
 }
 
 interface UndergroundLine {

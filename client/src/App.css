@@ -150,3 +150,10 @@ table tr td {
 .box .row.footer {
     flex: 0 1 40px;
 }
+
+/* component styles */
+.legend {
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+}

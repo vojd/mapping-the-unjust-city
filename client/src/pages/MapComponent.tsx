@@ -13,10 +13,11 @@ import { MapText } from '../components/MapText';
 import { AppState } from '../state/AppState';
 import { Action } from 'redux';
 import { connect } from 'react-redux';
-import { mapMouseDown, mapMouseMove, mapMouseUp } from '../actions/mapActions';
+import { mapMouseDown, mapMouseMove, mapMouseUp, toggleTagVisibleAction } from '../actions/mapActions';
 import { positionFixed } from '../react-styles/styles';
 import { fetchMapDataAction } from '../actions/fetchMapDataAction';
 import { ThunkDispatch } from 'redux-thunk';
+import { Toggle } from '../components/Toggle';
 
 const width = 1024;
 const height = 768;
@@ -162,39 +163,6 @@ export const getInitialMapState = (): MapState => {
   };
 };
 
-class ToggleProps {
-  value: string;
-}
-
-class ToggleState {
-  isToggleOn: boolean;
-}
-
-class Toggle extends React.Component<ToggleProps, ToggleState> {
-  constructor(props: any) {
-    super(props);
-    this.state = {isToggleOn: true};
-
-    // This binding is necessary to make `this` work in the callback
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    this.setState(state => ({
-      isToggleOn: !state.isToggleOn
-    }));
-  }
-
-  render() {
-    return (
-      <button onClick={this.handleClick}>
-        {this.state.isToggleOn ? 'ON' : 'OFF'}
-        {this.props.value}
-      </button>
-    );
-  }
-}
-
 export class MapProps {
   mouseDown: Function;
   mouseUp: Function;
@@ -215,7 +183,7 @@ export class MapProps {
 
   tags: MapNodeTag[];
 
-  toggleVisibleTag: Function;
+  toggleTagVisible: Function;
 }
 
 export class MapState {
@@ -260,9 +228,10 @@ class MapComponent extends React.Component<MapProps, AppState> {
     this.props.mouseMove(e);
   }
 
-  toggleVisibleTag = (tag: MapNodeTag) => {
-    // this.props.toggleVisibleTag(tag);
-    console.log('toggleVisibleTag', tag);
+  toggleTagVisible = (value: string, isOn: boolean) => {
+    // this.props.toggleTagVisible(tag);
+    console.log('toggleTagVisible', value, isOn);
+    this.props.toggleTagVisible(value, isOn);
   }
 
   render() {
@@ -346,11 +315,11 @@ class MapComponent extends React.Component<MapProps, AppState> {
           </g>
         </svg>
 
-        <div>
+        <div className="legend">
           <h4>Legend</h4>
           {
             this.props.tags.map((t) => {
-              return (<Toggle key={t.name} value={t.name}/>);
+              return (<Toggle key={t.name} value={t.name} toggleTagVisible={this.toggleTagVisible}/>);
             })
           }
         </div>
@@ -369,6 +338,8 @@ const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) =
     mouseDown: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseDown(e)),
     mouseUp: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseUp(e)),
     mouseMove: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseMove(e)),
+
+    toggleTagVisible: (val: string, isOn: boolean) => dispatch(toggleTagVisibleAction(val, isOn))
   };
 };
 

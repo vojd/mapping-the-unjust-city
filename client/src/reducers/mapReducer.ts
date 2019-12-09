@@ -2,6 +2,7 @@ import { Action } from 'redux';
 import { actionTypes } from '../actions/Action';
 import { getInitialMapState, MapState } from '../pages/MapComponent';
 import { MapNode } from '../components/UndergroundLines';
+import { ToggleAction } from '../actions/mapActions';
 
 interface MapReducer extends Action {
   result: MapState;
@@ -50,6 +51,34 @@ const getPan = ( state: MapState, action: MapReducer ) => {
   return state;
 };
 
+const addDataToNodes = ( lines: any[], action: any ) => {
+  // walk through each underground line
+  return lines.map(( line ) => {
+    // which in turn has one or more nodes
+    return line.nodes.map(( node: MapNode ) => {
+      // Now walk through the data we got from the backend
+      // and add missing data onto the node
+      action.result.map(( dataNode: MapNode ) => {
+        if (dataNode.name === node.name) {
+          node.owner = dataNode.owner;
+          node.tags = dataNode.tags;
+        }
+      });
+      return node;
+    });
+  });
+};
+
+const addToggleStateToNodes = ( lines: any[], actionData: ToggleAction ) => {
+  return lines.map(( line ) => {
+    return line.nodes.map(( node: MapNode ) => {
+      if (node.name === actionData.val) {
+        node.isActive = actionData.isOn;
+      }
+    });
+  });
+};
+
 export default ( state: MapState, action: any ) => {
   switch (action.type) {
     case actionTypes.MAP_MOUSE_DOWN:
@@ -71,25 +100,14 @@ export default ( state: MapState, action: any ) => {
     case actionTypes.MAP_DATA_FETCHED:
       console.log('MAP_DATA_FETCHED');
 
-      // walk through each underground line
-      const result = state.undergroundManager.lines.map(( line ) => {
-        // which in turn has one or more nodes
-        const nodes = line.nodes.map(( node ) => {
-          // Now walk through the data we got from the backend
-          // and add missing data onto the node
-          action.result.map(( dataNode: MapNode ) => {
-            if (dataNode.name === node.name) {
-              node.owner = dataNode.owner;
-              node.tags = dataNode.tags;
-            }
-          });
-          return node;
-        });
-        return nodes;
-      });
+      return {...state, mapData: addDataToNodes(state.undergroundManager.lines, action)};
 
-      return {...state, mapData: result};
+    case actionTypes.TOGGLE_TAG_VISIBLE:
+      console.log('TOGGLE_TAG_VISIBLE', action.data);
+      console.log('state', state);
 
+      return {...state, mapData: addToggleStateToNodes(state.undergroundManager.lines, action.data)};
+      break;
     default:
       console.log('returning initial map state', state);
 

@@ -17,4 +17,6 @@ export const actionTypes = {
 
   MAP_DATA_FETCHED: '@@mapdata/FETCHED',
   MAP_DATA_FETCH_FAILED: '@@mapdata/FETCH_FAILED',
+
+  TOGGLE_TAG_VISIBLE: '@@map/TOGGLE_TAG_VISIBLE',
 };
