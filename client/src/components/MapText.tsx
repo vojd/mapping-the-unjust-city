@@ -11,7 +11,7 @@ interface MapTextProps {
 const MapCompanyName = ( props: any ) => {
   return (
     <Route
-     render={( {history} ) => (
+      render={( {history} ) => (
         <text
           x={props.x + 120}
           y={props.y + 8}
@@ -79,6 +79,12 @@ export const MapTextRight = ( props: MapTextProps ) => {
 };
 
 export const MapText = ( props: MapTextProps ) => {
+  if (!props.node.isActive) {
+    return (
+      <p>inactive</p>
+    );
+  }
+
   switch (props.node.direction) {
     case 'sw':
       return (

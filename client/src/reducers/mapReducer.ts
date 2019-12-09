@@ -59,6 +59,7 @@ const addDataToNodes = ( lines: any[], action: any ) => {
       // Now walk through the data we got from the backend
       // and add missing data onto the node
       action.result.map(( dataNode: MapNode ) => {
+        node.tags = [];
         if (dataNode.name === node.name) {
           node.owner = dataNode.owner;
           node.tags = dataNode.tags;
@@ -71,9 +72,15 @@ const addDataToNodes = ( lines: any[], action: any ) => {
 
 const addToggleStateToNodes = ( lines: any[], actionData: ToggleAction ) => {
   return lines.map(( line ) => {
+    console.log('line', line);
+
     return line.nodes.map(( node: MapNode ) => {
+      console.log('node', node.tags, actionData.val);
+
       if (node.name === actionData.val) {
         node.isActive = actionData.isOn;
+        console.log('node to active:', node);
+
       }
     });
   });
@@ -105,7 +112,6 @@ export default ( state: MapState, action: any ) => {
     case actionTypes.TOGGLE_TAG_VISIBLE:
       console.log('TOGGLE_TAG_VISIBLE', action.data);
       console.log('state', state);
-
       return {...state, mapData: addToggleStateToNodes(state.undergroundManager.lines, action.data)};
       break;
     default:

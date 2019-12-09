@@ -73,6 +73,10 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
     const node = nodes[i];
     const previousNode = i === 0 ? parentNode : nodes[i - 1];
 
+    if (!node.isActive) {
+      continue;
+    }
+
     const lengthMultiplier = node.lengthMultiplier ? node.lengthMultiplier : 1;
     const x = xFromGrid(previousNode.x, node.direction, lengthMultiplier);
     const y = yFromGrid(previousNode.y, node.direction, lengthMultiplier);
@@ -228,7 +232,7 @@ class MapComponent extends React.Component<MapProps, AppState> {
     this.props.mouseMove(e);
   }
 
-  toggleTagVisible = (value: string, isOn: boolean) => {
+  toggleTagVisible = ( value: string, isOn: boolean ) => {
     // this.props.toggleTagVisible(tag);
     console.log('toggleTagVisible', value, isOn);
     this.props.toggleTagVisible(value, isOn);
@@ -318,7 +322,7 @@ class MapComponent extends React.Component<MapProps, AppState> {
         <div className="legend">
           <h4>Legend</h4>
           {
-            this.props.tags.map((t) => {
+            this.props.tags.map(( t ) => {
               return (<Toggle key={t.name} value={t.name} toggleTagVisible={this.toggleTagVisible}/>);
             })
           }
@@ -339,7 +343,7 @@ const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) =
     mouseUp: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseUp(e)),
     mouseMove: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseMove(e)),
 
-    toggleTagVisible: (val: string, isOn: boolean) => dispatch(toggleTagVisibleAction(val, isOn))
+    toggleTagVisible: ( val: string, isOn: boolean ) => dispatch(toggleTagVisibleAction(val, isOn))
   };
 };
 

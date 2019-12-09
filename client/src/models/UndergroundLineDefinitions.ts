@@ -21,6 +21,7 @@ const station = ( name: string,
     owner: owner ? owner : null,
     x: 0, y: 0,
     lengthMultiplier: lengthMultiplier,
+    isActive: true
   };
 
   if (branches) {

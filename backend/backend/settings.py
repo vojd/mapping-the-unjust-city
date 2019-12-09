@@ -63,7 +63,10 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR + '/templates/',
+            BASE_DIR + '/static/',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,12 +124,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-STATIC_ROOT = '/tmp/www/mapping-the-unjust-city/static'
+# where files will go after collect static
+#STATIC_ROOT = '/tmp/www/mapping-the-unjust-city/static'
+STATIC_ROOT = BASE_DIR + '/static/'
 
+# Where Django will look for files
 STATICFILES_DIR = [
     '/tmp/www/mapping-the-unjust-city/static',
 ]
 
+# URL used to find static files through the browser
 STATIC_URL = '/static/'
 
 UPLOAD_DIR = 'uploads'
