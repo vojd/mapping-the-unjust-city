@@ -26,11 +26,17 @@ class CentreAdmin(admin.ModelAdmin):
     inlines = [ImageInline, DocumentInline, OwnershipHistoryInline]
 
     prepopulated_fields = {'slug': ('name',)}
+    list_display = ('name', 'owner', 'get_tags', )
+
+    def get_tags(self, obj):
+        return ', '.join([s.name for s in obj.tags.all()])
 
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
     inlines = [ImageInline, DocumentInline, ]
+
+    prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Tag)

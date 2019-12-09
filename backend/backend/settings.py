@@ -28,6 +28,7 @@ ALLOWED_HOSTS = [
     'localhost',
     'mapping-the-unjust-city.com'
     '54.77.233.42',
+    '18.223.2.133',  # amazon aws
 ]
 
 # Application definition
@@ -125,7 +126,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 # where files will go after collect static
-#STATIC_ROOT = '/tmp/www/mapping-the-unjust-city/static'
+# STATIC_ROOT = '/tmp/www/mapping-the-unjust-city/static'
 STATIC_ROOT = BASE_DIR + '/static/'
 
 # Where Django will look for files
