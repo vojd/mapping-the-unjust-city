@@ -138,6 +138,8 @@ STATICFILES_DIR = [
 STATIC_URL = '/static/'
 
 UPLOAD_DIR = 'uploads'
+MEDIA_URL = '/uploads/'
+MEDIA_ROOT = BASE_DIR
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
