@@ -26,7 +26,7 @@ class HistoricalOwner(models.Model):
                                null=True,
                                related_name='historical_owners'
                                )
-    name = models.CharField(max_length=255)
+    company = models.ForeignKey('Company', on_delete=models.SET_NULL, null=True, blank=True)
     year = models.IntegerField()
     price = models.IntegerField(blank=True, null=True)
     currency = models.CharField(blank=True, null=True, max_length=10)
@@ -35,8 +35,8 @@ class HistoricalOwner(models.Model):
 class Company(models.Model):
     name = models.CharField(blank=False, max_length=255)
     slug = models.SlugField(blank=True)
-
     description = models.TextField(blank=True)
+    image = models.ImageField(upload_to=settings.UPLOAD_DIR, null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)

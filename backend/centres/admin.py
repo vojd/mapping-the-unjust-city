@@ -18,7 +18,7 @@ class DocumentInline(admin.StackedInline):
 class OwnershipHistoryInline(admin.StackedInline):
     model = HistoricalOwner
     extra = 0
-    fields = ('name', 'year', 'price', 'currency',)
+    fields = ('company', 'year', 'price', 'currency',)
 
 
 @admin.register(Centre)

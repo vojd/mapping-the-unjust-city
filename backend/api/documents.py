@@ -1,7 +1,7 @@
 from rest_framework import serializers, viewsets
 
 from api.centre import CentreSerializer
-from centres.models import Document
+from centres.models import Document, Tag
 
 
 class DocumentSerializer(serializers.ModelSerializer):
@@ -15,3 +15,14 @@ class DocumentSerializer(serializers.ModelSerializer):
 class DocumentViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Document.objects.all()
     serializer_class = DocumentSerializer
+
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ('name', 'is_active',)
+
+
+class TagViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer

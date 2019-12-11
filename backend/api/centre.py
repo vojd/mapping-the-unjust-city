@@ -11,9 +11,11 @@ class ImageSerializer(serializers.ModelSerializer):
 
 
 class HistoricalOwnerSerializer(serializers.ModelSerializer):
+    company = CompanySerializer()
+
     class Meta:
         model = HistoricalOwner
-        fields = ('name', 'year', 'price', 'currency',)
+        fields = ('company', 'year', 'price', 'currency',)
 
 
 class TagSerializer(serializers.ModelSerializer):
