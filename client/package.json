@@ -9,7 +9,7 @@
     "@types/react-router": "^4.0.31",
     "@types/react-router-dom": "4.2.7",
     "react": "16.2.0",
-    "react-dom": "16.2.0",
+    "react-dom": "16.2.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "4.3.1",
     "react-scripts-ts": "2.13.0",
