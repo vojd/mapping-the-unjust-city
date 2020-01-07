@@ -36,7 +36,7 @@ class Company(models.Model):
     name = models.CharField(blank=False, max_length=255)
     slug = models.SlugField(blank=True)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to=settings.UPLOAD_DIR, null=True)
+    image = models.ImageField(upload_to=settings.UPLOAD_DIR, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -84,6 +84,12 @@ class Centre(models.Model):
     description = models.TextField(blank=True)
 
     tags = models.ManyToManyField(Tag, blank=True)
+
+    """
+    Called from the invocation of TagSerializer in the CentreSerializer
+    """
+    def get_active_tags(self):
+        return self.tags.filter(is_active=True)
 
     def __str__(self):
         return self.name

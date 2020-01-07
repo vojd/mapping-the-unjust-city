@@ -38,7 +38,9 @@ class CentreSerializer(serializers.HyperlinkedModelSerializer):
 
     images = ImageSerializer(many=True, read_only=True, )
     historicalOwners = HistoricalOwnerSerializer(many=True, read_only=True, source='historical_owners')
-    tags = TagSerializer(many=True, read_only=True)
+
+    # call `get_active_tags` on the Centre model to get only active tags
+    tags = TagSerializer(many=True, read_only=True, source='get_active_tags')
 
     class Meta:
         model = Centre
