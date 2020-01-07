@@ -14,7 +14,9 @@ export interface MapNode {
   } | null;
   tags: MapNodeTag[];
 
-  branch?: number[];
+  branchIds?: number[];
+  branches?: MapNode[][]; // the actual branch nodes
+
   x: number;
   y: number;
   lengthMultiplier?: number; // length multiplier, undefined = 1
@@ -39,7 +41,7 @@ export class UndergroundManager {
   }
 
   /**
-   * Return the lines beloning to a particular branch id
+   * Return the lines beloning to a particular branchIds id
    * @param {number} id
    * @returns {MapNode[]}
    */

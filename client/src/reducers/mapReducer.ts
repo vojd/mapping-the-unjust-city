@@ -50,40 +50,60 @@ const getPan = ( state: MapState, action: MapReducer ) => {
 
   return state;
 };
-
-const addDataToNodes = ( lines: any[], action: any ) => {
-  // walk through each underground line
-  return lines.map(( line ) => {
-    // which in turn has one or more nodes
-    return line.nodes.map(( node: MapNode ) => {
-      // Now walk through the data we got from the backend
-      // and add missing data onto the node
-      action.result.map(( dataNode: MapNode ) => {
-        node.tags = [];
-        if (dataNode.name === node.name) {
-          node.owner = dataNode.owner;
-          node.tags = dataNode.tags;
-        }
-      });
-      return node;
-    });
-  });
-};
+//
+// const addDataToNodes = ( lines: any[], action: any ) => {
+//   // walk through each underground line
+//   return lines.map(( line ) => {
+//     // which in turn has one or more nodes
+//     return line.nodes.map(( node: MapNode ) => {
+//       // Now walk through the data we got from the backend
+//       // and add missing data onto the node
+//       action.result.map(( dataNode: MapNode ) => {
+//         node.tags = [];
+//         if (dataNode.name === node.name) {
+//           node.owner = dataNode.owner;
+//           node.tags = dataNode.tags;
+//         }
+//       });
+//       return node;
+//     });
+//   });
+// };
 
 const addToggleStateToNodes = ( lines: any[], actionData: ToggleAction ) => {
   return lines.map(( line ) => {
     console.log('line', line);
 
     return line.nodes.map(( node: MapNode ) => {
-      console.log('node', node.tags, actionData.val);
+      console.log('node', node.tags, actionData.value);
 
-      if (node.name === actionData.val) {
+      if (node.name === actionData.value) {
         node.isActive = actionData.isOn;
         console.log('node to active:', node);
 
       }
     });
   });
+};
+
+const addDataFromState = ( state: MapState, actionData: ToggleAction ) => {
+  let newNodes: MapNode[] = [];
+
+  Object.keys(state.nodes).forEach(( key ) => {
+    console.log('key', key);
+
+    state.nodes[key].forEach(( node: MapNode ) => {
+      console.log('node', node.name, actionData.value, node.branchIds);
+
+      if (node.name === actionData.value) {
+        node.isActive = actionData.isOn;
+        console.log('node to active:', node);
+      }
+
+      newNodes.push(node);
+    });
+  });
+  return newNodes;
 };
 
 export default ( state: MapState, action: any ) => {
@@ -106,8 +126,8 @@ export default ( state: MapState, action: any ) => {
 
     case actionTypes.MAP_DATA_FETCHED:
       console.log('MAP_DATA_FETCHED');
-
-      return {...state, mapData: addDataToNodes(state.undergroundManager.lines, action)};
+      // return {...state, mapData: addDataToNodes(state.undergroundManager.lines, action)};
+      return {...state, mapData: addDataFromState(state, action)};
 
     case actionTypes.TOGGLE_TAG_VISIBLE:
       console.log('TOGGLE_TAG_VISIBLE', action.data);

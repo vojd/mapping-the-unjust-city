@@ -12,6 +12,10 @@ export class APIService extends HttpService {
     return this.httpService.get(`/centre/${this.slugify(slug)}`);
   }
 
+  /**
+   * Fetch all the centre information with its related owners and tags
+   * @returns {Promise<Centre[]>}
+   */
   public getMapData<Centre>(): Promise<Centre[]> {
     return this.httpService.get(`/centre/`);
   }

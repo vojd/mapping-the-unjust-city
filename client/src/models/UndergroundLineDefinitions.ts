@@ -1,8 +1,9 @@
-import { MapNode, UndergroundManager } from '../components/UndergroundLines';
+import { MapNode } from '../components/UndergroundLines';
 import CompanyDefinitions from './CompanyDefinitions';
 
 const addPropsToNodelist = ( nodeList: MapNode[] ): MapNode[] => {
   return nodeList.map(n => {
+    // Add initial starting positions for the lines originating from T-Centralen
     return Object.assign(n, {x: 0, y: 0});
   });
 };
@@ -12,7 +13,8 @@ const station = ( name: string,
                   filled: number = -1,
                   lengthMultiplier: number = 1,
                   owner?: any,
-                  branches?: number[] ): MapNode => {
+                  branches?: number[],
+                  branchNodes?: MapNode[][] ): MapNode => {
   let s = <MapNode> {
     filled: filled,
     direction: direction,
@@ -24,9 +26,16 @@ const station = ( name: string,
     isActive: true
   };
 
+  // TODO: Refactor away and replace with actual branch nodes instead, see next if-statement
   if (branches) {
-    s.branch = branches;
+    s.branchIds = branches;
   }
+
+  // Add the actual branch nodes onto this node
+  if (branchNodes) {
+    s.branches = branchNodes;
+  }
+
   return s;
 };
 
@@ -59,13 +68,7 @@ const redLineFruangenNodes: MapNode[] = [
   station('Telefonplan', 'sw'),
   station('Hägerstensåsen', 'sw'),
   station('Västertorp', 'sw'),
-  station('Fruängen', 'sw', 1),
-];
-
-const redLineMalarhojdenNodes: MapNode[] = [
-  station('Aspudden', 'w'),
-  station('Örnsberg', 'w'),
-  station('Mälarhöjden', 'w', -1, 1, null, [Branches.RED_LINE_NORSBORG]),
+  station('Fruängen', 'sw'),
 ];
 
 const redLineNorsborgNodes: MapNode[] = [
@@ -80,6 +83,16 @@ const redLineNorsborgNodes: MapNode[] = [
   station('Norsborg', 'sw', -1, 1, CompanyDefinitions.NORSBORG),
 ];
 
+const redLineMalarhojdenNodes: MapNode[] = [
+  station('Aspudden', 'w'),
+  station('Örnsberg', 'w'),
+  station(
+    'Mälarhöjden', 'w', -1, 1, null,
+    [Branches.RED_LINE_NORSBORG],
+    [redLineNorsborgNodes]
+  ),
+];
+
 // red line - south bound from t-centralen
 const redLineSouthBound: MapNode[] = [
   station('Gamla stan', 's'),
@@ -87,15 +100,12 @@ const redLineSouthBound: MapNode[] = [
   station('Mariatorget', 'w'),
   station('Zinkensdamm', 'w'),
   station('Hornstull', 'w'),
-  station('Liljeholmen', 'w', -1, 1, null, [Branches.RED_LINE_MALARHOJDEN, Branches.RED_LINE_FRUANGEN]),
-];
-
-// north bound from t-centralen
-const redLineNorthBound: MapNode[] = [
-  station('Östermalms torg', 'n', -1, 1, null, [
-    Branches.RED_LINE_MORBY_CENTRUM,
-    Branches.RED_LINE_ROPSTEN,
-  ]),
+  // NOTE: We're going to Malarhojden because the map takes a turn to south west after Malarhojden
+  station(
+    'Liljeholmen', 'w', -1, 1, null,
+    [Branches.RED_LINE_MALARHOJDEN, Branches.RED_LINE_FRUANGEN],
+    [redLineMalarhojdenNodes, redLineFruangenNodes]
+  ),
 ];
 
 const redLineMorbyCentrum: MapNode[] = [
@@ -113,19 +123,18 @@ const redLineRopsten: MapNode[] = [
   station('Ropsten', 'ne', -1, 2),
 ];
 
+// north bound from t-centralen
+const redLineNorthBound: MapNode[] = [
+  station(
+    'Östermalms torg', 'n', -1, 1, null,
+    [Branches.RED_LINE_MORBY_CENTRUM, Branches.RED_LINE_ROPSTEN],
+    [redLineMorbyCentrum, redLineRopsten]
+  ),
+];
+
 // east from t-centralen
 const blueLineKungstradgardenNodes: MapNode[] = [
   station('Kungsträdgården', 'e'),
-];
-
-// west from t-centralen, continuing northwest
-const blueLineWestBoundNodes: MapNode[] = [
-  station('Rådhuset', 'w', -1),
-  // TODO: Fridhemsplan must be present in both green and blue lines
-  // station('Fridhemsplan', 'nw', -1, 1, null, [Branches.GREEN_LINE_ALVIK]),
-  station('Fridhemsplan', 'nw', -1),
-  station('Stadshagen', 'nw'),
-  station('Västra skogen', 'nw', -1, 1, null, [Branches.BLUE_LINE_AKALLA, Branches.BLUE_LINE_HJULSTA]),
 ];
 
 const blueLineAkallaNodes: MapNode[] = [
@@ -146,6 +155,20 @@ const blueLineHjulstaNodes: MapNode[] = [
   station('Rinkeby', 'nw'),
   station('Tensta', 'nw'),
   station('Hjulsta', 'nw'),
+];
+
+// west from t-centralen, continuing northwest
+const blueLineWestBoundNodes: MapNode[] = [
+  station('Rådhuset', 'w', -1),
+  // TODO: Fridhemsplan must be present in both green and blue lines
+  // station('Fridhemsplan', 'nw', -1, 1, null, [Branches.GREEN_LINE_ALVIK]),
+  station('Fridhemsplan', 'nw', -1),
+  station('Stadshagen', 'nw'),
+  station(
+    'Västra skogen', 'nw', -1, 1, null,
+    [Branches.BLUE_LINE_AKALLA, Branches.BLUE_LINE_HJULSTA],
+    [blueLineAkallaNodes, blueLineHjulstaNodes]
+  ),
 ];
 
 const greenLineWestNodes: MapNode[] = [
@@ -173,12 +196,6 @@ const greenLineWestNodes: MapNode[] = [
   station('Hässelby strand', 'w'),
 ];
 
-const greenLineSouthBoundNodes: MapNode[] = [
-  station('Medborgarplatsen', 's'),
-  station('Skanstull', 's'),
-  station('Gullmarsplan', 's', -1, 1, null, [Branches.GREEN_LINE_HAGSATRA]),
-];
-
 const greenLineHagsatraNodes: MapNode[] = [
   station('Globen', 'sw'),
   station('Enskede gård', 'sw'),
@@ -191,46 +208,36 @@ const greenLineHagsatraNodes: MapNode[] = [
   station('Hagsätra', 'sw'),
 ];
 
-export const getRedLineNodes = ( undergroundManager: UndergroundManager ) => {
+const greenLineSouthBoundNodes: MapNode[] = [
+  station('Medborgarplatsen', 's'),
+  station('Skanstull', 's'),
+  station(
+    'Gullmarsplan', 's', -1, 1, null,
+    [Branches.GREEN_LINE_HAGSATRA],
+    [greenLineHagsatraNodes]
+  ),
+];
 
-  // NOTE: Register them in the same order as the enum
-  undergroundManager.register(Branches.RED_LINE_SOUTHBOUND, redLineSouthBound);
-  undergroundManager.register(Branches.RED_LINE_MALARHOJDEN, redLineMalarhojdenNodes);
-  undergroundManager.register(Branches.RED_LINE_NORSBORG, redLineNorsborgNodes);
-  undergroundManager.register(Branches.RED_LINE_FRUANGEN, redLineFruangenNodes);
+export const getRedLineNodes = () => {
   return addPropsToNodelist(redLineSouthBound);
 };
 
-export const getRedLineNodesNorth = ( undergroundManager: UndergroundManager ) => {
-  undergroundManager.register(Branches.RED_LINE_NORTHBOUND, redLineNorthBound);
-  undergroundManager.register(Branches.RED_LINE_MORBY_CENTRUM, redLineMorbyCentrum);
-  undergroundManager.register(Branches.RED_LINE_ROPSTEN, redLineRopsten);
+export const getRedLineNodesNorth = () => {
   return addPropsToNodelist(redLineNorthBound);
 };
 
-export const getBlueLineNodesEast = ( undergroundManager: UndergroundManager ) => {
-  // NOTE: Register them in the same order as the enum
-  undergroundManager.register(Branches.BLUE_LINE_KUNGSTRADGARDEN, blueLineKungstradgardenNodes);
+export const getBlueLineNodesEast = () => {
   return addPropsToNodelist(blueLineKungstradgardenNodes);
 };
 
-export const getBlueLineNodesWest = ( undergroundManager: UndergroundManager ) => {
-  undergroundManager.register(Branches.BLUE_LINE_WESTBOUND, blueLineWestBoundNodes);
-  undergroundManager.register(Branches.BLUE_LINE_AKALLA, blueLineAkallaNodes);
-  undergroundManager.register(Branches.BLUE_LINE_HJULSTA, blueLineHjulstaNodes);
-
+export const getBlueLineNodesWest = () => {
   return addPropsToNodelist(blueLineWestBoundNodes);
 };
 
-export const getGreenLineNodesWest = ( undergroundManager: UndergroundManager ) => {
-  undergroundManager.register(Branches.GREEN_LINE_WEST, greenLineWestNodes);
-
+export const getGreenLineNodesWest = () => {
   return addPropsToNodelist(greenLineWestNodes);
 };
 
-export const getGreenLineNodesSouth = ( undergroundManager: UndergroundManager ) => {
-  undergroundManager.register(Branches.GREEN_LINE_SOUTHBOUND, greenLineSouthBoundNodes);
-  undergroundManager.register(Branches.GREEN_LINE_HAGSATRA, greenLineHagsatraNodes);
-
+export const getGreenLineNodesSouth = () => {
   return addPropsToNodelist(greenLineSouthBoundNodes);
 };

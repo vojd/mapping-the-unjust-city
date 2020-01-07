@@ -16,14 +16,14 @@ export const mapMouseMove = ( e: MouseEvent | TouchEvent ) => ({
 });
 
 export interface ToggleAction {
-  val: string;
+  value: string;
   isOn: boolean;
 }
 
 export const toggleTagVisibleAction = ( val: string, isOn: boolean ) => ({
   type: actionTypes.TOGGLE_TAG_VISIBLE,
   data: <ToggleAction> {
-    val,
+    value: val,
     isOn
   }
 });

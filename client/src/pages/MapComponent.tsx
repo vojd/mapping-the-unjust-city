@@ -107,15 +107,13 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
           node={node}
         />
 
-        // Branch off
         {
-          node.branch
-            ? node.branch.map(( branchId: number ) => {
-              const n = undergroundManager.getNodesByBranchId(branchId);
+          node.branches
+            ? node.branches.map(( branchNodes, idx ) => {
               return (
                 <UndergroundLine
-                  key={`${node.name}-${branchId}`}
-                  nodes={n}
+                  key={`${node.name}-${idx}`}
+                  nodes={branchNodes}
                   parentNode={node}
                   undergroundManager={undergroundManager}
                 />
@@ -150,10 +148,10 @@ export const getInitialMapState = (): MapState => {
 
     undergroundManager: undergroundManager,
     nodes: {
-      redLineNodes: getRedLineNodes(undergroundManager),
-      redLineNodesNorth: getRedLineNodesNorth(undergroundManager),
-      blueLineNodesEast: getBlueLineNodesEast(undergroundManager),
-      blueLineNodesWest: getBlueLineNodesWest(undergroundManager),
+      redLineNodes: getRedLineNodes(),
+      redLineNodesNorth: getRedLineNodesNorth(),
+      blueLineNodesEast: getBlueLineNodesEast(),
+      blueLineNodesWest: getBlueLineNodesWest(),
     },
 
     tags: [
