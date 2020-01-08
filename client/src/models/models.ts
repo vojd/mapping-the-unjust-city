@@ -25,6 +25,11 @@ export class HistoricalOwner {
   currency: string;
 }
 
+export class Tag implements BaseModel {
+  name: string;
+  isActive: boolean;
+}
+
 export class Centre implements BaseModel {
 
   constructor(public name: string,
@@ -32,8 +37,8 @@ export class Centre implements BaseModel {
               public description: string,
               public status: number,
               public owner: Company | null,
-              public historicalOwners: HistoricalOwner[]
-              ) {
+              public historicalOwners: HistoricalOwner[],
+              public tags: Tag[]) {
   }
 }
 

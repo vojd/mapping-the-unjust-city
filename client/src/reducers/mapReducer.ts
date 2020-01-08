@@ -2,7 +2,8 @@ import { Action } from 'redux';
 import { actionTypes } from '../actions/Action';
 import { getInitialMapState, MapState } from '../pages/MapComponent';
 import { MapNode } from '../components/UndergroundLines';
-import { ToggleAction } from '../actions/mapActions';
+import { MapDataFetchedAction, ToggleAction } from '../actions/mapActions';
+import { Centre } from '../models/models';
 
 interface MapReducer extends Action {
   result: MapState;
@@ -86,22 +87,57 @@ const addToggleStateToNodes = ( lines: any[], actionData: ToggleAction ) => {
   });
 };
 
-const addDataFromState = ( state: MapState, actionData: ToggleAction ) => {
+const modifyNodesRecursively = ( branches: MapNode[][], actionData: MapDataFetchedAction ): MapNode[][] => {
+  return branches.map(( branch: MapNode[] ) => {
+    return branch.map(( node: MapNode ) => {
+      console.log('branch: ', node);
+
+      // does this node exist in the data we got from the backend?
+      const nodeInfo: Centre[] = actionData.result.filter(( item: Centre ) => {
+        return item.name === node.name;
+      });
+
+      if (nodeInfo.length > 0) {
+        console.log('got node info', nodeInfo);
+        // TODO: Here
+        node.tags = nodeInfo[0].tags.map(t => t);
+      }
+      return node;
+    });
+  });
+};
+
+/**
+ * Data has been fetched from backend and now we'll
+ * apply any potential changes to our client state
+ *
+ * @param {MapState} state
+ * @param {ToggleAction} actionData
+ * @returns {MapNode[]}
+ */
+const addDataFromState = ( state: MapState, actionData: MapDataFetchedAction ) => {
   let newNodes: MapNode[] = [];
 
   Object.keys(state.nodes).forEach(( key ) => {
-    console.log('key', key);
+    console.log('KEY', key);
 
     state.nodes[key].forEach(( node: MapNode ) => {
-      console.log('node', node.name, actionData.value, node.branchIds);
+      console.log('node', node.name, actionData.result, node.branchIds);
 
-      if (node.name === actionData.value) {
-        node.isActive = actionData.isOn;
-        console.log('node to active:', node);
+      // if (node.name === actionData.value) {
+      //   node.isActive = actionData.isOn;
+      //   console.log('node to active:', node);
+      // }
+
+      if (node.branches) {
+        node.branches = modifyNodesRecursively(node.branches, actionData);
       }
 
       newNodes.push(node);
     });
+
+    // modifyNodesRecursively(state.nodes[key], actionData);
+
   });
   return newNodes;
 };
@@ -126,7 +162,6 @@ export default ( state: MapState, action: any ) => {
 
     case actionTypes.MAP_DATA_FETCHED:
       console.log('MAP_DATA_FETCHED');
-      // return {...state, mapData: addDataToNodes(state.undergroundManager.lines, action)};
       return {...state, mapData: addDataFromState(state, action)};
 
     case actionTypes.TOGGLE_TAG_VISIBLE:

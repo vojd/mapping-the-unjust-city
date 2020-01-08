@@ -1,4 +1,5 @@
 import { actionTypes } from './Action';
+import { Centre } from '../models/models';
 
 export const mapMouseDown = ( e: MouseEvent | TouchEvent ) => ({
   type: actionTypes.MAP_MOUSE_DOWN,
@@ -14,6 +15,10 @@ export const mapMouseMove = ( e: MouseEvent | TouchEvent ) => ({
   type: actionTypes.MAP_MOUSE_MOVE,
   event: e
 });
+
+export interface MapDataFetchedAction {
+  result: Centre[];
+}
 
 export interface ToggleAction {
   value: string;
