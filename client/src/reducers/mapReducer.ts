@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 import { actionTypes } from '../actions/Action';
 import { getInitialMapState, MapState } from '../pages/MapComponent';
-import { MapNode, MapNodeTag } from '../components/UndergroundLines';
+import { MapNode } from '../components/UndergroundLines';
 import { MapDataFetchedAction, ToggleAction, ToggleActionData } from '../actions/mapActions';
 import { Centre } from '../models/models';
 
@@ -51,60 +51,42 @@ const getPan = ( state: MapState, action: MapReducer ) => {
 
   return state;
 };
-//
-// const addDataToNodes = ( lines: any[], action: any ) => {
-//   // walk through each underground line
-//   return lines.map(( line ) => {
-//     // which in turn has one or more nodes
-//     return line.nodes.map(( node: MapNode ) => {
-//       // Now walk through the data we got from the backend
-//       // and add missing data onto the node
-//       action.result.map(( dataNode: MapNode ) => {
-//         node.tags = [];
-//         if (dataNode.name === node.name) {
-//           node.owner = dataNode.owner;
-//           node.tags = dataNode.tags;
-//         }
-//       });
-//       return node;
-//     });
-//   });
-// };
 
+/////////////////////////////////////////////////
+// TAGS
+/////////////////////////////////////////////////
 const toggleNodeVisibility = ( node: MapNode, isVisible: boolean ) => {
   node.isVisible = isVisible;
   return node;
 };
 
 const isNodeTagMatching = ( node: MapNode, data: ToggleActionData ) => {
-  console.log('node', node.tags);
-
   return node.tags && node.tags.filter(t => t.name === data.value).length > 0;
 };
 
-const recursiveNode = ( branches: MapNode[][], data: ToggleActionData ) => {
+const toggleNodesRecursively = ( branches: MapNode[][], data: ToggleActionData ): MapNode[][] => {
+  console.log('recursive on', branches);
 
-  // console.log('recursive', branches);
   const isVisible = data.isOn;
 
-  for (let branch of branches) {
-    // console.log('branch', branch);
-    for (let node of branch) {
-      console.log('\t node', node);
-      if (isNodeTagMatching(node, data)) {
-        console.log('matching on ', node);
-
-        node = toggleNodeVisibility(node, isVisible);
-      } else {
-        node = toggleNodeVisibility(node, !isVisible);
-      }
+  return branches.map(( branch ) => {
+    return branch.map(( node ) => {
 
       if (node.branches) {
-        // console.log('\t\t has branch', node.branches);
-        recursiveNode(node.branches, data);
+        console.log('\t has branch', node);
+        node.branches = toggleNodesRecursively(node.branches, data);
       }
-    }
-  }
+
+      if (isNodeTagMatching(node, data)) {
+        // return toggleNodeVisibility(node, isVisible);
+        node.isVisible = isVisible;
+      } else {
+        // return toggleNodeVisibility(node, !isVisible);
+        node.isVisible = !isVisible;
+      }
+      return node;
+    });
+  });
 };
 
 // TODO: Doesn't handle all levels of branching, must be recursive
@@ -117,11 +99,9 @@ const addToggleStateToNodes = ( state: MapState, action: ToggleAction ) => {
     // for each underground line defined by key like: { redLineNodes: [] }
     state.nodes[key].forEach(( node: MapNode ) => {
 
-      // act on this node
-
       // act on this nodes children ( branches )
       if (node.branches) {
-        recursiveNode(node.branches, data);
+        node.branches = toggleNodesRecursively(node.branches, data);
       }
 
       // Toggle all other nodes opposite of user action
@@ -133,25 +113,31 @@ const addToggleStateToNodes = ( state: MapState, action: ToggleAction ) => {
   return state;
 };
 
-const addDataToNodes = ( branches: MapNode[][], actionData: MapDataFetchedAction ): MapNode[][] => {
+/////////////////////////////////////////////////
+// ADD data to nodes
+/////////////////////////////////////////////////
+
+/**
+ * This is where we add the actual data from the backend onto a node
+ * @param {MapNode[][]} branches
+ * @param {MapDataFetchedAction} actionData
+ * @returns {MapNode[][]}
+ */
+const recursivelyAddDataToBranches = ( branches: MapNode[][], actionData: MapDataFetchedAction ): MapNode[][] => {
 
   return branches.map(( branch: MapNode[] ) => {
     return branch.map(( node: MapNode ) => {
-      // Find a matching node by name, there should only be one or none
-      const nodeInfo: Centre[] = actionData.result.filter(( item: Centre ) => {
-        return item.name === node.name;
+      const nodeFromAPI = actionData.result.filter(( item: Centre ) => {
+        return node.name === item.name;
       });
 
-      if (nodeInfo.length > 0) {
-        const newNode = nodeInfo[0];
+      if (nodeFromAPI.length > 0) {
+        node.tags = nodeFromAPI[0].tags;
+        node.filled = nodeFromAPI[0].status;
+      }
 
-        node.isVisible = true;
-        node.filled = newNode.status;
-
-        // Add any tags from backend onto this node
-        node.tags = newNode.tags.map(t =>
-          <MapNodeTag> {name: t.name}
-        );
+      if (node.branches) {
+        node.branches = recursivelyAddDataToBranches(node.branches, actionData);
       }
       return node;
     });
@@ -172,9 +158,8 @@ const addDataFromState = ( state: MapState, actionData: MapDataFetchedAction ) =
   Object.keys(state.nodes).forEach(( key ) => {
     state.nodes[key].forEach(( node: MapNode ) => {
       if (node.branches) {
-        node.branches = addDataToNodes(node.branches, actionData);
+        node.branches = recursivelyAddDataToBranches(node.branches, actionData);
       }
-
       newNodes.push(node);
     });
   });
@@ -196,14 +181,12 @@ export default ( state: MapState, action: any ) => {
 
     case actionTypes.MAP_MOUSE_MOVE:
       const p = getPan(state, action);
-      const s = {
+      return {
         ...state,
         panX: p.panX,
         panY: p.panY,
         previousMouseCoords: p.previousMouseCoords
       };
-      return s;
-
     case actionTypes.MAP_DATA_FETCHED:
       console.log('MAP_DATA_FETCHED');
       return {...state, mapData: addDataFromState(state, action)};

@@ -133,7 +133,7 @@ export const getInitialMapState = (): MapState => {
   const undergroundManager = new UndergroundManager();
   return {
     scaleFactor: 0.8,
-    panX: -350,
+    panX: 1050,
     panY: 20,
     mat: [
       1, 0, 0,
