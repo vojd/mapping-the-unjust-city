@@ -13,7 +13,7 @@ export const CentreToolbar = ( props: any ) => {
         </div>
       </Link>
 
-      <Link to={`/ownership-history/${centreSlug}`}>
+      <Link to={`/centre/${centreSlug}/ownership-history/`}>
         <div className="station-information__toolbar__icon">
           <i className="fas fa-coins"/>
         </div>

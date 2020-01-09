@@ -29,8 +29,9 @@ class CentreComponent extends React.Component<CentreComponentProps, CentreCompon
 
   constructor(props: CentreComponentProps) {
     super(props);
-    const stationSlug = props.match.params.slug;
-    props.fetchCentre(stationSlug);
+    const slug = props.match.params.slug;
+    console.log(props);
+    props.fetchCentre(slug);
   }
 
   render() {

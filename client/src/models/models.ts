@@ -10,11 +10,11 @@ export class MapData implements BaseModel {
  * Response data and model for what a centre at a station looks like
  */
 export class Company implements BaseModel {
-  constructor(public name: string,
-              public slug: string,
-              public description: string,
-              public centres: URL[],
-              public documents: URL[]) {
+  constructor( public name: string,
+               public slug: string,
+               public description: string,
+               public centres: URL[],
+               public documents: URL[] ) {
   }
 }
 
@@ -24,6 +24,7 @@ export class HistoricalOwner {
   price: string;
   currency: string;
 }
+
 /*
 * Response data, converted into a MapNodeTag in react
  */
@@ -32,15 +33,20 @@ export class Tag implements BaseModel {
   isActive: boolean;
 }
 
+export interface ImageURL {
+  image: string;
+}
+
 export class Centre implements BaseModel {
 
-  constructor(public name: string,
-              public slug: string,
-              public description: string,
-              public status: number,
-              public owner: Company | null,
-              public historicalOwners: HistoricalOwner[],
-              public tags: Tag[]) {
+  constructor( public name: string,
+               public slug: string,
+               public description: string,
+               public status: number,
+               public owner: Company | null,
+               public historicalOwners: HistoricalOwner[],
+               public tags: Tag[],
+               public images: ImageURL[] ) {
   }
 }
 
@@ -62,7 +68,7 @@ export interface CentreResponse {
   historicalOwners: HistoricalOwner[];
 }
 
-export const createCompany = (companyResponse: CompanyResponse | null) => {
+export const createCompany = ( companyResponse: CompanyResponse | null ) => {
   if (!companyResponse) {
     return null;
   }

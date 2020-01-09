@@ -2,7 +2,7 @@ import * as React from 'react';
 import './App.css';
 import MapComponent from './pages/MapComponent';
 import { Route, Switch } from 'react-router';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { HashRouter, Link } from 'react-router-dom';
 import { CentreMediaArchive } from './components/CentreMediaArchive';
 import { CentreDetail } from './components/CentreDetail';
 import CentreComponent from './components/CentreComponent';
@@ -22,7 +22,7 @@ class App extends React.Component<any, AppState> {
   render() {
     return (
       <Provider store={store}>
-        <Router>
+        <HashRouter>
           <div className="box">
             <header className="row header">
               <ul>
@@ -33,10 +33,11 @@ class App extends React.Component<any, AppState> {
             {/*<MapComponent/>*/}
             <Switch>
               <Route exact path="/" component={MapComponent}/>
-              <Route path="/centre/:slug/" component={CentreComponent}/>/
-              <Route path="/ownership-history/:slug/" component={CentreOwnershipHistoryComponent}/>
-              <Route path="/detail-plan/:slug/" component={CentreDetail}/>
               <Route path="/centre/:slug/media-archive" component={CentreMediaArchive}/>
+              <Route path="/centre/:slug/ownership-history/" component={CentreOwnershipHistoryComponent}/>
+              <Route path="/centre/:slug/detail-plan/" component={CentreDetail}/>
+              <Route path="/centre/:slug/" component={CentreComponent}/>/
+
               <Route path="/company/:slug" component={CompanyDetail}/>
               <Route path="/company-owned-centres/:slug" component={CompanyOwnedCentres}/>
               <Route path="/about" component={MapComponent}/>
@@ -49,7 +50,7 @@ class App extends React.Component<any, AppState> {
               </div>
             </footer>
           </div>
-        </Router>
+        </HashRouter>
       </Provider>
     );
   }

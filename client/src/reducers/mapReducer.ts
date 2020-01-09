@@ -218,7 +218,6 @@ export default ( state: MapState, action: any ) => {
 
     default:
       console.log('returning initial map state', state);
-
       return getInitialMapState();
   }
 };

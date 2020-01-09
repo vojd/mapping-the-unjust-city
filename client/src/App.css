@@ -12,6 +12,15 @@ html, body {
     height: 80px;
 }
 
+svg text {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+}
+
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);
@@ -65,7 +74,7 @@ ul li {
 
 .station-information__content {
     flex-grow: 1;
-    background: url(https://upload.wikimedia.org/wikipedia/commons/3/36/Fru%C3%A4ngen_2010a.jpg);
+    /*background: url(https://upload.wikimedia.org/wikipedia/commons/3/36/Fru%C3%A4ngen_2010a.jpg);*/
     text-align: center;
 }
 

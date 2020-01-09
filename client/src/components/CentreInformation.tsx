@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Centre } from '../models/models';
 import { CentreToolbar } from './CentreToolbar';
 
-interface CentreInformationProps {
+export interface CentreInformationProps {
   centre: Centre;
 }
 
@@ -15,10 +15,16 @@ export const CentreInformation = ( props: CentreInformationProps ) => {
     return null;
   }
 
+  console.log('centre info', props);
+
+  const pageStyle = {
+    background: `url(${props.centre.images[0].image})`
+  };
+
   const url = `/company-owned-centres/${props.centre.owner.slug}`;
   return (
     <div className="row content flex-vertical">
-      <div className="station-information__content">
+      <div className="station-information__content" style={pageStyle}>
         <div className="content-header">
           <h2>{props.centre.name}</h2>
         </div>
@@ -34,7 +40,7 @@ export const CentreInformation = ( props: CentreInformationProps ) => {
         </div>
       </div>
 
-      <CentreToolbar centreSlug={props.centre.slug} companySlug={props.centre.owner.slug} />
+      <CentreToolbar centreSlug={props.centre.slug} companySlug={props.centre.owner.slug}/>
 
       <div className="station-information__minimap"/>
     </div>
