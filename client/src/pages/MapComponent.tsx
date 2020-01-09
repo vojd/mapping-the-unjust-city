@@ -19,6 +19,7 @@ import { fetchMapDataAction } from '../actions/fetchMapDataAction';
 import { ThunkDispatch } from 'redux-thunk';
 import { Toggle } from '../components/Toggle';
 import { fetchTagDataAction } from '../actions/fetchTagDataAction';
+import { fetchCompaniesAction } from '../actions/fetchCompaniesAction';
 
 const width = 1024;
 const height = 768;
@@ -151,7 +152,8 @@ export const getInitialMapState = (): MapState => {
       blueLineNodesWest: getBlueLineNodesWest(),
     },
 
-    tags: []
+    tags: [],
+    companies: [],
   };
 };
 
@@ -165,6 +167,7 @@ export class MapProps {
 
   fetchMapData: Function;
   fetchTagData: Function;
+  fetchCompanies: Function;
 
   undergroundManager: UndergroundManager;
   nodes: {
@@ -175,6 +178,7 @@ export class MapProps {
   };
 
   tags: MapNodeTag[];
+  companies: any[];
 
   toggleTagVisible: Function;
 }
@@ -200,6 +204,7 @@ export class MapState {
   };
 
   tags: any[];
+  companies: any[];
 }
 
 class MapComponent extends React.Component<MapProps, AppState> {
@@ -208,6 +213,7 @@ class MapComponent extends React.Component<MapProps, AppState> {
     super(props);
     props.fetchMapData();
     props.fetchTagData();
+    props.fetchCompanies();
   }
 
   onMouseDown = ( e: SyntheticEvent ) => {
@@ -293,29 +299,26 @@ class MapComponent extends React.Component<MapProps, AppState> {
               parentNode={centralStation}
               undergroundManager={this.props.undergroundManager}
             />
-
-            {/*<UndergroundLine*/}
-            {/*nodes={greenLineNodesSouth}*/}
-            {/*parentNode={centralStation}*/}
-            {/*undergroundManager={this.undergroundManager}*/}
-            {/*/>*/}
-
-            {/*<UndergroundLine*/}
-            {/*nodes={greenLineNodesWest}*/}
-            {/*parentNode={centralStation}*/}
-            {/*undergroundManager={this.undergroundManager}*/}
-            {/*/>*/}
-
           </g>
         </svg>
 
-        <div className="legend">
-          <h4>Legend</h4>
-          {
-            this.props.tags.map(( t ) => {
-              return (<Toggle key={t.name} value={t.name} toggleTagVisible={this.toggleTagVisible}/>);
-            })
-          }
+        <div className="legend-container">
+          <div className="legend">
+            {
+              this.props.tags.map(( t ) => {
+                return (<Toggle key={t.name} value={t.name} toggleTagVisible={this.toggleTagVisible}/>);
+              })
+            }
+          </div>
+
+          {/* this could be placed at a sidebar*/}
+          <div className="legend">
+            {
+              this.props.companies.map(( t ) => {
+                return (<Toggle key={t.name} value={t.name} toggleTagVisible={this.toggleTagVisible}/>);
+              })
+            }
+          </div>
         </div>
       </div>
     );
@@ -330,10 +333,10 @@ const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) =
   return {
     fetchMapData: () => dispatch(fetchMapDataAction()),
     fetchTagData: () => dispatch(fetchTagDataAction()),
+    fetchCompanies: () => dispatch(fetchCompaniesAction()),
     mouseDown: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseDown(e)),
     mouseUp: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseUp(e)),
     mouseMove: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseMove(e)),
-
     toggleTagVisible: ( val: string, isOn: boolean ) => dispatch(toggleTagVisibleAction(val, isOn))
   };
 };

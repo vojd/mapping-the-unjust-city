@@ -6,6 +6,9 @@ export const actionTypes = {
   COMPANY_DETAILS_FETCHED: '@@company_details/FETCHED',
   COMPANY_DETAILS_FETCH_FAILED: '@@company_details/FETCH_FAILED',
 
+  COMPANIES_FETCHED: '@@company_details/COMPANIES_FETCHED',
+  COMPANIES_FETCHED_FAILED: '@@company_details/COMPANIES_FETCHED_FAILED',
+
   OWNERSHIP_HISTORY_FETCHED: '@@ownership_history/FETCHED',
   OWNERSHIP_HISTORY_FETCHED_FAILED: '@@ownership_history/FETCH_FAILED',
 

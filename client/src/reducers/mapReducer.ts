@@ -199,6 +199,13 @@ export default ( state: MapState, action: any ) => {
       console.log('state', state);
       return {...state, mapData: addToggleStateToNodes(state, action)};
 
+    case actionTypes.COMPANIES_FETCHED:
+      console.log('COMPANIES_FETCHED', action);
+      const obvj = {...state, companies: action.result};
+      console.log('new obj', obvj);
+
+      return obvj;
+
     default:
       console.log('returning initial map state', state);
       return getInitialMapState();

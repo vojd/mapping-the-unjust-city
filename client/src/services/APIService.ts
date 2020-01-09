@@ -8,6 +8,10 @@ export class APIService extends HttpService {
     return this.httpService.get(`/company/${slug}`);
   }
 
+  public getCompanies<CompanyInformation>(): Promise<CompanyInformation[]> {
+    return this.httpService.get(`/company/`);
+  }
+
   public getCentreBySlug<Centre>( slug: string ): Promise<Centre> {
     return this.httpService.get(`/centre/${this.slugify(slug)}`);
   }

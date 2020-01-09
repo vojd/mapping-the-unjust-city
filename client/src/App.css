@@ -161,8 +161,14 @@ table tr td {
 }
 
 /* component styles */
+.legend-container {
+    position: absolute;;
+    bottom: 0;
+    padding: 20px;
+}
+
 .legend {
-    position: absolute;
+    position: relative;
     bottom: 0;
     padding: 20px;
 }
