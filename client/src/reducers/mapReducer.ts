@@ -2,7 +2,7 @@ import { Action } from 'redux';
 import { actionTypes } from '../actions/Action';
 import { getInitialMapState, MapState } from '../pages/MapComponent';
 import { MapNode, MapNodeTag } from '../components/UndergroundLines';
-import { MapDataFetchedAction, ToggleAction } from '../actions/mapActions';
+import { MapDataFetchedAction, ToggleAction, ToggleActionData } from '../actions/mapActions';
 import { Centre } from '../models/models';
 
 interface MapReducer extends Action {
@@ -71,20 +71,66 @@ const getPan = ( state: MapState, action: MapReducer ) => {
 //   });
 // };
 
-const addToggleStateToNodes = ( lines: any[], actionData: ToggleAction ) => {
-  return lines.map(( line ) => {
-    console.log('line', line);
+const toggleNodeVisibility = ( node: MapNode, isVisible: boolean ) => {
+  node.isVisible = isVisible;
+  return node;
+};
 
-    return line.nodes.map(( node: MapNode ) => {
-      console.log('node', node.tags, actionData.value);
+const isNodeTagMatching = ( node: MapNode, data: ToggleActionData ) => {
+  console.log('node', node.tags);
 
-      if (node.name === actionData.value) {
-        node.isActive = actionData.isOn;
-        console.log('node to active:', node);
+  return node.tags && node.tags.filter(t => t.name === data.value).length > 0;
+};
 
+const recursiveNode = ( branches: MapNode[][], data: ToggleActionData ) => {
+
+  // console.log('recursive', branches);
+  const isVisible = data.isOn;
+
+  for (let branch of branches) {
+    // console.log('branch', branch);
+    for (let node of branch) {
+      console.log('\t node', node);
+      if (isNodeTagMatching(node, data)) {
+        console.log('matching on ', node);
+
+        node = toggleNodeVisibility(node, isVisible);
+      } else {
+        node = toggleNodeVisibility(node, !isVisible);
       }
+
+      if (node.branches) {
+        // console.log('\t\t has branch', node.branches);
+        recursiveNode(node.branches, data);
+      }
+    }
+  }
+};
+
+// TODO: Doesn't handle all levels of branching, must be recursive
+const addToggleStateToNodes = ( state: MapState, action: ToggleAction ) => {
+
+  const data = action.data;
+
+  // Iterate over all the underground lines by key
+  Object.keys(state.nodes).forEach(( key: string ) => {
+    // for each underground line defined by key like: { redLineNodes: [] }
+    state.nodes[key].forEach(( node: MapNode ) => {
+
+      // act on this node
+
+      // act on this nodes children ( branches )
+      if (node.branches) {
+        const result = recursiveNode(node.branches, data);
+        console.log('recursion over', result);
+      }
+      // Toggle all other nodes opposite of user action
+      toggleNodeVisibility(node, !data.isOn);
     });
   });
+  console.log(action);
+
+  return state;
 };
 
 const addDataToNodes = ( branches: MapNode[][], actionData: MapDataFetchedAction ): MapNode[][] => {
@@ -101,7 +147,7 @@ const addDataToNodes = ( branches: MapNode[][], actionData: MapDataFetchedAction
 
         const newNode = nodeInfo[0];
 
-        node.isActive = true;
+        node.isVisible = true;
         node.filled = newNode.status;
 
         // Add any tags from backend onto this node
@@ -164,7 +210,7 @@ export default ( state: MapState, action: any ) => {
     case actionTypes.TOGGLE_TAG_VISIBLE:
       console.log('TOGGLE_TAG_VISIBLE', action.data);
       console.log('state', state);
-      return {...state, mapData: addToggleStateToNodes(state.undergroundManager.lines, action.data)};
+      return {...state, mapData: addToggleStateToNodes(state, action)};
       break;
     default:
       console.log('returning initial map state', state);

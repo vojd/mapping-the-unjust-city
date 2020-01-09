@@ -79,7 +79,7 @@ export const MapTextRight = ( props: MapTextProps ) => {
 };
 
 export const MapText = ( props: MapTextProps ) => {
-  if (!props.node.isActive) {
+  if (!props.node.isVisible) {
     return (
       <p>inactive</p>
     );

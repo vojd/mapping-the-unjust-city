@@ -20,14 +20,19 @@ export interface MapDataFetchedAction {
   result: Centre[];
 }
 
-export interface ToggleAction {
+export interface ToggleActionData {
   value: string;
   isOn: boolean;
 }
 
+export interface ToggleAction {
+  type: string;
+  data: ToggleActionData;
+}
+
 export const toggleTagVisibleAction = ( val: string, isOn: boolean ) => ({
   type: actionTypes.TOGGLE_TAG_VISIBLE,
-  data: <ToggleAction> {
+  data: <ToggleActionData> {
     value: val,
     isOn
   }

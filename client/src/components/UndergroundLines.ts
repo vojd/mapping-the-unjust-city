@@ -20,7 +20,7 @@ export interface MapNode {
   y: number;
   lengthMultiplier?: number; // length multiplier, undefined = 1
 
-  isActive: boolean;
+  isVisible: boolean;
 }
 
 interface UndergroundLine {

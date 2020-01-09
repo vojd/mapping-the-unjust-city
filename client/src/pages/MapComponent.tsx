@@ -73,10 +73,6 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
     const node = nodes[i];
     const previousNode = i === 0 ? parentNode : nodes[i - 1];
 
-    if (!node.isActive) {
-      continue;
-    }
-
     const lengthMultiplier = node.lengthMultiplier ? node.lengthMultiplier : 1;
     const x = xFromGrid(previousNode.x, node.direction, lengthMultiplier);
     const y = yFromGrid(previousNode.y, node.direction, lengthMultiplier);

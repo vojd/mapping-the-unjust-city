@@ -23,7 +23,7 @@ const station = ( name: string,
     owner: owner ? owner : null,
     x: 0, y: 0,
     lengthMultiplier: lengthMultiplier,
-    isActive: true
+    isVisible: true
   };
 
   // TODO: Refactor away and replace with actual branch nodes instead, see next if-statement
