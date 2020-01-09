@@ -121,9 +121,9 @@ const addToggleStateToNodes = ( state: MapState, action: ToggleAction ) => {
 
       // act on this nodes children ( branches )
       if (node.branches) {
-        const result = recursiveNode(node.branches, data);
-        console.log('recursion over', result);
+        recursiveNode(node.branches, data);
       }
+
       // Toggle all other nodes opposite of user action
       toggleNodeVisibility(node, !data.isOn);
     });
@@ -134,17 +134,15 @@ const addToggleStateToNodes = ( state: MapState, action: ToggleAction ) => {
 };
 
 const addDataToNodes = ( branches: MapNode[][], actionData: MapDataFetchedAction ): MapNode[][] => {
+
   return branches.map(( branch: MapNode[] ) => {
     return branch.map(( node: MapNode ) => {
-
       // Find a matching node by name, there should only be one or none
       const nodeInfo: Centre[] = actionData.result.filter(( item: Centre ) => {
         return item.name === node.name;
       });
 
       if (nodeInfo.length > 0) {
-        console.log('MATCHING on ', nodeInfo);
-
         const newNode = nodeInfo[0];
 
         node.isVisible = true;
@@ -172,8 +170,6 @@ const addDataFromState = ( state: MapState, actionData: MapDataFetchedAction ) =
   let newNodes: MapNode[] = [];
 
   Object.keys(state.nodes).forEach(( key ) => {
-    console.log('KEY', key);
-
     state.nodes[key].forEach(( node: MapNode ) => {
       if (node.branches) {
         node.branches = addDataToNodes(node.branches, actionData);
@@ -183,6 +179,11 @@ const addDataFromState = ( state: MapState, actionData: MapDataFetchedAction ) =
     });
   });
   return newNodes;
+};
+
+const addTagsFromAction = ( state: MapState, action: any ) => {
+  state.tags = action.result;
+  return state;
 };
 
 export default ( state: MapState, action: any ) => {
@@ -206,12 +207,15 @@ export default ( state: MapState, action: any ) => {
     case actionTypes.MAP_DATA_FETCHED:
       console.log('MAP_DATA_FETCHED');
       return {...state, mapData: addDataFromState(state, action)};
+    case actionTypes.TAG_DATA_FETCHED:
+      console.log('TAG_DATA_FETCHED', action);
+      return {...state, mapData: addTagsFromAction(state, action)};
 
     case actionTypes.TOGGLE_TAG_VISIBLE:
       console.log('TOGGLE_TAG_VISIBLE', action.data);
       console.log('state', state);
       return {...state, mapData: addToggleStateToNodes(state, action)};
-      break;
+
     default:
       console.log('returning initial map state', state);
 

@@ -20,6 +20,10 @@ export class APIService extends HttpService {
     return this.httpService.get(`/centre/`);
   }
 
+  public getTags<Tag>(): Promise<Tag[]> {
+    return this.httpService.get(`/tag/`);
+  }
+
   public slugify = ( slug: string ): string => {
     return slug
       .toLocaleLowerCase()

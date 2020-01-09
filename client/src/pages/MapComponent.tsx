@@ -18,6 +18,7 @@ import { positionFixed } from '../react-styles/styles';
 import { fetchMapDataAction } from '../actions/fetchMapDataAction';
 import { ThunkDispatch } from 'redux-thunk';
 import { Toggle } from '../components/Toggle';
+import { fetchTagDataAction } from '../actions/fetchTagDataAction';
 
 const width = 1024;
 const height = 768;
@@ -150,14 +151,7 @@ export const getInitialMapState = (): MapState => {
       blueLineNodesWest: getBlueLineNodesWest(),
     },
 
-    tags: [
-      {
-        name: 'Private'
-      },
-      {
-        name: 'Municipality'
-      }
-    ]
+    tags: []
   };
 };
 
@@ -170,6 +164,7 @@ export class MapProps {
   panY: number;
 
   fetchMapData: Function;
+  fetchTagData: Function;
 
   undergroundManager: UndergroundManager;
   nodes: {
@@ -212,6 +207,7 @@ class MapComponent extends React.Component<MapProps, AppState> {
   constructor( props: MapProps ) {
     super(props);
     props.fetchMapData();
+    props.fetchTagData();
   }
 
   onMouseDown = ( e: SyntheticEvent ) => {
@@ -333,6 +329,7 @@ const mapStateToProps = ( state: AppState ) => {
 const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) => {
   return {
     fetchMapData: () => dispatch(fetchMapDataAction()),
+    fetchTagData: () => dispatch(fetchTagDataAction()),
     mouseDown: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseDown(e)),
     mouseUp: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseUp(e)),
     mouseMove: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseMove(e)),
