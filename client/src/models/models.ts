@@ -24,7 +24,9 @@ export class HistoricalOwner {
   price: string;
   currency: string;
 }
-
+/*
+* Response data, converted into a MapNodeTag in react
+ */
 export class Tag implements BaseModel {
   name: string;
   isActive: boolean;

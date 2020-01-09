@@ -1,6 +1,5 @@
 export interface MapNodeTag {
   name: string;
-  isActive: boolean;
 }
 
 export interface MapNode {

@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 import { actionTypes } from '../actions/Action';
 import { getInitialMapState, MapState } from '../pages/MapComponent';
-import { MapNode } from '../components/UndergroundLines';
+import { MapNode, MapNodeTag } from '../components/UndergroundLines';
 import { MapDataFetchedAction, ToggleAction } from '../actions/mapActions';
 import { Centre } from '../models/models';
 
@@ -87,7 +87,7 @@ const addToggleStateToNodes = ( lines: any[], actionData: ToggleAction ) => {
   });
 };
 
-const modifyNodesRecursively = ( branches: MapNode[][], actionData: MapDataFetchedAction ): MapNode[][] => {
+const addDataToNodes = ( branches: MapNode[][], actionData: MapDataFetchedAction ): MapNode[][] => {
   return branches.map(( branch: MapNode[] ) => {
     return branch.map(( node: MapNode ) => {
       console.log('branch: ', node);
@@ -99,8 +99,21 @@ const modifyNodesRecursively = ( branches: MapNode[][], actionData: MapDataFetch
 
       if (nodeInfo.length > 0) {
         console.log('got node info', nodeInfo);
-        // TODO: Here
-        node.tags = nodeInfo[0].tags.map(t => t);
+
+        // Find a matching node by name, there should only be one or none
+        const nodeFromBackend = nodeInfo.filter(n => n.name === node.name);
+        if (nodeFromBackend) {
+          console.log('have matching node', nodeFromBackend);
+          const n = nodeFromBackend[0];
+          // If we now have a matching node from the backend then we'll activate it on the map
+          node.isActive = true;
+          node.filled = n.status;
+        }
+
+        // Add any tags from backend onto this node
+        node.tags = nodeInfo[0].tags.map(t =>
+          <MapNodeTag> {name: t.name}
+        );
       }
       return node;
     });
@@ -108,7 +121,7 @@ const modifyNodesRecursively = ( branches: MapNode[][], actionData: MapDataFetch
 };
 
 /**
- * Data has been fetched from backend and now we'll
+ * Map data has been fetched from backend and now we'll
  * apply any potential changes to our client state
  *
  * @param {MapState} state
@@ -130,7 +143,7 @@ const addDataFromState = ( state: MapState, actionData: MapDataFetchedAction ) =
       // }
 
       if (node.branches) {
-        node.branches = modifyNodesRecursively(node.branches, actionData);
+        node.branches = addDataToNodes(node.branches, actionData);
       }
 
       newNodes.push(node);
