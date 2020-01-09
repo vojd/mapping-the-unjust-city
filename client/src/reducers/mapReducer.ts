@@ -90,28 +90,22 @@ const addToggleStateToNodes = ( lines: any[], actionData: ToggleAction ) => {
 const addDataToNodes = ( branches: MapNode[][], actionData: MapDataFetchedAction ): MapNode[][] => {
   return branches.map(( branch: MapNode[] ) => {
     return branch.map(( node: MapNode ) => {
-      console.log('branch: ', node);
 
-      // does this node exist in the data we got from the backend?
+      // Find a matching node by name, there should only be one or none
       const nodeInfo: Centre[] = actionData.result.filter(( item: Centre ) => {
         return item.name === node.name;
       });
 
       if (nodeInfo.length > 0) {
-        console.log('got node info', nodeInfo);
+        console.log('MATCHING on ', nodeInfo);
 
-        // Find a matching node by name, there should only be one or none
-        const nodeFromBackend = nodeInfo.filter(n => n.name === node.name);
-        if (nodeFromBackend) {
-          console.log('have matching node', nodeFromBackend);
-          const n = nodeFromBackend[0];
-          // If we now have a matching node from the backend then we'll activate it on the map
-          node.isActive = true;
-          node.filled = n.status;
-        }
+        const newNode = nodeInfo[0];
+
+        node.isActive = true;
+        node.filled = newNode.status;
 
         // Add any tags from backend onto this node
-        node.tags = nodeInfo[0].tags.map(t =>
+        node.tags = newNode.tags.map(t =>
           <MapNodeTag> {name: t.name}
         );
       }
@@ -135,22 +129,12 @@ const addDataFromState = ( state: MapState, actionData: MapDataFetchedAction ) =
     console.log('KEY', key);
 
     state.nodes[key].forEach(( node: MapNode ) => {
-      console.log('node', node.name, actionData.result, node.branchIds);
-
-      // if (node.name === actionData.value) {
-      //   node.isActive = actionData.isOn;
-      //   console.log('node to active:', node);
-      // }
-
       if (node.branches) {
         node.branches = addDataToNodes(node.branches, actionData);
       }
 
       newNodes.push(node);
     });
-
-    // modifyNodesRecursively(state.nodes[key], actionData);
-
   });
   return newNodes;
 };

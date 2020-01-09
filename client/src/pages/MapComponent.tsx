@@ -260,8 +260,8 @@ class MapComponent extends React.Component<MapProps, AppState> {
     return (
       <div className="full-screen" style={positionFixed}>
         <svg
-          width="1024"
-          height="768"
+          width="100%"
+          height="100%"
           onMouseDown={this.onMouseDown}
           onTouchStart={this.onMouseDown}
           onMouseUp={this.onMouseUp}

@@ -26,7 +26,8 @@ class CentreAdmin(admin.ModelAdmin):
     inlines = [ImageInline, DocumentInline, OwnershipHistoryInline]
 
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'owner', 'get_tags', )
+    list_display = ('name', 'owner', 'get_tags',)
+    list_filter = ('tags',)
 
     def get_tags(self, obj):
         return ', '.join([s.name for s in obj.tags.all()])
