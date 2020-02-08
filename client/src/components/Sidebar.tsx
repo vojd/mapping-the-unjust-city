@@ -7,6 +7,7 @@ import { Centre } from '../models/models';
 import { RouteLocation, RouteMatch } from './CentreComponent';
 import { fetchCentreAction } from '../actions/fetchCentreAction';
 import { Route, Switch, withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export interface SidebarProps {
   match: RouteMatch;
@@ -20,10 +21,10 @@ export interface SidebarState {
 }
 
 const CentreHome = ( props: any ) => {
-  console.log(props);
+  const {centre} = props;
 
   return (
-    <div>HOME</div>
+    <div>{centre ? centre.name : ''}</div>
   );
 };
 
@@ -38,6 +39,13 @@ const CentreOwners = ( props: any ) => {
   console.log(props);
   return (
     <div>CENTRE OWNERS</div>
+  );
+};
+
+const CentreDocuments = ( props: any ) => {
+  console.log('documents', props);
+  return (
+    <div>CENTRE DOCUMENTS</div>
   );
 };
 
@@ -60,14 +68,50 @@ class Sidebar extends React.Component<SidebarProps, SidebarState> {
   }
 
   render() {
+    const slug = this.props.match.params.slug;
     return (
-      <div className="sidebar">
+      <div className="sidebar shadow">
         <div>
-          <Switch>
-            <Route exact path="/centre/:slug" component={CentreHome}/>
-            <Route path="/centre/:slug/detail-plan" component={CentreDetailPlan}/>
-            <Route path="/centre/:slug/owners" component={CentreOwners}/>
-          </Switch>
+          <div className="centre_top_image">
+            IMAGE
+          </div>
+
+          <div>
+            <div className="centre_information__menu">
+              <Link to={`/centre/${slug}`}>
+                <div className="station-information__menu__icon">
+                  <i className="fas fa-users"/>
+                </div>
+              </Link>
+
+              {/*Detaljplan*/}
+              <Link to={`/centre/${slug}/detail-plan`}>
+                <div className="station-information__menu__icon">
+                  <i className="fas fa-map"/>
+                </div>
+              </Link>
+
+              <Link to={`/centre/${slug}/owners`}>
+                <div className="station-information__menu__icon">
+                  <i className="fas fa-coins"/>
+                </div>
+              </Link>
+              <Link to={`/centre/${slug}/documents`}>
+                <div className="station-information__menu__icon">
+                  <i className="fas fa-question"/>
+                </div>
+              </Link>
+            </div>
+          </div>
+
+          <div className="centre_main">
+            <Switch>
+              <Route exact path="/centre/:slug" render={() => <CentreHome centre={this.props.centre}/>}/>
+              <Route path="/centre/:slug/detail-plan" component={CentreDetailPlan}/>
+              <Route path="/centre/:slug/owners" component={CentreOwners}/>
+              <Route path="/centre/:slug/documents" component={CentreDocuments}/>
+            </Switch>
+          </div>
         </div>
       </div>
     );

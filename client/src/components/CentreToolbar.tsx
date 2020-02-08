@@ -6,7 +6,7 @@ export const CentreToolbar = ( props: any ) => {
   const companySlug = props.companySlug;
 
   return (
-    <div className="station-information__toolbar">
+    <div className="centre_information__menu">
       <Link to={`/company/${companySlug ? companySlug : ''}`}>
         <div className="station-information__toolbar__icon">
           <i className="fas fa-users"/>

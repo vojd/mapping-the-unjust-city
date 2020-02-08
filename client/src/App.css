@@ -83,16 +83,24 @@ ul li {
     background: #000;
 }
 
-.station-information__toolbar {
-    display: flex;
-    flex-direction: row;
+/* centre */
+
+.centre_top_image {
+    height: 25vh;
 }
 
-.station-information__toolbar > a {
+.centre_information__menu {
+    display: flex;
+    flex-direction: row;
+
+    height: 10vh;
+}
+
+.centre_information__menu > a {
     flex: 1;
 }
 
-.station-information__toolbar__icon {
+.station-information__menu__icon {
     flex: 1;
 
     display: flex;
@@ -177,11 +185,18 @@ table tr td {
 .sidebar {
     z-index: 10;
     width: 50%;
+    max-width: 320px;
     height: 100vh;
     margin: 0;
-    padding: 0;
+    padding: 32px;
     position: absolute;
 
     background: #fff;
     border: 1px solid #eee;
+}
+
+.shadow {
+    -webkit-box-shadow: 10px 10px 5px -8px rgba(201, 201, 201, 1);
+    -moz-box-shadow: 10px 10px 5px -8px rgba(201, 201, 201, 1);
+    box-shadow: 10px 10px 5px -8px rgba(201, 201, 201, 1);
 }
