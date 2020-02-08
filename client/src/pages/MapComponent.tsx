@@ -207,7 +207,7 @@ export class MapState {
   companies: any[];
 }
 
-class MapComponent extends React.Component<MapProps, AppState> {
+export class MapComponent extends React.Component<MapProps, AppState> {
 
   constructor( props: MapProps ) {
     super(props);

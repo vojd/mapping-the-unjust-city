@@ -2,16 +2,30 @@ import * as React from 'react';
 import './App.css';
 import MapComponent from './pages/MapComponent';
 import { Route, Switch } from 'react-router';
-import { HashRouter, Link } from 'react-router-dom';
-import { CentreMediaArchive } from './components/CentreMediaArchive';
-import { CentreDetail } from './components/CentreDetail';
-import CentreComponent from './components/CentreComponent';
-import CentreOwnershipHistoryComponent from './components/CentreOwnershipHistoryComponent';
-import CompanyOwnedCentres from './components/CompanyOwnedCentres';
-import CompanyDetail from './components/CompanyDetail';
+import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import { AppState } from './state/AppState';
+
+const Sidebar = (props: any) => {
+  console.log('here', props);
+
+  return (
+    <div className="sidebar">
+      <div className="row">
+        background image
+      </div>
+
+      <div className="row">
+        navigation menu
+      </div>
+
+      <div>
+        body
+      </div>
+    </div>
+  );
+};
 
 class App extends React.Component<any, AppState> {
 
@@ -25,30 +39,17 @@ class App extends React.Component<any, AppState> {
         <HashRouter>
           <div className="box">
             <header className="row header">
-              <ul>
-                <li><Link to="/">Home</Link></li>
-              </ul>
+
+              <Switch>
+                <Route exact path="/centre/:slug" component={MapComponent}/>
+                <Route exact path="/" component={MapComponent}/>
+              </Switch>
             </header>
 
-            {/*<MapComponent/>*/}
             <Switch>
-              <Route exact path="/" component={MapComponent}/>
-              <Route path="/centre/:slug/media-archive" component={CentreMediaArchive}/>
-              <Route path="/centre/:slug/ownership-history/" component={CentreOwnershipHistoryComponent}/>
-              <Route path="/centre/:slug/detail-plan/" component={CentreDetail}/>
-              <Route path="/centre/:slug/" component={CentreComponent}/>/
-
-              <Route path="/company/:slug" component={CompanyDetail}/>
-              <Route path="/company-owned-centres/:slug" component={CompanyOwnedCentres}/>
-              <Route path="/about" component={MapComponent}/>
-              <Route path="/topics" component={MapComponent}/>
+              <Route path="/centre/:slug" component={Sidebar}/>
             </Switch>
 
-            <footer className="row footer">
-              <div className="go-back">
-                <Link to="/"> &#8592; </Link>
-              </div>
-            </footer>
           </div>
         </HashRouter>
       </Provider>

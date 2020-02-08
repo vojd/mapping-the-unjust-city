@@ -172,3 +172,14 @@ table tr td {
     bottom: 0;
     padding: 20px;
 }
+
+/* sidebar */
+.sidebar {
+    z-index: 10;
+    border: 1px solid black;
+    width: 50%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+}
