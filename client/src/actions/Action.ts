@@ -14,6 +14,7 @@ export const actionTypes = {
 
   CURRENT_NODE_CHANGED: '@@current_node/CURRENT_NODE_CHANGED',
 
+  MAP_CLICKED: '@@map/MAP_CLICKED',
   MAP_MOUSE_DOWN: '@@map/MAP_MOUSE_DOWN',
   MAP_MOUSE_UP: '@@map/MAP_MOUSE_UP',
   MAP_MOUSE_MOVE: '@@map/MAP_MOUSE_MOVE',

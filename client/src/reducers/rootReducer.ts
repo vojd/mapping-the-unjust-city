@@ -1,15 +1,10 @@
-import { combineReducers } from 'redux';
 import { AppState } from '../state/AppState';
-import stationReducer from './stationReducer';
-import companyReducer from './companyReducer';
-import currentNodeReducer from './currentNodeReducer';
+import { combineReducers } from 'redux';
 import mapReducer from './mapReducer';
-import mapDataReducer from './mapDataReducer';
+import centreReducer from './centreReducer';
 
 export default combineReducers<AppState>({
-  mapData: mapDataReducer, // Data from backend
-  centre: stationReducer,
-  company: companyReducer,
-  currentNode: currentNodeReducer,
+  centre: centreReducer,
   mapState: mapReducer,
+  // company: companyReducer,
 });

@@ -6,26 +6,7 @@ import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import { AppState } from './state/AppState';
-
-const Sidebar = (props: any) => {
-  console.log('here', props);
-
-  return (
-    <div className="sidebar">
-      <div className="row">
-        background image
-      </div>
-
-      <div className="row">
-        navigation menu
-      </div>
-
-      <div>
-        body
-      </div>
-    </div>
-  );
-};
+import Sidebar from './components/Sidebar';
 
 class App extends React.Component<any, AppState> {
 
@@ -42,7 +23,7 @@ class App extends React.Component<any, AppState> {
 
               <Switch>
                 <Route exact path="/centre/:slug" component={MapComponent}/>
-                <Route exact path="/" component={MapComponent}/>
+                <Route path="/" component={MapComponent}/>
               </Switch>
             </header>
 
