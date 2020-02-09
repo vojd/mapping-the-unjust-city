@@ -89,6 +89,10 @@ ul li {
     height: 25vh;
 }
 
+.centre_top_image img {
+     width: 100%;
+ }
+
 .centre_information__menu {
     display: flex;
     flex-direction: row;

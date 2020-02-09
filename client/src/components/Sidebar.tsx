@@ -8,6 +8,7 @@ import { RouteLocation, RouteMatch } from './CentreComponent';
 import { fetchCentreAction } from '../actions/fetchCentreAction';
 import { Route, Switch, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import CentreDocuments from './CentreDocuments';
 
 export interface SidebarProps {
   match: RouteMatch;
@@ -24,7 +25,13 @@ const CentreHome = ( props: any ) => {
   const {centre} = props;
 
   return (
-    <div>{centre ? centre.name : ''}</div>
+    <div>
+      <h2>{centre ? centre.name : ''}</h2>
+
+      <div>
+        {centre ? centre.description : ''}
+      </div>
+    </div>
   );
 };
 
@@ -35,17 +42,37 @@ const CentreDetailPlan = ( props: any ) => {
   );
 };
 
-const CentreOwners = ( props: any ) => {
+export interface TheProps {
+  centre: Centre;
+}
+
+const CentreOwners = ( props: TheProps ) => {
   console.log(props);
+  const {centre: centre} = props;
+
   return (
-    <div>CENTRE OWNERS</div>
+    <div>
+      {
+        centre.historicalOwners.map(( owner: any, id: number ) => {
+          return (
+            <div key={id}>
+              <div>{owner.company.name}</div>
+              <div>{owner.year}</div>
+              <div>{owner.price} {owner.currency}</div>
+            </div>
+          );
+        })
+      }
+    </div>
   );
 };
 
-const CentreDocuments = ( props: any ) => {
-  console.log('documents', props);
+const CentreMainImage = ( props: any ) => {
+  const {centre} = props;
+  const {images} = centre;
+  const imageObj = images ? images[0] : null;
   return (
-    <div>CENTRE DOCUMENTS</div>
+    <img src={imageObj.image} alt=""/>
   );
 };
 
@@ -73,7 +100,7 @@ class Sidebar extends React.Component<SidebarProps, SidebarState> {
       <div className="sidebar shadow">
         <div>
           <div className="centre_top_image">
-            IMAGE
+            {this.props.centre ? <CentreMainImage centre={this.props.centre}/> : ''}
           </div>
 
           <div>
@@ -108,8 +135,19 @@ class Sidebar extends React.Component<SidebarProps, SidebarState> {
             <Switch>
               <Route exact path="/centre/:slug" render={() => <CentreHome centre={this.props.centre}/>}/>
               <Route path="/centre/:slug/detail-plan" component={CentreDetailPlan}/>
-              <Route path="/centre/:slug/owners" component={CentreOwners}/>
-              <Route path="/centre/:slug/documents" component={CentreDocuments}/>
+              <Route
+                path="/centre/:slug/owners"
+                render={() => {
+                  return this.props.centre ? <CentreOwners centre={this.props.centre}/> : '';
+                }}
+              />
+
+              <Route
+                path="/centre/:slug/documents"
+                render={() => {
+                  return this.props.centre ? <CentreDocuments centre={this.props.centre}/> : '';
+                }}
+              />
             </Switch>
           </div>
         </div>

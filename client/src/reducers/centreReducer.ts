@@ -12,6 +12,11 @@ export default ( state: AppState, action: CentreAction ) => {
     case actionTypes.STATION_FETCHED:
       console.log('actionTypes.STATION_FETCHED centre fetched', action.result);
       return {...state, centre: action.result};
+
+    case actionTypes.DOCUMENTS_FETCHED:
+      console.log('reducer actionTypes.DOCUMENTS_FETCHED', action);
+      return state;
+
     default:
       return state || null;
   }
