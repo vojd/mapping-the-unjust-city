@@ -1,11 +1,10 @@
 from rest_framework import serializers, viewsets
 
-from api.centre import CentreSerializer
 from centres.models import Document, Tag
 
 
 class DocumentSerializer(serializers.ModelSerializer):
-    centre = CentreSerializer()
+    # centre = CentreSerializer()
 
     class Meta:
         model = Document
