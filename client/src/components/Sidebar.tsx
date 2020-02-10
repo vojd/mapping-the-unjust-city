@@ -97,10 +97,10 @@ const CentreOwners = ( props: TheProps ) => {
 const CentreMainImage = ( props: any ) => {
   const {centre} = props;
   const {images} = centre;
-  const imageObj = images ? images[0] : null;
+  const imageSrc = images && images.length > 0 ? images[0].image : '';
 
   const componentStyles = {
-    backgroundImage: `url(${imageObj.image})`,
+    backgroundImage: `url(${imageSrc})`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat'
