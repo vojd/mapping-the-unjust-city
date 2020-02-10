@@ -171,8 +171,10 @@ const addTagsFromAction = ( state: MapState, action: any ) => {
   return state;
 };
 
-export default ( state: MapState, action: any ) => {
+// MapState is a subset of AppState
+export default ( state: MapState = getInitialMapState(), action: any ) => {
   switch (action.type) {
+
     case actionTypes.MAP_MOUSE_DOWN:
       return {...state, isMoving: true, previousMouseCoords: getCoords(action)};
 
@@ -201,13 +203,10 @@ export default ( state: MapState, action: any ) => {
 
     case actionTypes.COMPANIES_FETCHED:
       console.log('COMPANIES_FETCHED', action);
-      const obvj = {...state, companies: action.result};
-      console.log('new obj', obvj);
-
-      return obvj;
-
+      const obj = {...state, companies: action.result};
+      console.log('new obj', obj);
+      return obj;
     default:
-      console.log('returning initial map state', state);
-      return getInitialMapState();
+      return state || null;
   }
 };

@@ -2,10 +2,6 @@ export interface BaseModel {
 
 }
 
-export class MapData implements BaseModel {
-
-}
-
 /**
  * Response data and model for what a centre at a station looks like
  */
@@ -19,7 +15,7 @@ export class Company implements BaseModel {
 }
 
 export class HistoricalOwner {
-  name: string;
+  company: Company;
   year: string;
   price: string;
   currency: string;
@@ -37,17 +33,22 @@ export interface ImageURL {
   image: string;
 }
 
-export class Centre implements BaseModel {
+export interface CentreDocument {
 
-  constructor( public name: string,
-               public slug: string,
-               public description: string,
-               public status: number,
-               public owner: Company | null,
-               public historicalOwners: HistoricalOwner[],
-               public tags: Tag[],
-               public images: ImageURL[] ) {
-  }
+}
+
+export interface Centre {
+
+  name: string;
+  slug: string;
+  description: string;
+  status: number;
+  owner: Company | null;
+  historicalOwners: HistoricalOwner[];
+  tags: Tag[];
+  images: ImageURL[];
+  documents: string[]; // array of URLs
+
 }
 
 export interface CompanyResponse {

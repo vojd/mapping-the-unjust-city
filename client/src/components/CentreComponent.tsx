@@ -15,6 +15,10 @@ export interface RouteMatch {
   params: RouteParams;
 }
 
+export interface RouteLocation {
+  pathname: string;
+}
+
 interface CentreComponentProps {
   match: RouteMatch;
   fetchCentre: Function;
@@ -41,7 +45,8 @@ class CentreComponent extends React.Component<CentreComponentProps, CentreCompon
   }
 }
 
-const mapStateToProps = (state: AppState) => state.centre;
+// const mapStateToProps = (state: AppState) => state.centre;
+const mapStateToProps = (state: AppState) => state;
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppState, void, Action>) => {
   return {

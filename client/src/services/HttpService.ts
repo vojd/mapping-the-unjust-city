@@ -2,17 +2,16 @@ export class HttpService {
 
   APIBase: string = 'http://localhost:8000/api';
 
-  public resolve = (data: any) => {
+  public resolve = ( data: any ) => {
     console.log('resolved::', data);
-
     return data;
   }
 
-  public get<T>(url: string): Promise<T> {
+  public get<T>( url: string ): Promise<T> {
 
-    const promise = new Promise<T>((resolve, reject) => {
+    return new Promise<T>(( resolve, reject ) => {
       fetch(`${this.APIBase}${url}?format=json`)
-        .then((response) => {
+        .then(( response ) => {
           if (response.ok) {
             resolve(response.json());
           } else {
@@ -20,7 +19,22 @@ export class HttpService {
           }
         });
     });
+  }
 
-    return promise;
+  /**
+   * Same as `get` but doesn't prefix the URL with anything
+   * @param {string} url
+   * @returns {Promise<T>}
+   */
+  public getRaw<T>( url: string ): Promise<T> {
+    return new Promise<T>(( resolve, reject ) => {
+      fetch(url).then(( response ) => {
+        if (response.ok) {
+          resolve(response.json());
+        } else {
+          reject(response.json());
+        }
+      });
+    });
   }
 }
