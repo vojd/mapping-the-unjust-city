@@ -42,7 +42,7 @@ export const CentreInformation = ( props: CentreInformationProps ) => {
 
       <CentreToolbar centreSlug={props.centre.slug} companySlug={props.centre.owner.slug}/>
 
-      <div className="station-information__minimap"/>
+      <div/>
     </div>
   );
 };

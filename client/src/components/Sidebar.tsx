@@ -23,10 +23,10 @@ export interface SidebarState {
 
 const CentreHome = ( props: any ) => {
   const {centre} = props;
-
+  const owner = centre && centre.owner ? centre.owner.name : '';
   return (
     <div>
-      <h2>{centre ? centre.name : ''}</h2>
+      <h2>{centre ? centre.name : ''} <span className="color-orange">{owner}</span></h2>
 
       <div>
         {centre ? centre.description : ''}
@@ -50,6 +50,7 @@ const CentreOwners = ( props: TheProps ) => {
   console.log(props);
   const {centre: centre} = props;
 
+  /*
   return (
     <div>
       {
@@ -65,14 +66,52 @@ const CentreOwners = ( props: TheProps ) => {
       }
     </div>
   );
+  */
+
+  return (
+    <table className="table">
+      <thead>
+      <tr>
+        <th scope="col">Company</th>
+        <th scope="col">Year</th>
+        <th scope="col">Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      {
+        centre.historicalOwners.map(( owner: any, id: number ) => {
+          return (
+            <tr key={id}>
+              <td>{owner.company.name}</td>
+              <td>{owner.year}</td>
+              <td>{owner.price} {owner.currency}</td>
+            </tr>
+          );
+        })
+      }
+      </tbody>
+    </table>
+  );
 };
 
 const CentreMainImage = ( props: any ) => {
   const {centre} = props;
   const {images} = centre;
   const imageObj = images ? images[0] : null;
+
+  const componentStyles = {
+    backgroundImage: `url(${imageObj.image})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat'
+  };
+  // TODO: Add placeholder image for stations without image(s)
   return (
-    <img src={imageObj.image} alt=""/>
+    <div style={componentStyles} className="centre-top-image">
+      <div className="centre-top-title">
+        <h4 className="centre-name">{centre.name}</h4>
+      </div>
+    </div>
   );
 };
 
@@ -131,7 +170,7 @@ class Sidebar extends React.Component<SidebarProps, SidebarState> {
             </div>
           </div>
 
-          <div className="centre_main">
+          <div className="centre-main">
             <Switch>
               <Route exact path="/centre/:slug" render={() => <CentreHome centre={this.props.centre}/>}/>
               <Route path="/centre/:slug/detail-plan" component={CentreDetailPlan}/>
