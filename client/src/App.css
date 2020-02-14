@@ -283,3 +283,17 @@ ul li {
 .color-orange {
     color: rgb(243, 113, 30);
 }
+
+
+.document-row {
+    line-height: 2.5em;
+}
+
+.page-headline {
+    font-size: 1em;
+    font-weight: bold;
+    color: #888;
+
+    padding-top: 2.5em;
+    padding-bottom: 2.5em;
+}

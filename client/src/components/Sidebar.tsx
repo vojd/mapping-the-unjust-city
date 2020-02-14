@@ -27,6 +27,7 @@ const CentreHome = ( props: any ) => {
   const owner = centre && centre.owner ? centre.owner.name : '';
   return (
     <div>
+      <div className="page-headline">OM CENTRUM</div>
       <h2>{centre ? centre.name : ''} <span className="color-orange">{owner}</span></h2>
 
       <div>
@@ -39,7 +40,7 @@ const CentreHome = ( props: any ) => {
 const CentreDetailPlan = ( props: any ) => {
   console.log(props);
   return (
-    <div>CENTRE DETAIL PLAN</div>
+    <div className="page-headline">DETALJPLAN</div>
   );
 };
 
@@ -48,50 +49,35 @@ export interface TheProps {
 }
 
 const CentreOwners = ( props: TheProps ) => {
-  console.log(props);
   const {centre: centre} = props;
 
-  /*
   return (
     <div>
-      {
-        centre.historicalOwners.map(( owner: any, id: number ) => {
-          return (
-            <div key={id}>
-              <div>{owner.company.name}</div>
-              <div>{owner.year}</div>
-              <div>{owner.price} {owner.currency}</div>
-            </div>
-          );
-        })
-      }
-    </div>
-  );
-  */
+      <div className="page-headline">ÄGARHISTORIK</div>
+      <table className="table">
+        <thead>
+        <tr>
+          <th scope="col"> Företag</th>
+          <th scope="col">År</th>
 
-  return (
-    <table className="table">
-      <thead>
-      <tr>
-        <th scope="col">Company</th>
-        <th scope="col">Year</th>
-        <th scope="col">Price</th>
-      </tr>
-      </thead>
-      <tbody>
-      {
-        centre.historicalOwners.map(( owner: any, id: number ) => {
-          return (
-            <tr key={id}>
-              <td>{owner.company.name}</td>
-              <td>{owner.year}</td>
-              <td>{owner.price} {owner.currency}</td>
-            </tr>
-          );
-        })
-      }
-      </tbody>
-    </table>
+        </tr>
+        </thead>
+        <tbody>
+        {
+          centre.historicalOwners.map(( owner: any, id: number ) => {
+            return (
+              <tr key={id}>
+                <td>{owner.company.name}</td>
+                <td>{owner.year}</td>
+
+              </tr>
+            );
+          })
+        }
+        </tbody>
+      </table>
+    </div>
+
   );
 };
 
@@ -106,12 +92,11 @@ const CentreMainImage = ( props: any ) => {
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat'
   };
+
   // TODO: Add placeholder image for stations without image(s)
   return (
     <div style={componentStyles} className="centre-top-image">
-      <div className="centre-top-title">
-        <h4 className="centre-name">{centre.name}</h4>
-      </div>
+      <div className="centre-top-title">&nbsp;</div>
     </div>
   );
 };
@@ -137,61 +122,64 @@ class Sidebar extends React.Component<SidebarProps, SidebarState> {
   render() {
     const slug = this.props.match.params.slug;
     return (
-        <div className="sidebar shadow">
+      <div className="sidebar shadow">
+        <div>
+          <div className="centre_top_image">
+            {this.props.centre ? <CentreMainImage centre={this.props.centre}/> : ''}
+          </div>
+
           <div>
-            <div className="centre_top_image">
-              {this.props.centre ? <CentreMainImage centre={this.props.centre}/> : ''}
-            </div>
+            <div className="centre_information__menu">
 
-            <div>
-              <div className="centre_information__menu">
-                <Link to={`/centre/${slug}`}>
-                  <div className="station-information__menu__icon">
-                    <i className="fas fa-users"/>
-                  </div>
-                </Link>
+              {/*Detaljplan*/}
 
-                {/*Detaljplan*/}
-                <Link to={`/centre/${slug}/detail-plan`}>
-                  <div className="station-information__menu__icon">
-                    <i className="fas fa-map"/>
-                  </div>
-                </Link>
+              <Link to={`/centre/${slug}`}>
+                <div className="station-information__menu__icon">
+                  <i className="fa fa-question"/>
+                </div>
+              </Link>
 
-                <Link to={`/centre/${slug}/owners`}>
-                  <div className="station-information__menu__icon">
-                    <i className="fas fa-coins"/>
-                  </div>
-                </Link>
-                <Link to={`/centre/${slug}/documents`}>
-                  <div className="station-information__menu__icon">
-                    <i className="fas fa-question"/>
-                  </div>
-                </Link>
-              </div>
-            </div>
+              <Link to={`/centre/${slug}/detail-plan`}>
+                <div className="station-information__menu__icon">
+                  <i className="fa fa-map"/>
+                </div>
+              </Link>
 
-            <div className="centre-main">
-              <Switch>
-                <Route exact path="/centre/:slug" render={() => <CentreHome centre={this.props.centre}/>}/>
-                <Route path="/centre/:slug/detail-plan" component={CentreDetailPlan}/>
-                <Route
-                  path="/centre/:slug/owners"
-                  render={() => {
-                    return this.props.centre ? <CentreOwners centre={this.props.centre}/> : '';
-                  }}
-                />
+              <Link to={`/centre/${slug}/owners`}>
+                <div className="station-information__menu__icon">
+                  <i className="fa fa-users"/>
+                </div>
+              </Link>
 
-                <Route
-                  path="/centre/:slug/documents"
-                  render={() => {
-                    return this.props.centre ? <CentreDocuments centre={this.props.centre}/> : '';
-                  }}
-                />
-              </Switch>
+              <Link to={`/centre/${slug}/documents`}>
+                <div className="station-information__menu__icon">
+                  <i className="fa fa-question"/>
+                </div>
+              </Link>
             </div>
           </div>
+
+          <div className="centre-main">
+            <Switch>
+              <Route exact path="/centre/:slug" render={() => <CentreHome centre={this.props.centre}/>}/>
+              <Route path="/centre/:slug/detail-plan" component={CentreDetailPlan}/>
+              <Route
+                path="/centre/:slug/owners"
+                render={() => {
+                  return this.props.centre ? <CentreOwners centre={this.props.centre}/> : '';
+                }}
+              />
+
+              <Route
+                path="/centre/:slug/documents"
+                render={() => {
+                  return this.props.centre ? <CentreDocuments centre={this.props.centre}/> : '';
+                }}
+              />
+            </Switch>
+          </div>
         </div>
+      </div>
     );
   }
 }

@@ -9,13 +9,7 @@ export const CentreToolbar = ( props: any ) => {
     <div className="centre_information__menu">
       <Link to={`/company/${companySlug ? companySlug : ''}`}>
         <div className="station-information__toolbar__icon">
-          <i className="fas fa-users"/>
-        </div>
-      </Link>
-
-      <Link to={`/centre/${centreSlug}/ownership-history/`}>
-        <div className="station-information__toolbar__icon">
-          <i className="fas fa-coins"/>
+          <i className="fas fa-question"/>
         </div>
       </Link>
 
@@ -23,6 +17,12 @@ export const CentreToolbar = ( props: any ) => {
       <Link to={`/detail-plan/${centreSlug}`}>
         <div className="station-information__toolbar__icon">
           <i className="fas fa-map"/>
+        </div>
+      </Link>
+
+      <Link to={`/centre/${centreSlug}/ownership-history/`}>
+        <div className="station-information__toolbar__icon">
+          <i className="fas fa-users"/>
         </div>
       </Link>
 

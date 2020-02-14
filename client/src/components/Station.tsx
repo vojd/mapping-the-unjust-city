@@ -3,7 +3,8 @@ import { MapNode } from './UndergroundLines';
 import { Route } from 'react-router';
 import { slugify } from '../utils/slugify';
 
-export const COLOR_ORANGE = 'rgb(243, 113, 30)';
+// export const COLOR_ORANGE = 'rgb(243, 113, 30)';
+export const COLOR_ORANGE = 'rgb(255, 165, 0)';
 
 interface Dim {
   r: number;

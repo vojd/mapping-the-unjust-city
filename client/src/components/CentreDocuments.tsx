@@ -20,17 +20,17 @@ class CentreDocuments extends React.Component<CentreDocumentsProps, any> {
   }
 
   render() {
-    console.log('documents', this.props);
     const {centre} = this.props;
     // if the props changed, fetch new documents
     const documents = centre ? centre.documents : null;
     return (
       <div>
+        <div className="page-headline">MEDIA / PRESS</div>
         {
           documents
             ? documents.map(( document: any, id: number ) => {
               return (
-                <div key={id}>
+                <div key={id} className="document-row">
                   <div>
                     <a href={document.file} target="_blank">{document.title}</a>
                   </div>
