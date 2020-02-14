@@ -4,8 +4,6 @@ from centres.models import Document, Tag
 
 
 class DocumentSerializer(serializers.ModelSerializer):
-    # centre = CentreSerializer()
-
     class Meta:
         model = Document
         fields = ('centre', 'company', 'title', 'text', 'file',)
@@ -19,7 +17,7 @@ class DocumentViewSet(viewsets.ReadOnlyModelViewSet):
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ('name', 'is_active',)
+        fields = ('name',)
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):

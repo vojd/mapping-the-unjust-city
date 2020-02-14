@@ -14,6 +14,7 @@ export interface SidebarProps {
   match: RouteMatch;
   location: RouteLocation;
   fetchCentre: Function;
+  toggleOpenClose: Function;
   centre: Centre | null;
 }
 
@@ -136,61 +137,61 @@ class Sidebar extends React.Component<SidebarProps, SidebarState> {
   render() {
     const slug = this.props.match.params.slug;
     return (
-      <div className="sidebar shadow">
-        <div>
-          <div className="centre_top_image">
-            {this.props.centre ? <CentreMainImage centre={this.props.centre}/> : ''}
-          </div>
-
+        <div className="sidebar shadow">
           <div>
-            <div className="centre_information__menu">
-              <Link to={`/centre/${slug}`}>
-                <div className="station-information__menu__icon">
-                  <i className="fas fa-users"/>
-                </div>
-              </Link>
+            <div className="centre_top_image">
+              {this.props.centre ? <CentreMainImage centre={this.props.centre}/> : ''}
+            </div>
 
-              {/*Detaljplan*/}
-              <Link to={`/centre/${slug}/detail-plan`}>
-                <div className="station-information__menu__icon">
-                  <i className="fas fa-map"/>
-                </div>
-              </Link>
+            <div>
+              <div className="centre_information__menu">
+                <Link to={`/centre/${slug}`}>
+                  <div className="station-information__menu__icon">
+                    <i className="fas fa-users"/>
+                  </div>
+                </Link>
 
-              <Link to={`/centre/${slug}/owners`}>
-                <div className="station-information__menu__icon">
-                  <i className="fas fa-coins"/>
-                </div>
-              </Link>
-              <Link to={`/centre/${slug}/documents`}>
-                <div className="station-information__menu__icon">
-                  <i className="fas fa-question"/>
-                </div>
-              </Link>
+                {/*Detaljplan*/}
+                <Link to={`/centre/${slug}/detail-plan`}>
+                  <div className="station-information__menu__icon">
+                    <i className="fas fa-map"/>
+                  </div>
+                </Link>
+
+                <Link to={`/centre/${slug}/owners`}>
+                  <div className="station-information__menu__icon">
+                    <i className="fas fa-coins"/>
+                  </div>
+                </Link>
+                <Link to={`/centre/${slug}/documents`}>
+                  <div className="station-information__menu__icon">
+                    <i className="fas fa-question"/>
+                  </div>
+                </Link>
+              </div>
+            </div>
+
+            <div className="centre-main">
+              <Switch>
+                <Route exact path="/centre/:slug" render={() => <CentreHome centre={this.props.centre}/>}/>
+                <Route path="/centre/:slug/detail-plan" component={CentreDetailPlan}/>
+                <Route
+                  path="/centre/:slug/owners"
+                  render={() => {
+                    return this.props.centre ? <CentreOwners centre={this.props.centre}/> : '';
+                  }}
+                />
+
+                <Route
+                  path="/centre/:slug/documents"
+                  render={() => {
+                    return this.props.centre ? <CentreDocuments centre={this.props.centre}/> : '';
+                  }}
+                />
+              </Switch>
             </div>
           </div>
-
-          <div className="centre-main">
-            <Switch>
-              <Route exact path="/centre/:slug" render={() => <CentreHome centre={this.props.centre}/>}/>
-              <Route path="/centre/:slug/detail-plan" component={CentreDetailPlan}/>
-              <Route
-                path="/centre/:slug/owners"
-                render={() => {
-                  return this.props.centre ? <CentreOwners centre={this.props.centre}/> : '';
-                }}
-              />
-
-              <Route
-                path="/centre/:slug/documents"
-                render={() => {
-                  return this.props.centre ? <CentreDocuments centre={this.props.centre}/> : '';
-                }}
-              />
-            </Switch>
-          </div>
         </div>
-      </div>
     );
   }
 }
