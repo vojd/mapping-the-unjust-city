@@ -182,6 +182,7 @@ export class MapProps {
   companies: any[];
 
   toggleTagVisible: Function;
+  toggleTagVisibilityOnOwner: Function;
 }
 
 export class MapState {
@@ -234,6 +235,10 @@ export class MapComponent extends React.Component<MapProps, AppState> {
     // this.props.toggleTagVisibility(tag);
     console.log('toggleTagVisibility', value, isOn);
     this.props.toggleTagVisible(value, isOn);
+  }
+
+  toggleTagVisibilityOnOwner = (value: string, isOn: boolean) => {
+    this.props.toggleTagVisibilityOnOwner(value, isOn);
   }
 
   render() {
@@ -317,7 +322,7 @@ export class MapComponent extends React.Component<MapProps, AppState> {
           <div className="legend">
             {
               this.props.companies.map(( t, id ) => {
-                return (<Toggle key={id} value={t.name} toggleTagVisible={this.toggleTagVisibility}/>);
+                return (<Toggle key={id} value={t.name} toggleTagVisible={this.toggleTagVisibilityOnOwner}/>);
               })
             }
           </div>

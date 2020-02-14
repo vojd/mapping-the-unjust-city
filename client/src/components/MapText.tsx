@@ -1,29 +1,11 @@
 import * as React from 'react';
 import { MapNode } from './UndergroundLines';
-import { Route } from 'react-router';
 
 interface MapTextProps {
   x: number;
   y: number;
   node: MapNode;
 }
-
-const MapCompanyName = ( props: any ) => {
-  return (
-    <Route
-      render={( {history} ) => (
-        <text
-          x={props.x + 120}
-          y={props.y + 8}
-          className="map-text"
-          onClick={() => history.push(`/company/${props.company.slug}/`)}
-        >
-          {props.company.name}
-        </text>
-      )}
-    />
-  );
-};
 
 export const MapTextTiltRight = ( props: MapTextProps ) => {
   const tx = props.x + -40;
@@ -59,7 +41,6 @@ export const MapTextAbove = ( props: MapTextProps ) => {
 };
 
 export const MapTextRight = ( props: MapTextProps ) => {
-  const companySlug = props.node.owner ? props.node.owner.slug : null;
 
   return (
     <g>
@@ -70,8 +51,6 @@ export const MapTextRight = ( props: MapTextProps ) => {
       >
         {props.node.name}
       </text>
-
-      {companySlug ? <MapCompanyName x={props.x} y={props.y} company={props.node.owner}/> : null}
       // company name
 
     </g>
