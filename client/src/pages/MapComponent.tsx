@@ -13,7 +13,7 @@ import { MapText } from '../components/MapText';
 import { AppState } from '../state/AppState';
 import { Action } from 'redux';
 import { connect } from 'react-redux';
-import { mapMouseDown, mapMouseMove, mapMouseUp, toggleTagVisibleAction } from '../actions/mapActions';
+import { mapMouseDown, mapMouseMove, mapMouseUp, toggleTagVisibilityAction } from '../actions/mapActions';
 import { positionFixed } from '../react-styles/styles';
 import { fetchMapDataAction } from '../actions/fetchMapDataAction';
 import { ThunkDispatch } from 'redux-thunk';
@@ -153,6 +153,7 @@ export const getInitialMapState = (): MapState => {
     },
 
     tags: [],
+    visibleTags: [],
     companies: [],
   };
 };
@@ -204,6 +205,7 @@ export class MapState {
   };
 
   tags: any[];
+  visibleTags: string[];
   companies: any[];
 }
 
@@ -228,9 +230,9 @@ export class MapComponent extends React.Component<MapProps, AppState> {
     this.props.mouseMove(e);
   }
 
-  toggleTagVisible = ( value: string, isOn: boolean ) => {
-    // this.props.toggleTagVisible(tag);
-    console.log('toggleTagVisible', value, isOn);
+  toggleTagVisibility = ( value: string, isOn: boolean ) => {
+    // this.props.toggleTagVisibility(tag);
+    console.log('toggleTagVisibility', value, isOn);
     this.props.toggleTagVisible(value, isOn);
   }
 
@@ -305,8 +307,8 @@ export class MapComponent extends React.Component<MapProps, AppState> {
         <div className="legend-container">
           <div className="legend">
             {
-              this.props.tags.map(( t ) => {
-                return (<Toggle key={t.name} value={t.name} toggleTagVisible={this.toggleTagVisible}/>);
+              this.props.tags.map(( t, id ) => {
+                return (<Toggle key={id} value={t.name} toggleTagVisible={this.toggleTagVisibility}/>);
               })
             }
           </div>
@@ -314,8 +316,8 @@ export class MapComponent extends React.Component<MapProps, AppState> {
           {/* this could be placed at a sidebar*/}
           <div className="legend">
             {
-              this.props.companies.map(( t ) => {
-                return (<Toggle key={t.name} value={t.name} toggleTagVisible={this.toggleTagVisible}/>);
+              this.props.companies.map(( t, id ) => {
+                return (<Toggle key={id} value={t.name} toggleTagVisible={this.toggleTagVisibility}/>);
               })
             }
           </div>
@@ -337,7 +339,7 @@ const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) =
     mouseDown: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseDown(e)),
     mouseUp: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseUp(e)),
     mouseMove: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseMove(e)),
-    toggleTagVisible: ( val: string, isOn: boolean ) => dispatch(toggleTagVisibleAction(val, isOn))
+    toggleTagVisible: ( val: string, isOn: boolean ) => dispatch(toggleTagVisibilityAction(val, isOn))
   };
 };
 

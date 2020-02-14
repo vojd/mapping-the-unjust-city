@@ -30,8 +30,8 @@ export interface ToggleAction {
   data: ToggleActionData;
 }
 
-export const toggleTagVisibleAction = ( val: string, isOn: boolean ) => ({
-  type: actionTypes.TOGGLE_TAG_VISIBLE,
+export const toggleTagVisibilityAction = ( val: string, isOn: boolean ) => ({
+  type: actionTypes.TOGGLE_TAG_VISIBILITY,
   data: <ToggleActionData> {
     value: val,
     isOn

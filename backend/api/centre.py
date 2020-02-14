@@ -34,7 +34,7 @@ class CentreSerializer(serializers.HyperlinkedModelSerializer):
     documents = DocumentSerializer(many=True, read_only=True)
 
     # call `get_active_tags` on the Centre model to get only active tags
-    tags = TagSerializer(many=True, read_only=True, source='get_active_tags')
+    tags = TagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Centre

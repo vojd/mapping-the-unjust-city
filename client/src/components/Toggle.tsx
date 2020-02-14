@@ -16,8 +16,6 @@ export class Toggle extends React.Component<ToggleProps, ToggleState> {
 
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
-    console.log('tag', props.tags);
-
   }
 
   handleClick() {

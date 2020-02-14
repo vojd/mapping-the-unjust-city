@@ -28,5 +28,5 @@ export const actionTypes = {
   TAG_DATA_FETCHED: '@@tagdata/FETCHED',
   TAG_DATA_FETCH_FAILED: '@@tagdata/FETCH_FAILED',
 
-  TOGGLE_TAG_VISIBLE: '@@map/TOGGLE_TAG_VISIBLE',
+  TOGGLE_TAG_VISIBILITY: '@@map/TOGGLE_TAG_VISIBLE',
 };

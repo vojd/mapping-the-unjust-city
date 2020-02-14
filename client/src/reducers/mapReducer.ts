@@ -55,42 +55,36 @@ const getPan = ( state: MapState, action: MapReducer ) => {
 /////////////////////////////////////////////////
 // TAGS
 /////////////////////////////////////////////////
-const toggleNodeVisibility = ( node: MapNode, isVisible: boolean ) => {
-  node.isVisible = isVisible;
+const toggleNode = ( node: MapNode, tagsToShow: string[] ): MapNode => {
+  // If the list is empty then we'll show everything
+  if (tagsToShow.length === 0) {
+    node.isVisible = true;
+    return node;
+  }
+
+  const nodeHasTag = node.tags && node.tags.filter(t => tagsToShow.indexOf(t.name) > -1).length > 0;
+  node.isVisible = nodeHasTag;
   return node;
 };
 
-const isNodeTagMatching = ( node: MapNode, data: ToggleActionData ) => {
-  return node.tags && node.tags.filter(t => t.name === data.value).length > 0;
-};
-
-const toggleNodesRecursively = ( branches: MapNode[][], data: ToggleActionData ): MapNode[][] => {
-  console.log('recursive on', branches);
-
-  const isVisible = data.isOn;
+const toggleNodesRecursively = ( branches: MapNode[][],
+                                 data: ToggleActionData,
+                                 tagsToShow: string[] ): MapNode[][] => {
 
   return branches.map(( branch ) => {
     return branch.map(( node ) => {
 
       if (node.branches) {
         console.log('\t has branch', node);
-        node.branches = toggleNodesRecursively(node.branches, data);
+        node.branches = toggleNodesRecursively(node.branches, data, tagsToShow);
       }
-
-      if (isNodeTagMatching(node, data)) {
-        // return toggleNodeVisibility(node, isVisible);
-        node.isVisible = isVisible;
-      } else {
-        // return toggleNodeVisibility(node, !isVisible);
-        node.isVisible = !isVisible;
-      }
-      return node;
+      return toggleNode(node, tagsToShow);
     });
   });
 };
 
 // TODO: Doesn't handle all levels of branching, must be recursive
-const addToggleStateToNodes = ( state: MapState, action: ToggleAction ) => {
+const addToggleStateToNodes = ( state: MapState, action: ToggleAction, tagsToShow: string[] ) => {
 
   const data = action.data;
 
@@ -101,14 +95,10 @@ const addToggleStateToNodes = ( state: MapState, action: ToggleAction ) => {
 
       // act on this nodes children ( branches )
       if (node.branches) {
-        node.branches = toggleNodesRecursively(node.branches, data);
+        node.branches = toggleNodesRecursively(node.branches, data, tagsToShow);
       }
-
-      // Toggle all other nodes opposite of user action
-      toggleNodeVisibility(node, !data.isOn);
     });
   });
-  console.log(action);
 
   return state;
 };
@@ -171,6 +161,17 @@ const addTagsFromAction = ( state: MapState, action: any ) => {
   return state;
 };
 
+const createNewTagList = ( visibleTags: string[], tag: string ): string[] => {
+  const id = visibleTags.indexOf(tag);
+  if (id > -1) {
+    visibleTags.splice(id, 1);
+    return visibleTags;
+  } else {
+    visibleTags.push(tag);
+    return visibleTags;
+  }
+};
+
 // MapState is a subset of AppState
 export default ( state: MapState = getInitialMapState(), action: any ) => {
   switch (action.type) {
@@ -189,23 +190,28 @@ export default ( state: MapState = getInitialMapState(), action: any ) => {
         panY: p.panY,
         previousMouseCoords: p.previousMouseCoords
       };
+
     case actionTypes.MAP_DATA_FETCHED:
-      console.log('MAP_DATA_FETCHED');
       return {...state, mapData: addDataFromState(state, action)};
+
     case actionTypes.TAG_DATA_FETCHED:
-      console.log('TAG_DATA_FETCHED', action);
       return {...state, mapData: addTagsFromAction(state, action)};
 
-    case actionTypes.TOGGLE_TAG_VISIBLE:
-      console.log('TOGGLE_TAG_VISIBLE', action.data);
-      console.log('state', state);
-      return {...state, mapData: addToggleStateToNodes(state, action)};
+    case actionTypes.TOGGLE_TAG_VISIBILITY:
+      const {visibleTags} = state;
+      console.log({visibleTags});
+      const tag = action.data.value;
+      const tagsToShow = createNewTagList(visibleTags, tag);
+
+      return {
+        ...state,
+        mapData: addToggleStateToNodes(state, action, tagsToShow),
+      };
 
     case actionTypes.COMPANIES_FETCHED:
-      console.log('COMPANIES_FETCHED', action);
       const obj = {...state, companies: action.result};
-      console.log('new obj', obj);
       return obj;
+
     default:
       return state || null;
   }

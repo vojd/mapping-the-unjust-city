@@ -10,7 +10,7 @@ backend/static/
 /coverage
 
 # production
-/build
+build/
 */**/uploads
 
 # misc

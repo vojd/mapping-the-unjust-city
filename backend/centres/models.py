@@ -85,11 +85,5 @@ class Centre(models.Model):
 
     tags = models.ManyToManyField(Tag, blank=True)
 
-    """
-    Called from the invocation of TagSerializer in the CentreSerializer
-    """
-    def get_active_tags(self):
-        return self.tags.filter(is_active=True)
-
     def __str__(self):
         return self.name

@@ -33,6 +33,7 @@ export const getInitialMapState = (): AppState => {
     },
 
     tags: [],
+    visibleTags: [],
     companies: [],
   };
 
