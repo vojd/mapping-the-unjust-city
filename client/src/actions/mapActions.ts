@@ -37,3 +37,11 @@ export const toggleTagVisibilityAction = ( val: string, isOn: boolean ) => ({
     isOn
   }
 });
+
+export const toggleOwnerVisibilityAction = (val: string, isOn: boolean) => ({
+  type: actionTypes.TOGGLE_OWNER_VISIBILITY,
+  data: <ToggleActionData> {
+    value: val,
+    isOn
+  }
+});

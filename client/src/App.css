@@ -174,10 +174,11 @@ ul li {
     z-index: 10;
     /*width: 35%;*/
     /*max-width: 35%;*/
-    height: 100vh;
+    height: 80vh;
     margin: 0;
     padding: 32px;
     position: absolute;
+    overflow: scroll;
 
     background: #fff;
     border: 1px solid #eee;

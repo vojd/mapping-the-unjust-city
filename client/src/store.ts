@@ -34,6 +34,7 @@ export const getInitialMapState = (): AppState => {
 
     tags: [],
     visibleTags: [],
+    visibleOwners: [],
     companies: [],
   };
 

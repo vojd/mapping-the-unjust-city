@@ -13,7 +13,13 @@ import { MapText } from '../components/MapText';
 import { AppState } from '../state/AppState';
 import { Action } from 'redux';
 import { connect } from 'react-redux';
-import { mapMouseDown, mapMouseMove, mapMouseUp, toggleTagVisibilityAction } from '../actions/mapActions';
+import {
+  mapMouseDown,
+  mapMouseMove,
+  mapMouseUp,
+  toggleOwnerVisibilityAction,
+  toggleTagVisibilityAction
+} from '../actions/mapActions';
 import { positionFixed } from '../react-styles/styles';
 import { fetchMapDataAction } from '../actions/fetchMapDataAction';
 import { ThunkDispatch } from 'redux-thunk';
@@ -154,6 +160,7 @@ export const getInitialMapState = (): MapState => {
 
     tags: [],
     visibleTags: [],
+    visibleOwners: [],
     companies: [],
   };
 };
@@ -207,6 +214,7 @@ export class MapState {
 
   tags: any[];
   visibleTags: string[];
+  visibleOwners: string[];
   companies: any[];
 }
 
@@ -310,6 +318,11 @@ export class MapComponent extends React.Component<MapProps, AppState> {
         </svg>
 
         <div className="legend-container">
+          <div>
+            <h4>
+              <div><span className="fa fa-arrow-up" /> FILTRERING</div>
+            </h4>
+          </div>
           <div className="legend">
             {
               this.props.tags.map(( t, id ) => {
@@ -344,7 +357,8 @@ const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) =
     mouseDown: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseDown(e)),
     mouseUp: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseUp(e)),
     mouseMove: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseMove(e)),
-    toggleTagVisible: ( val: string, isOn: boolean ) => dispatch(toggleTagVisibilityAction(val, isOn))
+    toggleTagVisible: ( val: string, isOn: boolean ) => dispatch(toggleTagVisibilityAction(val, isOn)),
+    toggleTagVisibilityOnOwner: (val: string, isOn: boolean) => dispatch(toggleOwnerVisibilityAction(val, isOn)),
   };
 };
 
