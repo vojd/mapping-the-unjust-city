@@ -115,69 +115,76 @@ class Sidebar extends React.Component<SidebarProps, SidebarState> {
     if (previousProps.location.pathname !== this.props.location.pathname) {
       const slug = this.props.match.params.slug;
       this.props.fetchCentre(slug);
-      console.log('componentDidUpdate');
+      console.log('sidebar componentDidUpdate');
     }
   }
 
   render() {
     const slug = this.props.match.params.slug;
     return (
-      <div className="sidebar shadow">
-        <div>
-          <div className="centre_top_image">
-            {this.props.centre ? <CentreMainImage centre={this.props.centre}/> : ''}
-          </div>
-
+      <div className="sidebar">
+        <div className="sidebar-content shadow">
           <div>
-            <div className="centre_information__menu">
+            <div className="centre_top_image">
+              {this.props.centre ? <CentreMainImage centre={this.props.centre}/> : ''}
+            </div>
 
-              {/*Detaljplan*/}
+            <div>
+              <div className="centre_information__menu">
 
-              <Link to={`/centre/${slug}`}>
-                <div className="station-information__menu__icon">
-                  <i className="fa fa-question"/>
-                </div>
-              </Link>
+                {/*Detaljplan*/}
 
-              <Link to={`/centre/${slug}/detail-plan`}>
-                <div className="station-information__menu__icon">
-                  <i className="fa fa-map"/>
-                </div>
-              </Link>
+                <Link to={`/centre/${slug}`}>
+                  <div className="station-information__menu__icon">
+                    <i className="fa fa-question"/>
+                  </div>
+                </Link>
 
-              <Link to={`/centre/${slug}/owners`}>
-                <div className="station-information__menu__icon">
-                  <i className="fa fa-users"/>
-                </div>
-              </Link>
+                <Link to={`/centre/${slug}/detail-plan`}>
+                  <div className="station-information__menu__icon">
+                    <i className="fa fa-map"/>
+                  </div>
+                </Link>
 
-              <Link to={`/centre/${slug}/documents`}>
-                <div className="station-information__menu__icon">
-                  <i className="fa fa-question"/>
-                </div>
-              </Link>
+                <Link to={`/centre/${slug}/owners`}>
+                  <div className="station-information__menu__icon">
+                    <i className="fa fa-users"/>
+                  </div>
+                </Link>
+
+                <Link to={`/centre/${slug}/documents`}>
+                  <div className="station-information__menu__icon">
+                    <i className="fa fa-question"/>
+                  </div>
+                </Link>
+              </div>
+            </div>
+
+            <div className="centre-main">
+              <Switch>
+                <Route exact path="/centre/:slug" render={() => <CentreHome centre={this.props.centre}/>}/>
+                <Route path="/centre/:slug/detail-plan" component={CentreDetailPlan}/>
+                <Route
+                  path="/centre/:slug/owners"
+                  render={() => {
+                    return this.props.centre ? <CentreOwners centre={this.props.centre}/> : '';
+                  }}
+                />
+
+                <Route
+                  path="/centre/:slug/documents"
+                  render={() => {
+                    return this.props.centre ? <CentreDocuments centre={this.props.centre}/> : '';
+                  }}
+                />
+              </Switch>
             </div>
           </div>
+        </div>
 
-          <div className="centre-main">
-            <Switch>
-              <Route exact path="/centre/:slug" render={() => <CentreHome centre={this.props.centre}/>}/>
-              <Route path="/centre/:slug/detail-plan" component={CentreDetailPlan}/>
-              <Route
-                path="/centre/:slug/owners"
-                render={() => {
-                  return this.props.centre ? <CentreOwners centre={this.props.centre}/> : '';
-                }}
-              />
-
-              <Route
-                path="/centre/:slug/documents"
-                render={() => {
-                  return this.props.centre ? <CentreDocuments centre={this.props.centre}/> : '';
-                }}
-              />
-            </Switch>
-          </div>
+        {/* close button */}
+        <div className="sidebar-close">
+          <Link to="/"><i className="fa fa-angle-left"/></Link>
         </div>
       </div>
     );

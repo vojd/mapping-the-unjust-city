@@ -14,7 +14,6 @@ const toggleNodeOnTag = ( node: MapNode, tagsToShow: string[] ): MapNode => {
   } else {
     node.isVisible = false;
   }
-  // node.isVisible = node.tags && node.tags.filter(t => tagsToShow.indexOf(t.name) > -1).length > 0;
   return node;
 };
 

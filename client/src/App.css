@@ -267,10 +267,28 @@ ul li {
     /*max-width: 35%;*/
     height: 100vh;
     margin: 0;
-    padding: 32px;
     position: absolute;
+    display: flex;
+    flex-direction: row;
+}
 
+.sidebar-content {
+    min-width: 550px;
+    padding: 32px;
+    height: 100vh;
     background: #fff;
+    overflow-y: scroll;
+    border: 1px solid #eee;
+    flex: 1;
+}
+
+.sidebar-close {
+    width: 20px;
+    height: 25px;
+    flex: 1;
+    top: 0;
+    left: 0;
+    background: none;
     border: 1px solid #eee;
 }
 
@@ -284,7 +302,6 @@ ul li {
 .color-orange {
     color: rgb(243, 113, 30);
 }
-
 
 .document-row {
     line-height: 2.5em;
