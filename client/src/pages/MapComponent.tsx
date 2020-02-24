@@ -245,7 +245,7 @@ export class MapComponent extends React.Component<MapProps, AppState> {
     this.props.toggleTagVisible(value, isOn);
   }
 
-  toggleTagVisibilityOnOwner = (value: string, isOn: boolean) => {
+  toggleTagVisibilityOnOwner = ( value: string, isOn: boolean ) => {
     this.props.toggleTagVisibilityOnOwner(value, isOn);
   }
 
@@ -320,7 +320,7 @@ export class MapComponent extends React.Component<MapProps, AppState> {
         <div className="legend-container">
           <div>
             <h4>
-              <div><span className="fa fa-arrow-up" /> FILTRERING</div>
+              <div><span className="fa fa-arrow-up"/> FILTRERING</div>
             </h4>
           </div>
           <div className="legend">
@@ -358,7 +358,7 @@ const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) =
     mouseUp: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseUp(e)),
     mouseMove: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseMove(e)),
     toggleTagVisible: ( val: string, isOn: boolean ) => dispatch(toggleTagVisibilityAction(val, isOn)),
-    toggleTagVisibilityOnOwner: (val: string, isOn: boolean) => dispatch(toggleOwnerVisibilityAction(val, isOn)),
+    toggleTagVisibilityOnOwner: ( val: string, isOn: boolean ) => dispatch(toggleOwnerVisibilityAction(val, isOn)),
   };
 };
 

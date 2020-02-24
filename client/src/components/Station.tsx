@@ -85,7 +85,6 @@ export class Station extends React.Component<StationProps, StationState> {
   }
 
   public toggleActive = () => {
-    console.log('on mouse enter');
     this.setState({
       isActive: !this.state.isActive
     });

@@ -9,8 +9,9 @@ import {
   getRedLineNodesNorth
 } from './models/UndergroundLineDefinitions';
 import { UndergroundManager } from './components/UndergroundLines';
+import { MapState } from './pages/MapComponent';
 
-export const getInitialMapState = (): AppState => {
+export const getInitialMapState = (): MapState => {
   const undergroundManager = new UndergroundManager();
   const mapState = {
     scaleFactor: 0.8,
@@ -38,13 +39,11 @@ export const getInitialMapState = (): AppState => {
     companies: [],
   };
 
-  return {
-    mapState: mapState,
-    centre: null
-  };
+  return mapState;
 };
 
 const configureStore = ( initialState: AppState ): Store<AppState> => {
+
   return createStore(
     rootReducer,
     initialState,
@@ -52,6 +51,6 @@ const configureStore = ( initialState: AppState ): Store<AppState> => {
   );
 };
 
-const store = configureStore(getInitialMapState());
+const store = configureStore({centre: null, company: null, mapState: getInitialMapState()});
 
 export default store;

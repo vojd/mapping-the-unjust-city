@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 import { actionTypes } from '../actions/Action';
-import { getInitialMapState, MapState } from '../pages/MapComponent';
+import { MapState } from '../pages/MapComponent';
 import { MapNode } from '../components/UndergroundLines';
 import { MapDataFetchedAction } from '../actions/mapActions';
 import { Centre } from '../models/models';
@@ -109,12 +109,10 @@ const recursivelyAddDataToBranches = ( branches: MapNode[][], actionData: MapDat
  */
 const addDataFromState = ( state: MapState, actionData: MapDataFetchedAction ) => {
   let newNodes: MapNode[] = [];
-  console.log('addDataFromState');
 
   // Loop over each "base node", a junction which has branches
   Object.keys(state.nodes).forEach(( key ) => {
     state.nodes[key].forEach(( node: MapNode ) => {
-      console.log('node', node);
 
       const matchingNodes = getMatchingCentreFromApiData(node, actionData);
       if (matchingNodes) {
@@ -136,7 +134,7 @@ const addTagsFromAction = ( state: MapState, action: any ) => {
 };
 
 // MapState is a subset of AppState
-export default ( state: MapState = getInitialMapState(), action: any ) => {
+export default ( state: MapState, action: any ) => {
   switch (action.type) {
 
     case actionTypes.MAP_MOUSE_DOWN:
@@ -147,12 +145,17 @@ export default ( state: MapState = getInitialMapState(), action: any ) => {
 
     case actionTypes.MAP_MOUSE_MOVE:
       const p = getPan(state, action);
-      return {
-        ...state,
-        panX: p.panX,
-        panY: p.panY,
-        previousMouseCoords: p.previousMouseCoords
-      };
+      // only return new state if we're actually moving
+      if (action && action.event && state.isMoving) {
+        return {
+          ...state,
+          panX: p.panX,
+          panY: p.panY,
+          previousMouseCoords: p.previousMouseCoords
+        };
+      } else {
+        return state;
+      }
 
     case actionTypes.MAP_DATA_FETCHED:
       return {...state, mapData: addDataFromState(state, action)};
@@ -162,7 +165,6 @@ export default ( state: MapState = getInitialMapState(), action: any ) => {
 
     case actionTypes.TOGGLE_TAG_VISIBILITY:
       const {visibleTags} = state;
-      // console.log({visibleTags});
       const tag = action.data.value;
       const tagsToShow = createNewTagList(visibleTags, tag);
 
@@ -175,7 +177,6 @@ export default ( state: MapState = getInitialMapState(), action: any ) => {
       const {visibleOwners} = state;
       const owner = action.data.value;
       const ownersToShow = createNewOwnerList(visibleOwners, owner);
-      console.log('ownersToShow', ownersToShow);
 
       return {
         ...state,
@@ -183,8 +184,10 @@ export default ( state: MapState = getInitialMapState(), action: any ) => {
       };
 
     case actionTypes.COMPANIES_FETCHED:
-      const obj = {...state, companies: action.result};
-      return obj;
+      console.log('COMPANIES_FETCHED', state);
+      const newState = {...state, companies: action.result};
+      console.log('new state', newState);
+      return newState;
 
     default:
       return state || null;

@@ -24,11 +24,18 @@ export interface SidebarState {
 
 const CentreHome = ( props: any ) => {
   const {centre} = props;
-  const owner = centre && centre.owner ? centre.owner.name : '';
+  const owner = centre && centre.owner ? centre.owner : '';
   return (
     <div>
       <div className="page-headline">OM CENTRUM</div>
-      <h2>{centre ? centre.name : ''} <span className="color-orange">{owner}</span></h2>
+      <h2>
+        {centre ? centre.name : ''}
+        {
+          owner
+            ? <span className="color-orange"><Link to={`/company/${owner.slug}`}>{owner.name}</Link></span>
+            : null
+        }
+      </h2>
 
       <div>
         {centre ? centre.description : ''}
@@ -196,7 +203,7 @@ const mapStateToProps = ( state: AppState, {params}: any ) => {
   if (centre) {
     return {...state, centre: centre.centre};
   } else {
-    return {...state};
+    return state;
   }
 };
 

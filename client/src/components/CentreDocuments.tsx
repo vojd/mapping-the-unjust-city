@@ -16,7 +16,7 @@ class CentreDocuments extends React.Component<CentreDocumentsProps, any> {
   }
 
   componentWillUpdate() {
-    console.log('componentWillUpdate');
+    console.log('CentreDocuments.componentWillUpdate');
   }
 
   render() {

@@ -15,8 +15,6 @@ export const CentreInformation = ( props: CentreInformationProps ) => {
     return null;
   }
 
-  console.log('centre info', props);
-
   const pageStyle = {
     background: `url(${props.centre.images[0].image})`
   };

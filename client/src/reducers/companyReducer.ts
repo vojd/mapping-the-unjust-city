@@ -10,9 +10,8 @@ interface CompanyDetailAction extends Action {
 export default ( state: AppState, action: CompanyDetailAction ) => {
   switch (action.type) {
     case actionTypes.COMPANY_DETAILS_FETCHED:
-      console.log('company detail fetched');
       return {...state, company: action.result};
     default:
-      return null;
+      return state || null;
   }
 };

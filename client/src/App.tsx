@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { AppState } from './state/AppState';
 import Sidebar from './components/Sidebar';
+import SidebarCompany from './components/SidebarCompany';
 
 class App extends React.Component<any, AppState> {
 
@@ -29,6 +30,7 @@ class App extends React.Component<any, AppState> {
 
             <Switch>
               <Route path="/centre/:slug" component={Sidebar}/>
+              <Route path="/company/:slug" component={SidebarCompany}/>
             </Switch>
 
           </div>
