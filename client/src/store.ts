@@ -30,8 +30,8 @@ export const getInitialMapState = (): MapState => {
       redLineNodesNorth: getRedLineNodesNorth(),
       blueLineNodesEast: getBlueLineNodesEast(),
       blueLineNodesWest: getBlueLineNodesWest(),
-      greenLinesNodeWest: getGreenLineNodesWest(),
-      greenLinesNodesSouth: getGreenLineNodesSouth(),
+      greenLineNodesWest: getGreenLineNodesWest(),
+      greenLineNodesSouth: getGreenLineNodesSouth(),
     },
 
     tags: [],

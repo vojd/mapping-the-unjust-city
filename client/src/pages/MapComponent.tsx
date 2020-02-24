@@ -127,7 +127,16 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
   );
 };
 
-export class MapProps {
+interface UndergroundNodes {
+    redLineNodes: MapNode[];
+    redLineNodesNorth: MapNode[];
+    blueLineNodesEast: MapNode[];
+    blueLineNodesWest: MapNode[];
+    greenLineNodesWest: MapNode[];
+    greenLineNodesSouth: MapNode[];
+}
+
+export interface MapProps {
   mouseDown: Function;
   mouseUp: Function;
   mouseMove: Function;
@@ -139,12 +148,7 @@ export class MapProps {
   fetchTagData: Function;
   fetchCompanies: Function;
 
-  nodes: {
-    redLineNodes: MapNode[],
-    redLineNodesNorth: MapNode[],
-    blueLineNodesEast: MapNode[],
-    blueLineNodesWest: MapNode[],
-  };
+  nodes: UndergroundNodes;
 
   tags: MapNodeTag[];
   companies: any[];
@@ -153,7 +157,7 @@ export class MapProps {
   toggleTagVisibilityOnOwner: Function;
 }
 
-export class MapState {
+export interface MapState {
   isMoving: boolean;
   panX: number;
   panY: number;
@@ -165,14 +169,7 @@ export class MapState {
     y: number;
   };
 
-  nodes: {
-    redLineNodes: MapNode[],
-    redLineNodesNorth: MapNode[],
-    blueLineNodesEast: MapNode[],
-    blueLineNodesWest: MapNode[],
-    greenLinesNodeWest: MapNode[],
-    greenLinesNodesSouth: MapNode[],
-  };
+  nodes: UndergroundNodes;
 
   tags: any[];
   visibleTags: string[];
@@ -267,6 +264,16 @@ export class MapComponent extends React.Component<MapProps, AppState> {
 
             <UndergroundLine
               nodes={this.props.nodes.blueLineNodesWest}
+              parentNode={centralStation}
+            />
+
+            <UndergroundLine
+              nodes={this.props.nodes.greenLineNodesWest}
+              parentNode={centralStation}
+            />
+
+            <UndergroundLine
+              nodes={this.props.nodes.greenLineNodesSouth}
               parentNode={centralStation}
             />
           </g>
