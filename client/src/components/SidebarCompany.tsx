@@ -84,7 +84,7 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
 
             <div className="centre-main">
               <Switch>
-                <Route exact path="/company/:slug" render={() => <CompanyHome props={this.props}/>}/>
+                <Route exact path="/company/:slug" render={() => <CompanyHome props={this.props.company}/>}/>
               </Switch>
             </div>
           </div>

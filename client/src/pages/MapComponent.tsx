@@ -1,13 +1,7 @@
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
 import { matrix, pan, scale } from '../math';
-import {
-  getBlueLineNodesEast,
-  getBlueLineNodesWest,
-  getRedLineNodes,
-  getRedLineNodesNorth
-} from '../models/UndergroundLineDefinitions';
-import { MapNode, MapNodeTag, UndergroundManager } from '../components/UndergroundLines';
+import { MapNode, MapNodeTag } from '../components/UndergroundLines';
 import { COLOR_ORANGE, Station } from '../components/Station';
 import { MapText } from '../components/MapText';
 import { AppState } from '../state/AppState';
@@ -67,12 +61,10 @@ const yFromGrid = ( y: number, direction: string, lengthMultiplier: number = 1 )
 interface UndergroundLineProps {
   nodes: MapNode[];
   parentNode: MapNode;
-  undergroundManager: UndergroundManager;
 }
 
 const UndergroundLine = ( props: UndergroundLineProps ): any => {
   const nodes = props.nodes;
-  const undergroundManager = props.undergroundManager;
   const parentNode = props.parentNode;
 
   const stations = [];
@@ -119,7 +111,6 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
                   key={`${node.name}-${idx}`}
                   nodes={branchNodes}
                   parentNode={node}
-                  undergroundManager={undergroundManager}
                 />
               );
             })
@@ -136,35 +127,6 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
   );
 };
 
-export const getInitialMapState = (): MapState => {
-  const undergroundManager = new UndergroundManager();
-  return {
-    scaleFactor: 0.8,
-    panX: 1050,
-    panY: 20,
-    mat: [
-      1, 0, 0,
-      1, 0, 0
-    ],
-    isMoving: false,
-
-    previousMouseCoords: {x: 0, y: 0},
-
-    undergroundManager: undergroundManager,
-    nodes: {
-      redLineNodes: getRedLineNodes(),
-      redLineNodesNorth: getRedLineNodesNorth(),
-      blueLineNodesEast: getBlueLineNodesEast(),
-      blueLineNodesWest: getBlueLineNodesWest(),
-    },
-
-    tags: [],
-    visibleTags: [],
-    visibleOwners: [],
-    companies: [],
-  };
-};
-
 export class MapProps {
   mouseDown: Function;
   mouseUp: Function;
@@ -177,7 +139,6 @@ export class MapProps {
   fetchTagData: Function;
   fetchCompanies: Function;
 
-  undergroundManager: UndergroundManager;
   nodes: {
     redLineNodes: MapNode[],
     redLineNodesNorth: MapNode[],
@@ -204,12 +165,13 @@ export class MapState {
     y: number;
   };
 
-  undergroundManager: UndergroundManager;
   nodes: {
     redLineNodes: MapNode[],
     redLineNodesNorth: MapNode[],
     blueLineNodesEast: MapNode[],
     blueLineNodesWest: MapNode[],
+    greenLinesNodeWest: MapNode[],
+    greenLinesNodesSouth: MapNode[],
   };
 
   tags: any[];
@@ -267,9 +229,6 @@ export class MapComponent extends React.Component<MapProps, AppState> {
       y: height / 2
     };
 
-    // const greenLineNodesSouth = getGreenLineNodesSouth(this.undergroundManager);
-    // const greenLineNodesWest = getGreenLineNodesWest(this.undergroundManager);
-
     return (
       <div className="full-screen" style={positionFixed}>
         <svg
@@ -294,25 +253,21 @@ export class MapComponent extends React.Component<MapProps, AppState> {
             <UndergroundLine
               nodes={this.props.nodes.redLineNodes}
               parentNode={centralStation}
-              undergroundManager={this.props.undergroundManager}
             />
 
             <UndergroundLine
               nodes={this.props.nodes.redLineNodesNorth}
               parentNode={centralStation}
-              undergroundManager={this.props.undergroundManager}
             />
 
             <UndergroundLine
               nodes={this.props.nodes.blueLineNodesEast}
               parentNode={centralStation}
-              undergroundManager={this.props.undergroundManager}
             />
 
             <UndergroundLine
               nodes={this.props.nodes.blueLineNodesWest}
               parentNode={centralStation}
-              undergroundManager={this.props.undergroundManager}
             />
           </g>
         </svg>

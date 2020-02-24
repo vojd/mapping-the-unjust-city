@@ -22,30 +22,3 @@ export interface MapNode {
 
   isVisible: boolean;
 }
-
-interface UndergroundLine {
-  id: number;
-  nodes: MapNode[];
-}
-
-export class UndergroundManager {
-
-  lines: UndergroundLine[] = [];
-
-  register( id: number, nodes: MapNode[] ) {
-    this.lines.push({
-      id: id,
-      nodes: nodes
-    });
-  }
-
-  /**
-   * Return the lines beloning to a particular branchIds id
-   * @param {number} id
-   * @returns {MapNode[]}
-   */
-  getNodesByBranchId( id: number ): MapNode[] {
-    const line = this.lines.filter(n => n.id === id)[0];
-    return line.nodes;
-  }
-}

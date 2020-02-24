@@ -5,15 +5,15 @@ import { AppState } from './state/AppState';
 import {
   getBlueLineNodesEast,
   getBlueLineNodesWest,
+  getGreenLineNodesSouth,
+  getGreenLineNodesWest,
   getRedLineNodes,
   getRedLineNodesNorth
 } from './models/UndergroundLineDefinitions';
-import { UndergroundManager } from './components/UndergroundLines';
 import { MapState } from './pages/MapComponent';
 
 export const getInitialMapState = (): MapState => {
-  const undergroundManager = new UndergroundManager();
-  const mapState = {
+  return {
     scaleFactor: 0.8,
     panX: 1050,
     panY: 20,
@@ -25,12 +25,13 @@ export const getInitialMapState = (): MapState => {
 
     previousMouseCoords: {x: 0, y: 0},
 
-    undergroundManager: undergroundManager,
     nodes: {
       redLineNodes: getRedLineNodes(),
       redLineNodesNorth: getRedLineNodesNorth(),
       blueLineNodesEast: getBlueLineNodesEast(),
       blueLineNodesWest: getBlueLineNodesWest(),
+      greenLinesNodeWest: getGreenLineNodesWest(),
+      greenLinesNodesSouth: getGreenLineNodesSouth(),
     },
 
     tags: [],
@@ -38,8 +39,6 @@ export const getInitialMapState = (): MapState => {
     visibleOwners: [],
     companies: [],
   };
-
-  return mapState;
 };
 
 const configureStore = ( initialState: AppState ): Store<AppState> => {
