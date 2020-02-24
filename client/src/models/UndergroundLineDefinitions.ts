@@ -10,13 +10,11 @@ const addPropsToNodelist = ( nodeList: MapNode[] ): MapNode[] => {
 
 const station = ( name: string,
                   direction: string,
-                  filled: number = -1,
                   lengthMultiplier: number = 1,
                   owner?: any,
                   branches?: number[],
                   branchNodes?: MapNode[][] ): MapNode => {
   let s = <MapNode> {
-    filled: filled,
     direction: direction,
 
     name: name,
@@ -72,22 +70,22 @@ const redLineFruangenNodes: MapNode[] = [
 ];
 
 const redLineNorsborgNodes: MapNode[] = [
-  station('Bredäng', 'sw', -1, 1, CompanyDefinitions.FAST_PARTNER),
-  station('Sätra', 'sw', -1, 1, CompanyDefinitions.SATRA),
-  station('Skärholmen', 'sw', -1, 1, CompanyDefinitions.GROSVENOR),
-  station('Vårberg', 'sw', -1, 1, CompanyDefinitions.AGORA),
-  station('Vårby Gård', 'sw', -1, 1, CompanyDefinitions.BALDER),
-  station('Fittja', 'sw', -1, 1, CompanyDefinitions.FITTJA_CENTRUMFASTIGHETER),
-  station('Alby', 'sw', -1, 1, CompanyDefinitions.BOTKYRKABYGGEN),
-  station('Hallunda', 'sw', -1, 1, CompanyDefinitions.STERNER),
-  station('Norsborg', 'sw', -1, 1, CompanyDefinitions.NORSBORG),
+  station('Bredäng', 'sw', 1, CompanyDefinitions.FAST_PARTNER),
+  station('Sätra', 'sw', 1, CompanyDefinitions.SATRA),
+  station('Skärholmen', 'sw', 1, CompanyDefinitions.GROSVENOR),
+  station('Vårberg', 'sw', 1, CompanyDefinitions.AGORA),
+  station('Vårby Gård', 'sw', 1, CompanyDefinitions.BALDER),
+  station('Fittja', 'sw', 1, CompanyDefinitions.FITTJA_CENTRUMFASTIGHETER),
+  station('Alby', 'sw', 1, CompanyDefinitions.BOTKYRKABYGGEN),
+  station('Hallunda', 'sw', 1, CompanyDefinitions.STERNER),
+  station('Norsborg', 'sw', 1, CompanyDefinitions.NORSBORG),
 ];
 
 const redLineMalarhojdenNodes: MapNode[] = [
   station('Aspudden', 'w'),
   station('Örnsberg', 'w'),
   station(
-    'Mälarhöjden', 'w', -1, 1, null,
+    'Mälarhöjden', 'w', 1, null,
     [Branches.RED_LINE_NORSBORG],
     [redLineNorsborgNodes]
   ),
@@ -102,14 +100,14 @@ const redLineSouthBound: MapNode[] = [
   station('Hornstull', 'w'),
   // NOTE: We're going to Malarhojden because the map takes a turn to south west after Malarhojden
   station(
-    'Liljeholmen', 'w', -1, 1, null,
+    'Liljeholmen', 'w', 1, null,
     [Branches.RED_LINE_MALARHOJDEN, Branches.RED_LINE_FRUANGEN],
     [redLineMalarhojdenNodes, redLineFruangenNodes]
   ),
 ];
 
 const redLineMorbyCentrum: MapNode[] = [
-  station('Stadion', 'n', -1, 3),
+  station('Stadion', 'n', 3),
   station('Tekniska högskolan', 'n'),
   station('Universitetet', 'n'),
   station('Bergshamra', 'n'),
@@ -118,15 +116,15 @@ const redLineMorbyCentrum: MapNode[] = [
 ];
 
 const redLineRopsten: MapNode[] = [
-  station('Karlaplan', 'ne', -1, 2),
-  station('Gärdet', 'ne', -1, 2),
-  station('Ropsten', 'ne', -1, 2),
+  station('Karlaplan', 'ne', 2),
+  station('Gärdet', 'ne', 2),
+  station('Ropsten', 'ne', 2),
 ];
 
 // north bound from t-centralen
 const redLineNorthBound: MapNode[] = [
   station(
-    'Östermalms torg', 'n', -1, 1, null,
+    'Östermalms torg', 'n', 1, null,
     [Branches.RED_LINE_MORBY_CENTRUM, Branches.RED_LINE_ROPSTEN],
     [redLineMorbyCentrum, redLineRopsten]
   ),
@@ -159,13 +157,13 @@ const blueLineHjulstaNodes: MapNode[] = [
 
 // west from t-centralen, continuing northwest
 const blueLineWestBoundNodes: MapNode[] = [
-  station('Rådhuset', 'w', -1),
+  station('Rådhuset', 'w'),
   // TODO: Fridhemsplan must be present in both green and blue lines
   // station('Fridhemsplan', 'nw', -1, 1, null, [Branches.GREEN_LINE_ALVIK]),
-  station('Fridhemsplan', 'nw', -1),
+  station('Fridhemsplan', 'nw'),
   station('Stadshagen', 'nw'),
   station(
-    'Västra skogen', 'nw', -1, 1, null,
+    'Västra skogen', 'nw', 1, null,
     [Branches.BLUE_LINE_AKALLA, Branches.BLUE_LINE_HJULSTA],
     [blueLineAkallaNodes, blueLineHjulstaNodes]
   ),
@@ -176,7 +174,7 @@ const greenLineWestNodes: MapNode[] = [
   station('Rådmansgatan', 'w'),
   station('Odenplan', 'w'),
   station('S:t Eriksplan', 'w'),
-  station('Fridshemplan', 'w', -1),
+  station('Fridshemplan', 'w'),
   station('Thorildsplan', 'w'),
   station('Kristineberg', 'w'),
   station('Alvik', 'w'),
@@ -184,7 +182,7 @@ const greenLineWestNodes: MapNode[] = [
   station('Stora mossen', 'w'),
   station('Abrahamsberg', 'w'),
   station('Brommaplan', 'w'),
-  station('Åkeshov', 'w', -1),
+  station('Åkeshov', 'w'),
 
   station('Ängbyplan', 'w'),
   station('Islandstorget', 'w'),
@@ -209,10 +207,10 @@ const greenLineHagsatraNodes: MapNode[] = [
 ];
 
 const greenLineSouthBoundNodes: MapNode[] = [
-  station('Medborgarplatsen', 's'),
+  station('Medborgarplatsen', 's', 4), // pushing it down from slussen
   station('Skanstull', 's'),
   station(
-    'Gullmarsplan', 's', -1, 1, null,
+    'Gullmarsplan', 's', 1, null,
     [Branches.GREEN_LINE_HAGSATRA],
     [greenLineHagsatraNodes]
   ),
