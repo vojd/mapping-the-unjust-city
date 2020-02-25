@@ -79,9 +79,10 @@ ul li {
 }
 
 /* centre */
-
+/* image shall have ratio 16:9 */
 .centre-top-image {
-    height: 25vh;
+    width: 480px;
+    height: 270px;
     position: relative;
     border: 1px solid #888;
 }
