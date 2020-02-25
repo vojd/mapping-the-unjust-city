@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 import { actionTypes } from '../actions/Action';
 import { Centre } from '../models/models';
-import { AppState } from '../state/AppState';
+import { AppState } from '../interfaces/AppState';
 
 interface CentreAction extends Action {
   result: Centre;

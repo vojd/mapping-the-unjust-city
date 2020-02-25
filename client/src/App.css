@@ -186,6 +186,9 @@ ul li {
     width: 350px;
 }
 
+.legend-container h4 {
+    color: #888888;
+}
 .input-container {
     display: block;
     position: relative;

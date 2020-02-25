@@ -1,7 +1,7 @@
-import { AppState } from '../state/AppState';
 import { Company } from '../models/models';
 import { Action } from 'redux';
 import { actionTypes } from '../actions/Action';
+import { AppState } from '../interfaces/AppState';
 
 interface CompanyDetailAction extends Action {
   result: Company;

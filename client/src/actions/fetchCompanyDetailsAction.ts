@@ -1,8 +1,8 @@
-import { AppState } from '../state/AppState';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
 import { APIService } from '../services/APIService';
 import { actionTypes } from './Action';
+import { AppState } from '../interfaces/AppState';
 
 export const fetchCompanyDetailsAction = ( slug: string ) => {
   return async ( dispatch: ThunkDispatch<AppState, void, Action> ) => {

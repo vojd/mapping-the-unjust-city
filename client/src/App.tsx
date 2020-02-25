@@ -5,9 +5,9 @@ import { Route, Switch } from 'react-router';
 import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-import { AppState } from './state/AppState';
 import Sidebar from './components/Sidebar';
 import SidebarCompany from './components/SidebarCompany';
+import { AppState } from './interfaces/AppState';
 
 class App extends React.Component<any, AppState> {
 

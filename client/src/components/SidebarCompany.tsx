@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { Route, Switch, withRouter } from 'react-router';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { AppState } from '../state/AppState';
 import { connect } from 'react-redux';
 import { CompanyHome } from './company/CompanyHome';
 import { Company } from '../models/models';
 import { RouteLocation, RouteMatch } from './CentreComponent';
 import { fetchCompanyDetailsAction } from '../actions/fetchCompanyDetailsAction';
+import { AppState } from '../interfaces/AppState';
 
 export interface SidebarCompanyProps {
   match: RouteMatch;

@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 import { actionTypes } from '../actions/Action';
-import { MapState } from '../pages/MapComponent';
+import { MapState } from '../interfaces/MapInterfaces';
 import { MapNode } from '../components/UndergroundLines';
 import { MapDataFetchedAction } from '../actions/mapActions';
 import { Centre } from '../models/models';

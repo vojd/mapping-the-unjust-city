@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { AppState } from '../state/AppState';
 import { connect } from 'react-redux';
 import { RouteMatch } from './CentreComponent';
 import { Centre } from '../models/models';
 import { fetchCentreAction } from '../actions/fetchCentreAction';
 import { CentreToolbar } from './CentreToolbar';
 import { CentreInformationProps } from './CentreInformation';
+import { AppState } from '../interfaces/AppState';
 
 // const TableRow = ( props: any ) => {
 //   return (

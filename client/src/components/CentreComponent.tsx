@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { fetchCentreAction } from '../actions/fetchCentreAction';
 import { CentreInformation } from './CentreInformation';
 import { Centre } from '../models/models';
-import { AppState } from '../state/AppState';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
+import { AppState } from '../interfaces/AppState';
 
 interface RouteParams {
   slug: string;

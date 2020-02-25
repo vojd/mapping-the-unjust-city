@@ -1,8 +1,8 @@
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { AppState } from '../state/AppState';
 import { APIService } from '../services/APIService';
 import { actionTypes } from './Action';
+import { AppState } from '../interfaces/AppState';
 
 export const fetchCentreAction = ( slug: string) => {
 

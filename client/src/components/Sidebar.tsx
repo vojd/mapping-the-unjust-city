@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { AppState } from '../state/AppState';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
 import { Centre } from '../models/models';
@@ -9,6 +8,7 @@ import { fetchCentreAction } from '../actions/fetchCentreAction';
 import { Route, Switch, withRouter } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import CentreDocuments from './CentreDocuments';
+import { AppState } from '../interfaces/AppState';
 
 export interface SidebarProps {
   match: RouteMatch;

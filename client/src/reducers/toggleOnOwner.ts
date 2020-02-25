@@ -1,6 +1,6 @@
 import { ToggleAction, ToggleActionData } from '../actions/mapActions';
-import { MapState } from '../pages/MapComponent';
 import { MapNode } from '../components/UndergroundLines';
+import { MapState } from '../interfaces/MapInterfaces';
 
 const toggleNodeOnOwner = ( node: MapNode, tagsToShow: string[] ): MapNode => {
   // console.log(node.name);

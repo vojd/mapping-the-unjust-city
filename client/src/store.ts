@@ -1,7 +1,6 @@
 import { applyMiddleware, createStore, Store } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
-import { AppState } from './state/AppState';
 import {
   getBlueLineNodesEast,
   getBlueLineNodesWest,
@@ -10,7 +9,8 @@ import {
   getRedLineNodes,
   getRedLineNodesNorth
 } from './models/UndergroundLineDefinitions';
-import { MapState } from './pages/MapComponent';
+import { AppState } from './interfaces/AppState';
+import { MapState } from './interfaces/MapInterfaces';
 
 export const getInitialMapState = (): MapState => {
   return {

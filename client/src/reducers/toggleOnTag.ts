@@ -1,6 +1,6 @@
 import { ToggleAction, ToggleActionData } from '../actions/mapActions';
-import { MapState } from '../pages/MapComponent';
 import { MapNode } from '../components/UndergroundLines';
+import { MapState } from '../interfaces/MapInterfaces';
 
 const toggleNodeOnTag = ( node: MapNode, tagsToShow: string[] ): MapNode => {
   // If the list is empty then we'll show everything

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { AppState } from '../state/AppState';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
 import { TheProps } from './Sidebar';
+import { AppState } from '../interfaces/AppState';
 
 interface CentreDocumentsProps extends TheProps {
   fetchDocumentsForCentre: Function;
