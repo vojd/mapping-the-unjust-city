@@ -7,7 +7,7 @@ import { Centre } from '../models/models';
 import { RouteLocation, RouteMatch } from './CentreComponent';
 import { fetchCentreAction } from '../actions/fetchCentreAction';
 import { Route, Switch, withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import CentreDocuments from './CentreDocuments';
 
 export interface SidebarProps {
@@ -84,7 +84,6 @@ const CentreOwners = ( props: TheProps ) => {
         </tbody>
       </table>
     </div>
-
   );
 };
 
@@ -139,21 +138,21 @@ class Sidebar extends React.Component<SidebarProps, SidebarState> {
             <div>
               <div className="centre_information__menu">
 
-                <Link to={`/centre/${slug}`}>
-                  <div className="station-information__menu__icon icon-about-centre"/>
-                </Link>
+                <NavLink exact={true} activeClassName="link-is-active" to={`/centre/${slug}`}>
+                  <div className="station-information__menu__icon icon icon-about-centre"/>
+                </NavLink>
 
-                <Link to={`/centre/${slug}/detail-plan`}>
-                  <div className="station-information__menu__icon icon-detail-plan"/>
-                </Link>
+                <NavLink activeClassName="link-is-active" to={`/centre/${slug}/detail-plan`}>
+                  <div className="station-information__menu__icon icon icon-detail-plan"/>
+                </NavLink>
 
-                <Link to={`/centre/${slug}/owners`}>
-                  <div className="station-information__menu__icon icon-owner-history"/>
-                </Link>
+                <NavLink activeClassName="link-is-active" to={`/centre/${slug}/owners`}>
+                  <div className="station-information__menu__icon icon icon-owner-history"/>
+                </NavLink>
 
-                <Link to={`/centre/${slug}/documents`}>
-                  <div className="station-information__menu__icon icon-media-press"/>
-                </Link>
+                <NavLink activeClassName="link-is-active" to={`/centre/${slug}/documents`}>
+                  <div className="station-information__menu__icon icon icon-media-press"/>
+                </NavLink>
               </div>
             </div>
 
