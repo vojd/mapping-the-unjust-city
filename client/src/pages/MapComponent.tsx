@@ -68,6 +68,7 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
   const nodes = props.nodes;
   const parentNode = props.parentNode;
 
+  const lines = [];
   const stations = [];
 
   for (let i = 0; i < nodes.length; i++) {
@@ -89,21 +90,14 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
       y2: node.y
     };
 
-    stations.push(
+    lines.push(
       <g key={i}>
         <line {...lineCoords} stroke={COLOR_ORANGE} strokeWidth="10"/>
-        <Station
-          x={x}
-          y={y}
-          node={node}
-        />
-
         <MapText
           x={x}
           y={y}
           node={node}
         />
-
         {
           node.branches
             ? node.branches.map(( branchNodes, idx ) => {
@@ -119,11 +113,22 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
         }
       </g>
     );
+
+    stations.push(
+      <g key={i}>
+        <Station
+          x={x}
+          y={y}
+          node={node}
+        />
+      </g>
+    );
   }
 
   return (
     <g>
-      {stations.map(s => s)}
+      <g>{lines.map(l => l)}</g>
+      <g>{stations.map(s => s)}</g>
     </g>
   );
 };

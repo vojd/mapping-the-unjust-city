@@ -31,7 +31,7 @@ const RouteCircle = ( props: RouteCircleProps ) => {
         <circle
           cx={props.x}
           cy={props.y}
-          r={props.isActive ? props.r + 2 : props.r}
+          r={props.isActive ? props.r + 4 : props.r + 4}
           fill={COLOR_ORANGE}
           onClick={() => history.push(`/centre/${slugify(props.node.name)}/`)}
         />
@@ -53,10 +53,10 @@ const getLineDirection = ( direction: string ) => {
 
 const StationLine = ( props: any ) => {
   // Should the lines be horizontal or vertical?
-  const { rx, ry } = getLineDirection(props.node.direction);
+  const {rx, ry} = getLineDirection(props.node.direction);
   const coords = {x1: props.node.x - rx, y1: props.node.y - ry, x2: props.node.x + rx, y2: props.node.y + ry};
   return (
-    <line {...coords} strokeWidth="10" stroke={COLOR_ORANGE} />
+    <line {...coords} strokeWidth="10" stroke={COLOR_ORANGE}/>
   );
 };
 
@@ -81,12 +81,6 @@ export class Station extends React.Component<StationProps, StationState> {
       y: props.y,
       isActive: false,
     };
-  }
-
-  public toggleActive = () => {
-    this.setState({
-      isActive: !this.state.isActive
-    });
   }
 
   render() {
