@@ -46,7 +46,7 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
       <div className="sidebar">
         <div className="sidebar-content shadow">
           <div>
-            <div className="centre_top_image">
+            <div className="centre-top-image">
               {/*{this.props.centre ? <CentreMainImage centre={this.props.centre}/> : ''}*/}
               placeholder
             </div>
@@ -78,13 +78,11 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
                   </div>
                 </Link>
               </div>
-
-              <p>{this.props.company ? this.props.company.name : ''}</p>
             </div>
 
             <div className="centre-main">
               <Switch>
-                <Route exact path="/company/:slug" render={() => <CompanyHome props={this.props.company}/>}/>
+                <Route exact path="/company/:slug" render={() => <CompanyHome company={this.props.company}/>}/>
               </Switch>
             </div>
           </div>

@@ -132,37 +132,27 @@ class Sidebar extends React.Component<SidebarProps, SidebarState> {
       <div className="sidebar">
         <div className="sidebar-content shadow">
           <div>
-            <div className="centre_top_image">
+            <div className="centre-top-image">
               {this.props.centre ? <CentreMainImage centre={this.props.centre}/> : ''}
             </div>
 
             <div>
               <div className="centre_information__menu">
 
-                {/*Detaljplan*/}
-
                 <Link to={`/centre/${slug}`}>
-                  <div className="station-information__menu__icon">
-                    <i className="fa fa-question"/>
-                  </div>
+                  <div className="station-information__menu__icon icon-about-centre"/>
                 </Link>
 
                 <Link to={`/centre/${slug}/detail-plan`}>
-                  <div className="station-information__menu__icon">
-                    <i className="fa fa-map"/>
-                  </div>
+                  <div className="station-information__menu__icon icon-detail-plan"/>
                 </Link>
 
                 <Link to={`/centre/${slug}/owners`}>
-                  <div className="station-information__menu__icon">
-                    <i className="fa fa-users"/>
-                  </div>
+                  <div className="station-information__menu__icon icon-owner-history"/>
                 </Link>
 
                 <Link to={`/centre/${slug}/documents`}>
-                  <div className="station-information__menu__icon">
-                    <i className="fa fa-question"/>
-                  </div>
+                  <div className="station-information__menu__icon icon-media-press"/>
                 </Link>
               </div>
             </div>
