@@ -311,6 +311,8 @@ ul li {
 
 .icon {
     background-color: #000;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
 }
 /** sidebar icons **/
 .icon-about-centre {

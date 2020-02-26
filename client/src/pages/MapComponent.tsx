@@ -55,7 +55,7 @@ const yFromGrid = ( y: number, direction: string, lengthMultiplier: number = 1 )
     case 'nw':
       return y - gridY * lengthMultiplier;
     default:
-      return y * lengthMultiplier;
+      return y;
   }
 };
 

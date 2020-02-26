@@ -19,6 +19,6 @@ export interface MapNode {
   x: number;
   y: number;
   lengthMultiplier?: number; // length multiplier, undefined = 1
-
+  horizontalText: boolean;
   isVisible: boolean;
 }

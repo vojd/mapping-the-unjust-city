@@ -25,8 +25,8 @@ export const MapTextTiltRight = ( props: MapTextProps ) => {
 };
 
 export const MapTextAbove = ( props: MapTextProps ) => {
-  const tx = props.x + -40;
-  const ty = props.y + -220;
+  const tx = props.x + -30;
+  const ty = props.y + -320;
   const transform = `rotate(20, ${tx}, ${ty})`;
   return (
     <text
@@ -58,9 +58,21 @@ export const MapTextRight = ( props: MapTextProps ) => {
 };
 
 export const MapText = ( props: MapTextProps ) => {
+
   if (!props.node.isVisible) {
     return (
       <p>inactive</p>
+    );
+  }
+
+  const {horizontalText} = props.node;
+  if (horizontalText) {
+    return (
+      <MapTextRight
+        x={props.x}
+        y={props.y}
+        node={props.node}
+      />
     );
   }
 
@@ -84,7 +96,7 @@ export const MapText = ( props: MapTextProps ) => {
       );
     case 'ne':
       return (
-        <MapTextTiltRight
+        <MapTextRight
           x={props.x}
           y={props.y}
           node={props.node}
