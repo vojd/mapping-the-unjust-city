@@ -5,6 +5,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
 import { CentreName, TheProps } from './Sidebar';
 import { AppState } from '../interfaces/AppState';
+import { DocumentsList } from './DocumentsList';
 
 interface CentreDocumentsProps extends TheProps {
   fetchDocumentsForCentre: Function;
@@ -27,20 +28,9 @@ class CentreDocuments extends React.Component<CentreDocumentsProps, any> {
       <div>
         <CentreName centre={centre}/>
         <div className="headline-text">MEDIA / PRESS</div>
-        {
-          documents
-            ? documents.map(( document: any, id: number ) => {
-              return (
-                <div key={id} className="document-row">
-                  <div>
-                    <a href={document.file} target="_blank">{document.title}</a>
-                  </div>
-                  <div>{document.text}</div>
-                </div>
-              );
-            })
-            : ''
-        }
+
+        <DocumentsList documents={documents}/>
+
       </div>
     );
   }

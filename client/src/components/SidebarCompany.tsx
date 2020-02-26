@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Route, Switch, withRouter } from 'react-router';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -9,6 +9,7 @@ import { Company } from '../models/models';
 import { RouteLocation, RouteMatch } from './CentreComponent';
 import { fetchCompanyDetailsAction } from '../actions/fetchCompanyDetailsAction';
 import { AppState } from '../interfaces/AppState';
+import { CompanyDocuments } from './company/CompanyDocuments';
 
 export interface SidebarCompanyProps {
   match: RouteMatch;
@@ -54,35 +55,24 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
             <div>
               <div className="centre_information__menu">
 
-                <Link to={`/centre/${slug}`}>
-                  <div className="station-information__menu__icon">
-                    <i className="fa fa-question"/>
-                  </div>
-                </Link>
+                <NavLink exact={true} activeClassName="link-is-active" to={`/company/${slug}`}>
+                  <div className="station-information__menu__icon icon icon-house"/>
+                </NavLink>
 
-                <Link to={`/centre/${slug}/detail-plan`}>
-                  <div className="station-information__menu__icon">
-                    <i className="fa fa-map"/>
-                  </div>
-                </Link>
+                <NavLink activeClassName="link-is-active" to={`/company/${slug}/documents`}>
+                  <div className="station-information__menu__icon icon icon-media-press"/>
+                </NavLink>
 
-                <Link to={`/centre/${slug}/owners`}>
-                  <div className="station-information__menu__icon">
-                    <i className="fa fa-users"/>
-                  </div>
-                </Link>
-
-                <Link to={`/centre/${slug}/documents`}>
-                  <div className="station-information__menu__icon">
-                    <i className="fa fa-question"/>
-                  </div>
-                </Link>
               </div>
             </div>
 
             <div className="centre-main">
               <Switch>
                 <Route exact path="/company/:slug" render={() => <CompanyHome company={this.props.company}/>}/>
+                <Route
+                  path="/company/:slug/documents"
+                  render={() => <CompanyDocuments company={this.props.company}/>}
+                />
               </Switch>
             </div>
           </div>

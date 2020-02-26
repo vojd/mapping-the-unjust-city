@@ -165,7 +165,7 @@ class Sidebar extends React.Component
               <div className="centre_information__menu">
 
                 <NavLink exact={true} activeClassName="link-is-active" to={`/centre/${slug}`}>
-                  <div className="station-information__menu__icon icon icon-about-centre"/>
+                  <div className="station-information__menu__icon icon icon-house"/>
                 </NavLink>
 
                 <NavLink activeClassName="link-is-active" to={`/centre/${slug}/detail-plan`}>

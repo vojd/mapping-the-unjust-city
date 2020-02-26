@@ -1,17 +1,16 @@
 import * as React from 'react';
 
-// interface CompanyHomeProps {
-//   company: Company;
-// }
 export const CompanyHome = ( props: any ) => {
   const {company} = props;
 
   return (
-    <div>
-      <div className="page-headline">OM BOLAGET</div>
+    <div className="centre-name">
+
       <h2>
         {company ? company.name : ''}
       </h2>
+
+      <div className="headline-text">OM BOLAGET</div>
 
       <div>
         {company ? company.description : ''}

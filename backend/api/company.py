@@ -1,5 +1,6 @@
 from rest_framework import viewsets, serializers
 
+from api.documents import DocumentSerializer
 from centres.models import Company, Centre
 
 
@@ -12,12 +13,7 @@ class CompanyOwnedCentresSerializer(serializers.ModelSerializer):
 class CompanySerializer(serializers.HyperlinkedModelSerializer):
     centres = CompanyOwnedCentresSerializer(many=True, read_only=True,)
 
-    documents = serializers.HyperlinkedRelatedField(
-        view_name='api:document-detail',
-        lookup_field='pk',
-        many=True,
-        read_only=True
-    )
+    documents = DocumentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Company
