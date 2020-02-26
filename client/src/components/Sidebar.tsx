@@ -22,6 +22,15 @@ export interface SidebarState {
   centre: Centre | null;
 }
 
+const CentreOwnerName = ( props: any ) => {
+  const {owner} = props;
+  return (
+    <span className="centre-owner-title color-orange">
+      <Link to={`/company/${owner.slug}`} className="centre-owner-name">{owner.name}</Link>
+    </span>
+  );
+};
+
 const CentreHome = ( props: any ) => {
   const {centre} = props;
   const owner = centre && centre.owner ? centre.owner : '';
@@ -32,7 +41,7 @@ const CentreHome = ( props: any ) => {
         {centre ? centre.name : ''}
         {
           owner
-            ? <span className="color-orange"><Link to={`/company/${owner.slug}`}>{owner.name}</Link></span>
+            ? <CentreOwnerName owner={owner}/>
             : null
         }
       </h2>
