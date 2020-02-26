@@ -283,6 +283,11 @@ ul li {
     color: rgb(255, 165, 0);
 }
 
+.sidebar a:hover {
+    color: #ff7C00;
+    text-decoration: none;
+}
+
 .sidebar-content {
     min-width: 550px;
     padding: 32px;
