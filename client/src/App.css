@@ -2,6 +2,8 @@ html, body {
     height: 100%;
     margin: 0;
     overflow: hidden;
+
+    background: #F1F3DE;
 }
 
 .App {
@@ -11,6 +13,10 @@ html, body {
 .App-logo {
     animation: App-logo-spin infinite 20s linear;
     height: 80px;
+}
+
+svg.map-svg {
+    background: #F1F3DE;
 }
 
 svg text {
@@ -233,7 +239,7 @@ ul li {
 
 /* When the checkbox is checked, add a blue background */
 .input-container input:checked ~ .input-checkmark {
-    background-color: #2196F3;
+    background-color: #ABAD9C;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -250,15 +256,17 @@ ul li {
 
 /* Style the checkmark/indicator */
 .input-container .input-checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
+
+    content: "X";
+    color: #eee;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
 }
 
 .legend {
@@ -319,6 +327,12 @@ ul li {
     background-color: #000;
     mask-repeat: no-repeat;
     -webkit-mask-repeat: no-repeat;
+}
+
+/* arrow */
+.arrow-down {
+    mask-image: url('data:image/svg+xml;base64 PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIyLjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA2OCAxMTAuNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjggMTEwLjY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8cGF0aCBkPSJNMTMuNiwyYzMuOC0wLjMsNi45LDIuMiw5LjgsNS4xYzExLjUsMTEuNiwyMywyMy4xLDM0LjUsMzQuN2MyLDIuMSw0LjUsMy42LDYuNSw1LjhjNC41LDQuOSwzLjgsMTMuNC0xLjMsMTcuNwoJCWMtNC42LDMuOC04LjMsOC41LTEyLjUsMTIuN2MtNy4zLDcuMy0xNC43LDE0LjQtMjIsMjEuNmMtMi43LDIuNy01LjMsNS40LTguMSw4LjFjLTIuNiwyLjUtNS44LDIuOS05LjIsMi41CgkJYy00LjQtMC41LTcuNS0yLjctOS4yLTYuOWMtMi01LjEtMS4zLTkuOCwyLjQtMTMuNmMzLjItMy4zLDYtNi45LDkuNC0xMGM3LjgtNy4xLDE0LjUtMTUuMiwyMi4zLTIyLjNjMS4yLTEuMSwwLjktMS42LDAuMS0yLjUKCQljLTIuNC0yLjUtNS4yLTQuNy03LjQtNy4yYy02LjUtNy4yLTEzLjUtMTMuOC0yMC4xLTIwLjhjLTIuMy0yLjQtNS00LjQtNi40LTcuNUMtMS42LDEwLjksMy41LDEuOSwxMy42LDJ6Ii8+CjwvZz4KPC9zdmc+Cg==');
+    -webkit-mask-image: url('data:image/svg+xml;base64 PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIyLjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA2OCAxMTAuNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjggMTEwLjY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8cGF0aCBkPSJNMTMuNiwyYzMuOC0wLjMsNi45LDIuMiw5LjgsNS4xYzExLjUsMTEuNiwyMywyMy4xLDM0LjUsMzQuN2MyLDIuMSw0LjUsMy42LDYuNSw1LjhjNC41LDQuOSwzLjgsMTMuNC0xLjMsMTcuNwoJCWMtNC42LDMuOC04LjMsOC41LTEyLjUsMTIuN2MtNy4zLDcuMy0xNC43LDE0LjQtMjIsMjEuNmMtMi43LDIuNy01LjMsNS40LTguMSw4LjFjLTIuNiwyLjUtNS44LDIuOS05LjIsMi41CgkJYy00LjQtMC41LTcuNS0yLjctOS4yLTYuOWMtMi01LjEtMS4zLTkuOCwyLjQtMTMuNmMzLjItMy4zLDYtNi45LDkuNC0xMGM3LjgtNy4xLDE0LjUtMTUuMiwyMi4zLTIyLjNjMS4yLTEuMSwwLjktMS42LDAuMS0yLjUKCQljLTIuNC0yLjUtNS4yLTQuNy03LjQtNy4yYy02LjUtNy4yLTEzLjUtMTMuOC0yMC4xLTIwLjhjLTIuMy0yLjQtNS00LjQtNi40LTcuNUMtMS42LDEwLjksMy41LDEuOSwxMy42LDJ6Ii8+CjwvZz4KPC9zdmc+Cg==');
 }
 /** sidebar icons **/
 .icon-about-centre {
