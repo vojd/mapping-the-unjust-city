@@ -175,11 +175,11 @@ const blueLineHjulstaNodes: MapNode[] = [
 
 // west from t-centralen, continuing northwest
 const blueLineWestBoundNodes: MapNode[] = [
-  stationWithHorizontalText('Rådhuset', 'w', 4),
+  stationWithHorizontalText('Rådhuset', 'w', 3.25), // NOTE: Re-align Fridhemsplan if you move Rådhuset
   // TODO: Fridhemsplan must be present in both green and blue lines
   // station('Fridhemsplan', 'nw', -1, 1, null, [Branches.GREEN_LINE_ALVIK]),
-  station('Fridhemsplan', 'nw'),
-  station('Stadshagen', 'nw'),
+  station('Fridhemsplan', 'nw', 2),
+  station('Stadshagen', 'nw', 2),
   station(
     'Västra skogen', 'nw', 1,
     [Branches.BLUE_LINE_AKALLA, Branches.BLUE_LINE_HJULSTA],
@@ -188,28 +188,28 @@ const blueLineWestBoundNodes: MapNode[] = [
 ];
 
 const greenLineWestNodes: MapNode[] = [
-  station('Hötorget', 'nw'),
-  station('Rådmansgatan', 'w'),
-  station('Odenplan', 'w'),
-  station('S:t Eriksplan', 'w'),
+  station('Hötorget', 'nw', 2), // NOTE: If you move Hotorget, make sure you also move Rådhuset so Fridhemsplan aligns
+  station('Rådmansgatan', 'w', .75),
+  station('Odenplan', 'w', .75),
+  station('S:t Eriksplan', 'w', .75),
   station('Fridshemplan', 'w'),
-  station('Thorildsplan', 'w'),
-  station('Kristineberg', 'w'),
-  station('Alvik', 'w'),
+  station('Thorildsplan', 'w', .5),
+  station('Kristineberg', 'w', .5),
+  station('Alvik', 'w', .5),
 
-  station('Stora mossen', 'w'),
-  station('Abrahamsberg', 'w'),
-  station('Brommaplan', 'w'),
-  station('Åkeshov', 'w'),
+  station('Stora mossen', 'w', .5),
+  station('Abrahamsberg', 'w', .5),
+  station('Brommaplan', 'w', .5),
+  station('Åkeshov', 'w', .5),
 
-  station('Ängbyplan', 'w'),
-  station('Islandstorget', 'w'),
-  station('Blackeberg', 'w'),
-  station('Råcksta', 'w'),
-  station('Vällingby', 'w'),
-  station('Johannelund', 'w'),
-  station('Hässelby gård', 'w'),
-  station('Hässelby strand', 'w'),
+  station('Ängbyplan', 'w', .5),
+  station('Islandstorget', 'w', .5),
+  station('Blackeberg', 'w', .5),
+  station('Råcksta', 'w', .5),
+  station('Vällingby', 'w', .5),
+  station('Johannelund', 'w', .5),
+  station('Hässelby gård', 'w', .5),
+  station('Hässelby strand', 'w', .5),
 ];
 
 const greenLineHagsatraNodes: MapNode[] = [
