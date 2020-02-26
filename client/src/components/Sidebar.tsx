@@ -31,20 +31,29 @@ const CentreOwnerName = ( props: any ) => {
   );
 };
 
-const CentreHome = ( props: any ) => {
+export const CentreName = ( props: any ) => {
   const {centre} = props;
   const owner = centre && centre.owner ? centre.owner : '';
   return (
+    <div className="centre-name">
+    <h2>
+      {centre ? centre.name : ''}
+      {
+        owner
+          ? <CentreOwnerName owner={owner}/>
+          : null
+      }
+    </h2>
+    </div>
+  );
+};
+
+const CentreHome = ( props: any ) => {
+  const {centre} = props;
+  return (
     <div>
-      <div className="page-headline">OM CENTRUM</div>
-      <h2>
-        {centre ? centre.name : ''}
-        {
-          owner
-            ? <CentreOwnerName owner={owner}/>
-            : null
-        }
-      </h2>
+      <CentreName centre={centre}/>
+      <div className="headline-text">OM CENTRUM</div>
 
       <div>
         {centre ? centre.description : ''}
@@ -54,9 +63,14 @@ const CentreHome = ( props: any ) => {
 };
 
 const CentreDetailPlan = ( props: any ) => {
-  console.log(props);
+  const {centre} = props;
+
   return (
-    <div className="page-headline">DETALJPLAN</div>
+    <div>
+      <CentreName centre={centre}/>
+      <div className="headline-text">DETALJPLAN</div>
+    </div>
+
   );
 };
 
@@ -65,11 +79,13 @@ export interface TheProps {
 }
 
 const CentreOwners = ( props: TheProps ) => {
-  const {centre: centre} = props;
+  const {centre} = props;
 
   return (
     <div>
-      <div className="page-headline">ÄGARHISTORIK</div>
+      <CentreName centre={centre}/>
+      <div className="headline-text">ÄGARHISTORIK</div>
+
       <table className="table">
         <thead>
         <tr>
@@ -116,7 +132,8 @@ const CentreMainImage = ( props: any ) => {
   );
 };
 
-class Sidebar extends React.Component<SidebarProps, SidebarState> {
+class Sidebar extends React.Component
+  <SidebarProps, SidebarState> {
   constructor( props: SidebarProps ) {
     super(props);
   }
@@ -168,7 +185,13 @@ class Sidebar extends React.Component<SidebarProps, SidebarState> {
             <div className="centre-main">
               <Switch>
                 <Route exact path="/centre/:slug" render={() => <CentreHome centre={this.props.centre}/>}/>
-                <Route path="/centre/:slug/detail-plan" component={CentreDetailPlan}/>
+                <Route
+                  path="/centre/:slug/detail-plan"
+                  render={() => {
+                    return this.props.centre ? <CentreDetailPlan centre={this.props.centre}/> : '';
+                  }}
+                />
+
                 <Route
                   path="/centre/:slug/owners"
                   render={() => {

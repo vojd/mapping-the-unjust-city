@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
-import { TheProps } from './Sidebar';
+import { CentreName, TheProps } from './Sidebar';
 import { AppState } from '../interfaces/AppState';
 
 interface CentreDocumentsProps extends TheProps {
@@ -25,7 +25,8 @@ class CentreDocuments extends React.Component<CentreDocumentsProps, any> {
     const documents = centre ? centre.documents : null;
     return (
       <div>
-        <div className="page-headline">MEDIA / PRESS</div>
+        <CentreName centre={centre}/>
+        <div className="headline-text">MEDIA / PRESS</div>
         {
           documents
             ? documents.map(( document: any, id: number ) => {

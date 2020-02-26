@@ -106,9 +106,9 @@ ul li {
     text-align: center;
 }
 
-.centre-top-title .centre-name {
-    display: table-cell;
-    vertical-align: middle;
+.centre-name {
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 .centre_information__menu {
@@ -364,10 +364,10 @@ ul li {
     line-height: 2.5em;
 }
 
-.page-headline {
-    font-size: 1em;
+.headline-text {
+    font-size: 14pt;
     font-weight: bold;
-    color: #888;
+    color: #aaaaaa;
 
     padding-top: 2.5em;
     padding-bottom: 2.5em;
