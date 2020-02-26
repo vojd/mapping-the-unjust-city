@@ -26,6 +26,6 @@ class CompanySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CompanyViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Company.objects.all()
+    queryset = Company.objects.all().order_by('name')
     serializer_class = CompanySerializer
     lookup_field = 'slug'
