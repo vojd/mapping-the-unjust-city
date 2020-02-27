@@ -47,7 +47,7 @@ class FilterBox extends React.Component<FilterBoxProps, any> {
   render() {
 
     return (
-      <div className="filter-box">
+      <div className="filter-box shadow">
         <div
           onClick={() => {
             this.toggleFilterBoxOpen();

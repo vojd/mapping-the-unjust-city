@@ -183,8 +183,9 @@ ul li {
 /* component styles */
 /* map filter legend */
 .filter-box {
-    z-index: 10;
+    width: 350px;
     max-height: 80vh;
+    z-index: 10;
     margin: 0;
     padding: 32px;
     position: fixed;
@@ -195,7 +196,7 @@ ul li {
 
     right: 0;
     top: 0;
-    width: 350px;
+
 }
 
 .filter-box:hover {
@@ -415,4 +416,19 @@ ul li {
 
 .centre-owner-name {
     padding-left: 8px;
+}
+
+.about {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+
+    width: 350px;
+    background-color: #fff;
+    padding: 8px;
+}
+
+.about a {
+    margin-left: 16px;
+    color: rgb(255, 165, 0);
 }
