@@ -183,6 +183,10 @@ export default ( state: MapState, action: any ) => {
         mapData: addToggleOwnerStateToNodes(state, action, ownersToShow),
       };
 
+    case actionTypes.TOGGLE_FILTER_BOX_OPEN:
+      const {isFilterBoxOpen} = state;
+      return {...state, isFilterBoxOpen: !isFilterBoxOpen};
+
     case actionTypes.COMPANIES_FETCHED:
       console.log('COMPANIES_FETCHED', state);
       const newState = {...state, companies: action.result};

@@ -223,7 +223,7 @@ class Sidebar extends React.Component
 
         {/* close button */}
         <div className="sidebar-close">
-          <Link to="/"><i className="fa fa-angle-left"/></Link>
+          <Link to="/"><div className="arrow fa fa-angle-left"/></Link>
         </div>
       </div>
     );

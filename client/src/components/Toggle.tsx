@@ -28,10 +28,10 @@ export class Toggle extends React.Component<ToggleProps, ToggleState> {
 
   render() {
     return (
-      <label className="input-container" onClick={this.handleClick}>
+      <label className="filter-input-container" onClick={this.handleClick}>
         {this.props.value}
         <input type="checkbox" onClick={this.handleClick}/>
-        <span className="input-checkmark"/>
+        <span className="filter-input-checkmark"/>
       </label>
     );
   }

@@ -45,3 +45,8 @@ export const toggleOwnerVisibilityAction = (val: string, isOn: boolean) => ({
     isOn
   }
 });
+
+export const toggleFilterBoxOpenAction = () => ({
+  type: actionTypes.TOGGLE_FILTER_BOX_OPEN,
+  data: null
+});

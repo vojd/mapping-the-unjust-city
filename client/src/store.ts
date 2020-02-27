@@ -38,6 +38,8 @@ export const getInitialMapState = (): MapState => {
     visibleTags: [],
     visibleOwners: [],
     companies: [],
+
+    isFilterBoxOpen: true
   };
 };
 

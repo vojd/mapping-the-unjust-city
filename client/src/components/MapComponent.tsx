@@ -16,11 +16,11 @@ import {
 import { positionFixed } from '../react-styles/styles';
 import { fetchMapDataAction } from '../actions/fetchMapDataAction';
 import { ThunkDispatch } from 'redux-thunk';
-import { Toggle } from './Toggle';
 import { fetchTagDataAction } from '../actions/fetchTagDataAction';
 import { fetchCompaniesAction } from '../actions/fetchCompaniesAction';
 import { MapProps } from '../interfaces/MapInterfaces';
 import { AppState } from '../interfaces/AppState';
+import { default as FilterBox } from './filter/FilterBox';
 
 const width = 1024;
 const height = 768;
@@ -236,29 +236,10 @@ export class MapComponent extends React.Component<MapProps, AppState> {
           </g>
         </svg>
 
-        <div className="legend-container">
-          <div>
-            <h4>
-              <div><span className="fa fa-arrow-up"/> FILTRERING</div>
-            </h4>
-          </div>
-          <div className="legend">
-            {
-              this.props.tags.map(( t, id ) => {
-                return (<Toggle key={id} value={t.name} toggleTagVisible={this.toggleTagVisibility}/>);
-              })
-            }
-          </div>
-
-          {/* this could be placed at a sidebar*/}
-          <div className="legend">
-            {
-              this.props.companies.map(( t, id ) => {
-                return (<Toggle key={id} value={t.name} toggleTagVisible={this.toggleTagVisibilityOnOwner}/>);
-              })
-            }
-          </div>
-        </div>
+        <FilterBox
+          tags={this.props.tags}
+          companies={this.props.companies}
+        />
       </div>
     );
   }
