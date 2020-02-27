@@ -38,6 +38,7 @@ class CompanyAdmin(admin.ModelAdmin):
     inlines = [ImageInline, DocumentInline, ]
 
     prepopulated_fields = {'slug': ('name',)}
+    list_display = ('name', 'description', )
 
 
 @admin.register(Tag)

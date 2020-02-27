@@ -9,7 +9,7 @@ export class APIService extends HttpService {
   }
 
   public getCompanies<CompanyInformation>(): Promise<CompanyInformation[]> {
-    return this.httpService.get(`/company/`);
+    return this.httpService.get(`/owner/`);
   }
 
   public getCentreBySlug<Centre>( slug: string ): Promise<Centre> {
