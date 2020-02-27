@@ -6,10 +6,10 @@ import { ThunkDispatch } from 'redux-thunk';
 import { connect } from 'react-redux';
 import { CompanyHome } from './company/CompanyHome';
 import { Company } from '../models/models';
-import { RouteLocation, RouteMatch } from './CentreComponent';
 import { fetchCompanyDetailsAction } from '../actions/fetchCompanyDetailsAction';
 import { AppState } from '../interfaces/AppState';
 import { CompanyDocuments } from './company/CompanyDocuments';
+import { RouteLocation, RouteMatch } from './Sidebar';
 
 export interface SidebarCompanyProps {
   match: RouteMatch;

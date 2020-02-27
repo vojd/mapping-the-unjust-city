@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.css';
-import MapComponent from './pages/MapComponent';
+import MapComponent from './components/MapComponent';
 import { Route, Switch } from 'react-router';
 import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';

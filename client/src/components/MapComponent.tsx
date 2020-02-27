@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
 import { matrix, pan, scale } from '../math';
-import { MapNode } from '../components/UndergroundLines';
-import { COLOR_ORANGE, Station } from '../components/Station';
-import { MapText } from '../components/MapText';
+import { MapNode } from './UndergroundLines';
+import { COLOR_ORANGE, Station } from './Station';
+import { MapText } from './MapText';
 import { Action } from 'redux';
 import { connect } from 'react-redux';
 import {
@@ -16,7 +16,7 @@ import {
 import { positionFixed } from '../react-styles/styles';
 import { fetchMapDataAction } from '../actions/fetchMapDataAction';
 import { ThunkDispatch } from 'redux-thunk';
-import { Toggle } from '../components/Toggle';
+import { Toggle } from './Toggle';
 import { fetchTagDataAction } from '../actions/fetchTagDataAction';
 import { fetchCompaniesAction } from '../actions/fetchCompaniesAction';
 import { MapProps } from '../interfaces/MapInterfaces';
