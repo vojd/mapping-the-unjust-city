@@ -94,6 +94,19 @@ export const MapText = ( props: MapTextProps ) => {
   }
 
   switch (props.node.direction) {
+    case 'nw':
+      // ugly hack to prevent fridhemsplan to appear twice
+      if (props.node.name === 'Fridhemsplan') {
+        return null;
+      } else {
+        return (
+          <MapTextRight
+            x={props.x}
+            y={props.y - 6}
+            node={props.node}
+          />
+        );
+      }
     case 'sw':
       return (
         <MapTextRight
@@ -111,6 +124,7 @@ export const MapText = ( props: MapTextProps ) => {
           node={props.node}
         />
       );
+
     case 'ne':
       return (
         <MapTextRight

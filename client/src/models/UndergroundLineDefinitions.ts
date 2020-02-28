@@ -192,7 +192,7 @@ const greenLineWestNodes: MapNode[] = [
   station('Rådmansgatan', 'w', .75),
   station('Odenplan', 'w', .75),
   station('S:t Eriksplan', 'w', .75),
-  station('Fridshemplan', 'w'),
+  station('Fridhemsplan', 'w'),
   station('Thorildsplan', 'w', .5),
   station('Kristineberg', 'w', .5),
   station('Alvik', 'w', .5),
