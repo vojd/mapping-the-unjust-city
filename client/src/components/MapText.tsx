@@ -25,15 +25,14 @@ export const MapTextTiltRight = ( props: MapTextProps ) => {
 };
 
 export const MapTextAbove = ( props: MapTextProps ) => {
-  const tx = props.x + -30;
-  const ty = props.y + -320;
-  const transform = `rotate(20, ${tx}, ${ty})`;
+  const transform = `rotate(20, ${props.x}, ${props.y})`;
   return (
     <text
-      x={props.x - 8}
-      y={props.y - 40}
+      x={props.x - 20}
+      y={props.y - 15}
       transform={transform}
       className="map-text-bold"
+      textAnchor="end"
     >
       {props.node.name}
     </text>
@@ -57,6 +56,24 @@ export const MapTextRight = ( props: MapTextProps ) => {
   );
 };
 
+export const MapTextLeft = ( props: MapTextProps ) => {
+
+  return (
+    <g>
+      <text
+        x={props.x - 100}
+        y={props.y + 8}
+        className="map-text-bold"
+        textAnchor="start"
+      >
+        {props.node.name}
+      </text>
+      // company name
+
+    </g>
+  );
+};
+
 export const MapText = ( props: MapTextProps ) => {
 
   if (!props.node.isVisible) {
@@ -68,7 +85,7 @@ export const MapText = ( props: MapTextProps ) => {
   const {horizontalText} = props.node;
   if (horizontalText) {
     return (
-      <MapTextRight
+      <MapTextLeft
         x={props.x}
         y={props.y}
         node={props.node}
