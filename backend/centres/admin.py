@@ -1,5 +1,7 @@
 from django.contrib import admin
+from django.utils.html import format_html
 
+from backend.settings import MEDIA_URL
 from centres.models import Company, Document, Centre, Image, HistoricalOwner, Tag, DetailPlan
 
 
@@ -24,7 +26,7 @@ class OwnershipHistoryInline(admin.StackedInline):
 class DetailPlanInline(admin.StackedInline):
     model = DetailPlan
     extra = 0
-    fields = ('description', 'image', 'document', )
+    fields = ('description', 'image', 'document',)
 
 
 @admin.register(Centre)
@@ -41,10 +43,17 @@ class CentreAdmin(admin.ModelAdmin):
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    inlines = [ImageInline, DocumentInline, ]
 
+    def image_tag(self, obj):
+        if not obj.image:
+            return ''
+        return format_html('<img src="{}" style="max-width: 128px" />'.format(obj.image.url))
+
+    image_tag.short_description = 'Image'
+
+    inlines = [ImageInline, DocumentInline, ]
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'description',)
+    list_display = ('name', 'description', 'image_tag',)
 
 
 @admin.register(Tag)
