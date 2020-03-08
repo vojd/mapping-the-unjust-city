@@ -32,6 +32,18 @@ class HistoricalOwner(models.Model):
     currency = models.CharField(blank=True, null=True, max_length=10)
 
 
+class DetailPlan(models.Model):
+    centre = models.ForeignKey('Centre',
+                               on_delete=models.SET_NULL,
+                               blank=True,
+                               null=True,
+                               related_name='detail_plans')
+
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to=settings.UPLOAD_DIR, null=True, blank=True)
+    document = models.FileField(upload_to=settings.UPLOAD_DIR, null=True, blank=True)
+
+
 class Company(models.Model):
     name = models.CharField(blank=False, max_length=255)
     slug = models.SlugField(blank=True)

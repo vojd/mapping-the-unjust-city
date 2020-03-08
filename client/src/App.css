@@ -418,6 +418,14 @@ ul li {
     padding-left: 8px;
 }
 
+.detail-plan-image img {
+    max-width: 100%;
+}
+
+.detail-plan-document {
+    padding-top: 32px;
+}
+
 .about {
     position: fixed;
     bottom: 0;

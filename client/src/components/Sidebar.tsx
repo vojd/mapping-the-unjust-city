@@ -47,14 +47,14 @@ export const CentreName = ( props: any ) => {
   const owner = centre && centre.owner ? centre.owner : '';
   return (
     <div className="centre-name">
-    <h2>
-      {centre ? centre.name : ''}
-      {
-        owner
-          ? <CentreOwnerName owner={owner}/>
-          : null
-      }
-    </h2>
+      <h2>
+        {centre ? centre.name : ''}
+        {
+          owner
+            ? <CentreOwnerName owner={owner}/>
+            : null
+        }
+      </h2>
     </div>
   );
 };
@@ -73,13 +73,41 @@ const CentreHome = ( props: any ) => {
   );
 };
 
+const documentTypeStr = ( document: string ) => {
+  const s = document.split('.');
+  return s[s.length - 1];
+};
+
 const CentreDetailPlan = ( props: any ) => {
   const {centre} = props;
+  const {detailPlans} = centre;
 
   return (
     <div>
       <CentreName centre={centre}/>
       <div className="headline-text">DETALJPLAN</div>
+
+      {
+        detailPlans
+          ? detailPlans.map(( plan: any, idx: number ) => {
+            return (
+              <div key={idx}>
+                <div className="detail-plan-description">
+                  <p>{plan.description}</p>
+                </div>
+
+                <div className="detail-plan-image">
+                  <img src={plan.image}/>
+                </div>
+
+                <div className="detail-plan-document">
+                  <a href={plan.document}>Document [ {documentTypeStr(plan.document)} ]</a>
+                </div>
+              </div>
+            );
+          })
+          : ';'
+      }
     </div>
 
   );
@@ -223,7 +251,9 @@ class Sidebar extends React.Component
 
         {/* close button */}
         <div className="sidebar-close">
-          <Link to="/"><div className="arrow fa fa-angle-left"/></Link>
+          <Link to="/">
+            <div className="arrow fa fa-angle-left"/>
+          </Link>
         </div>
       </div>
     );

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from centres.models import Company, Document, Centre, Image, HistoricalOwner, Tag
+from centres.models import Company, Document, Centre, Image, HistoricalOwner, Tag, DetailPlan
 
 
 class ImageInline(admin.StackedInline):
@@ -21,9 +21,15 @@ class OwnershipHistoryInline(admin.StackedInline):
     fields = ('company', 'year', 'price', 'currency',)
 
 
+class DetailPlanInline(admin.StackedInline):
+    model = DetailPlan
+    extra = 0
+    fields = ('description', 'image', 'document', )
+
+
 @admin.register(Centre)
 class CentreAdmin(admin.ModelAdmin):
-    inlines = [ImageInline, DocumentInline, OwnershipHistoryInline]
+    inlines = [ImageInline, DocumentInline, OwnershipHistoryInline, DetailPlanInline]
 
     prepopulated_fields = {'slug': ('name',)}
     list_display = ('name', 'owner', 'get_tags',)
@@ -38,7 +44,7 @@ class CompanyAdmin(admin.ModelAdmin):
     inlines = [ImageInline, DocumentInline, ]
 
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'description', )
+    list_display = ('name', 'description',)
 
 
 @admin.register(Tag)
