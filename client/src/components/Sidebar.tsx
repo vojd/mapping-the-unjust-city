@@ -96,7 +96,7 @@ const CentreDetailPlan = ( props: any ) => {
                   <p>{plan.description}</p>
                 </div>
 
-                <div className="detail-plan-image">
+                <div className="sidebar-inline-image">
                   <img src={plan.image}/>
                 </div>
 

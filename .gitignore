@@ -12,6 +12,7 @@ backend/static/
 # production
 build/
 */**/uploads
+dbdumps/
 
 # misc
 .DS_Store

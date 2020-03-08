@@ -418,12 +418,9 @@ ul li {
     padding-left: 8px;
 }
 
-.detail-plan-image img {
+.sidebar-inline-image img {
     max-width: 100%;
-}
-
-.detail-plan-document {
-    padding-top: 32px;
+    padding-bottom: 32px;
 }
 
 .about {

@@ -17,7 +17,7 @@ class CompanySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Company
-        fields = ('name', 'slug', 'description', 'centres', 'documents',)
+        fields = ('name', 'slug', 'description', 'image', 'centres', 'documents',)
         lookup_field = 'company.slug'
 
 

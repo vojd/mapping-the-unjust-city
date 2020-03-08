@@ -48,8 +48,7 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
         <div className="sidebar-content shadow">
           <div>
             <div className="centre-top-image">
-              {/*{this.props.centre ? <CentreMainImage centre={this.props.centre}/> : ''}*/}
-              placeholder
+              &nbsp;
             </div>
 
             <div>
