@@ -59,8 +59,36 @@ export const CentreName = ( props: any ) => {
   );
 };
 
+const AlsoOwned = ( props: any ) => {
+
+  const {centres} = props;
+  const {owner} = props;
+  return (
+    <div>
+      <div className="headline-text">{owner.name.toLocaleUpperCase()} ÄGER FÖLJANDE</div>
+      <div>
+        {
+          centres.map(( other: any, idx: number ) => {
+            return (
+              <div key={idx} className="company-also-owns">
+                <Link to={`/centre/${other.slug}`} className="centre-owner-name">
+                  {other.name}
+                </Link>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+
+  );
+};
+
 const CentreHome = ( props: any ) => {
   const {centre} = props;
+  const owner = centre ? centre.owner : null;
+  const centres = centre && centre.owner ? centre.owner.centres : [];
+
   return (
     <div>
       <CentreName centre={centre}/>
@@ -69,6 +97,9 @@ const CentreHome = ( props: any ) => {
       <div>
         {centre ? centre.description : ''}
       </div>
+
+      {owner && centres ? <AlsoOwned centres={centres} owner={owner}/> : ''}
+
     </div>
   );
 };
