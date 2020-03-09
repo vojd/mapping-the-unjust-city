@@ -59,6 +59,7 @@ class Company(models.Model):
 
     class Meta:
         verbose_name_plural = 'companies'
+        ordering = ('name',)
 
 
 class Tag(models.Model):
