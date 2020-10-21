@@ -171,7 +171,7 @@ export class MapComponent extends React.Component<MapProps, AppState> {
       1, 0, 0
     ];
 
-    const scaleFactor = 0.8;
+    const scaleFactor = 0.6;
 
     const centralStation = {
       filled: 0,

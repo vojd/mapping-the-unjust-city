@@ -13,17 +13,18 @@ import { AppState } from './interfaces/AppState';
 import { MapState } from './interfaces/MapInterfaces';
 
 export const getInitialMapState = (): MapState => {
+  console.log('window', window.innerWidth, window.innerHeight);
   return {
-    scaleFactor: 0.8,
-    panX: 1050,
-    panY: 20,
+    scaleFactor: 0.6,
+    panX: window.innerWidth,
+    panY: window.innerHeight / 3.0,
     mat: [
       1, 0, 0,
       1, 0, 0
     ],
     isMoving: false,
 
-    previousMouseCoords: {x: 0, y: 0},
+    previousMouseCoords: { x: 0, y: 0 },
 
     nodes: {
       redLineNodes: getRedLineNodes(),
@@ -43,7 +44,7 @@ export const getInitialMapState = (): MapState => {
   };
 };
 
-const configureStore = ( initialState: AppState ): Store<AppState> => {
+const configureStore = (initialState: AppState): Store<AppState> => {
 
   return createStore(
     rootReducer,
@@ -52,6 +53,6 @@ const configureStore = ( initialState: AppState ): Store<AppState> => {
   );
 };
 
-const store = configureStore({centre: null, company: null, mapState: getInitialMapState()});
+const store = configureStore({ centre: null, company: null, mapState: getInitialMapState() });
 
 export default store;
