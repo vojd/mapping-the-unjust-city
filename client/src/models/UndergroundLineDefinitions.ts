@@ -1,18 +1,18 @@
 import { MapNode } from '../components/UndergroundLines';
 
-const addPropsToNodelist = ( nodeList: MapNode[] ): MapNode[] => {
+const addPropsToNodelist = (nodeList: MapNode[]): MapNode[] => {
   return nodeList.map(n => {
     // Add initial starting positions for the lines originating from T-Centralen
-    return Object.assign(n, {x: 0, y: 0});
+    return Object.assign(n, { x: 0, y: 0 });
   });
 };
 
-const getMapNodeDefaults = ( name: string,
-                             direction: string,
-                             lengthMultiplier: number = 1,
-                             horizontalText: boolean = false,
-                             branches?: number[],
-                             branchNodes?: MapNode[][] ): MapNode => {
+const getMapNodeDefaults = (name: string,
+                            direction: string,
+                            lengthMultiplier: number = 1,
+                            horizontalText: boolean = false,
+                            branches?: number[],
+                            branchNodes?: MapNode[][]): MapNode => {
   let s = <MapNode> {
     direction: direction,
     name: name,
@@ -36,20 +36,20 @@ const getMapNodeDefaults = ( name: string,
   return s;
 };
 
-const station = ( name: string,
-                  direction: string,
-                  lengthMultiplier: number = 1,
-                  branches?: number[],
-                  branchNodes?: MapNode[][] ): MapNode => {
+const station = (name: string,
+                 direction: string,
+                 lengthMultiplier: number = 1,
+                 branches?: number[],
+                 branchNodes?: MapNode[][]): MapNode => {
 
   return getMapNodeDefaults(name, direction, lengthMultiplier, false, branches, branchNodes);
 };
 
-const stationWithHorizontalText = ( name: string,
-                                    direction: string,
-                                    lengthMultiplier: number = 1,
-                                    branches?: number[],
-                                    branchNodes?: MapNode[][] ): MapNode => {
+const stationWithRightAlignedText = (name: string,
+                                     direction: string,
+                                     lengthMultiplier: number = 1,
+                                     branches?: number[],
+                                     branchNodes?: MapNode[][]): MapNode => {
 
   return getMapNodeDefaults(name, direction, lengthMultiplier, true, branches, branchNodes);
 
@@ -75,8 +75,9 @@ const enum Branches {
 
   GREEN_LINE_SOUTHBOUND,
   GREEN_LINE_HAGSATRA,
-  // GREEN_LINE_FARSTASTRAND,
-  // GREEN_LINE_SKARPNACK,
+  GREEN_LINE_SKARMABRINK,
+  GREEN_LINE_FARSTASTRAND,
+  GREEN_LINE_SKARPNACK,
 }
 
 const redLineFruangenNodes: MapNode[] = [
@@ -104,8 +105,8 @@ const redLineMalarhojdenNodes: MapNode[] = [
   station('Örnsberg', 'w'),
   station(
     'Mälarhöjden', 'w', 1,
-    [Branches.RED_LINE_NORSBORG],
-    [redLineNorsborgNodes]
+    [ Branches.RED_LINE_NORSBORG ],
+    [ redLineNorsborgNodes ]
   ),
 ];
 
@@ -119,8 +120,8 @@ const redLineSouthBound: MapNode[] = [
   // NOTE: We're going to Malarhojden because the map takes a turn to south west after Malarhojden
   station(
     'Liljeholmen', 'w', 1,
-    [Branches.RED_LINE_MALARHOJDEN, Branches.RED_LINE_FRUANGEN],
-    [redLineMalarhojdenNodes, redLineFruangenNodes]
+    [ Branches.RED_LINE_MALARHOJDEN, Branches.RED_LINE_FRUANGEN ],
+    [ redLineMalarhojdenNodes, redLineFruangenNodes ]
   ),
 ];
 
@@ -143,14 +144,14 @@ const redLineRopsten: MapNode[] = [
 const redLineNorthBound: MapNode[] = [
   station(
     'Östermalms torg', 'n', 1,
-    [Branches.RED_LINE_MORBY_CENTRUM, Branches.RED_LINE_ROPSTEN],
-    [redLineMorbyCentrum, redLineRopsten]
+    [ Branches.RED_LINE_MORBY_CENTRUM, Branches.RED_LINE_ROPSTEN ],
+    [ redLineMorbyCentrum, redLineRopsten ]
   ),
 ];
 
 // east from t-centralen
 const blueLineKungstradgardenNodes: MapNode[] = [
-  stationWithHorizontalText('Kungsträdgården', 'e'),
+  stationWithRightAlignedText('Kungsträdgården', 'e'),
 ];
 
 const blueLineAkallaNodes: MapNode[] = [
@@ -163,7 +164,7 @@ const blueLineAkallaNodes: MapNode[] = [
 ];
 
 const blueLineHjulstaNodes: MapNode[] = [
-  stationWithHorizontalText('Huvudsta', 'w', 3),
+  stationWithRightAlignedText('Huvudsta', 'w', 3),
   station('Solna strand', 'nw'),
   station('Sundbybergs centrum', 'nw'),
   station('Duvbo', 'nw'),
@@ -175,15 +176,15 @@ const blueLineHjulstaNodes: MapNode[] = [
 
 // west from t-centralen, continuing northwest
 const blueLineWestBoundNodes: MapNode[] = [
-  stationWithHorizontalText('Rådhuset', 'w', 3.25), // NOTE: Re-align Fridhemsplan if you move Rådhuset
+  stationWithRightAlignedText('Rådhuset', 'w', 3.25), // NOTE: Re-align Fridhemsplan if you move Rådhuset
   // TODO: Fridhemsplan must be present in both green and blue lines
   // station('Fridhemsplan', 'nw', -1, 1, null, [Branches.GREEN_LINE_ALVIK]),
   station('Fridhemsplan', 'nw', 2),
   station('Stadshagen', 'nw', 2),
   station(
     'Västra skogen', 'nw', 1,
-    [Branches.BLUE_LINE_AKALLA, Branches.BLUE_LINE_HJULSTA],
-    [blueLineAkallaNodes, blueLineHjulstaNodes]
+    [ Branches.BLUE_LINE_AKALLA, Branches.BLUE_LINE_HJULSTA ],
+    [ blueLineAkallaNodes, blueLineHjulstaNodes ]
   ),
 ];
 
@@ -213,15 +214,50 @@ const greenLineWestNodes: MapNode[] = [
 ];
 
 const greenLineHagsatraNodes: MapNode[] = [
-  station('Globen', 'sw'),
-  station('Enskede gård', 'sw'),
-  station('Sockenplan', 'sw'),
-  station('Svedmyra', 'sw'),
-  station('Stureby', 'sw'),
-  station('Bandhagen', 'sw'),
-  station('Högdalen', 'sw'),
-  station('Rågsved', 'sw'),
-  station('Hagsätra', 'sw'),
+  stationWithRightAlignedText('Globen', 'sw'),
+  stationWithRightAlignedText('Enskede gård', 'sw'),
+  stationWithRightAlignedText('Sockenplan', 'sw'),
+  stationWithRightAlignedText('Svedmyra', 'sw'),
+  stationWithRightAlignedText('Stureby', 'sw'),
+  stationWithRightAlignedText('Bandhagen', 'sw'),
+  stationWithRightAlignedText('Högdalen', 'sw'),
+  stationWithRightAlignedText('Rågsved', 'sw'),
+  stationWithRightAlignedText('Hagsätra', 'sw'),
+];
+
+const greenLinesSkarpnackNodes: MapNode[] = [
+  station('Hammarbyhöjden', 'se'),
+  station('Björkhagen', 'se'),
+  station('Kärrtorp', 'se'),
+  station('Bagarmossen', 'se'),
+  station('Skarpnäck', 'se'),
+];
+
+const greenLineFarstaNodes: MapNode[] = [
+  stationWithRightAlignedText('Blåsut', 's'),
+  stationWithRightAlignedText('Sandsborg', 's'),
+  stationWithRightAlignedText('Skogskyrkogården', 's'),
+  stationWithRightAlignedText('Tallkrogen', 's'),
+  stationWithRightAlignedText('Gubbängen', 's'),
+  stationWithRightAlignedText('Hökarängen', 's'),
+  stationWithRightAlignedText('Farsta', 's'),
+  stationWithRightAlignedText('Farsta Strand', 's'),
+];
+
+const greenLineSouthBoundNodesSkarmabrink: MapNode[] = [
+  station(
+    'Skarmabrink',
+    's',
+    1,
+    [
+      Branches.GREEN_LINE_FARSTASTRAND,
+      Branches.GREEN_LINE_SKARPNACK
+    ],
+    [
+      greenLineFarstaNodes,
+      greenLinesSkarpnackNodes
+    ],
+  ),
 ];
 
 const greenLineSouthBoundNodes: MapNode[] = [
@@ -229,8 +265,8 @@ const greenLineSouthBoundNodes: MapNode[] = [
   station('Skanstull', 's'),
   station(
     'Gullmarsplan', 's', 1,
-    [Branches.GREEN_LINE_HAGSATRA],
-    [greenLineHagsatraNodes]
+    [ Branches.GREEN_LINE_HAGSATRA, Branches.GREEN_LINE_SKARMABRINK ],
+    [ greenLineHagsatraNodes, greenLineSouthBoundNodesSkarmabrink ],
   ),
 ];
 

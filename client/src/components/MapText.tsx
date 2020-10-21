@@ -61,10 +61,10 @@ export const MapTextLeft = ( props: MapTextProps ) => {
   return (
     <g>
       <text
-        x={props.x - 100}
+        x={props.x - 20}
         y={props.y + 8}
         className="map-text-bold"
-        textAnchor="start"
+        textAnchor="end"
       >
         {props.node.name}
       </text>
