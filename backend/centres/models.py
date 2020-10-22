@@ -78,6 +78,17 @@ class Tag(models.Model):
         return self.name
 
 
+DECADES = (
+    ('1960', '1960'),
+    ('1970', '1970'),
+    ('1980', '1980'),
+    ('1990', '1990'),
+    ('2000', '2000'),
+    ('2010', '2010'),
+    ('2020', '2020'),
+)
+
+
 class Centre(models.Model):
     """
     Each station has a centre
@@ -95,8 +106,10 @@ class Centre(models.Model):
                               )
 
     description = models.TextField(blank=True)
+    description_en = models.TextField(blank=True, help_text='English description')
 
     tags = models.ManyToManyField(Tag, blank=True)
+    sold = models.CharField(max_length=4, blank=True, null=True, choices=DECADES)
 
     def __str__(self):
         return self.name
