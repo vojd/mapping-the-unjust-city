@@ -7,7 +7,14 @@ interface MapTextProps {
   node: MapNode;
 }
 
-export const MapTextTiltRight = ( props: MapTextProps ) => {
+export const enum MapTextAlignment {
+  LEFT,
+  RIGHT,
+  TOP,
+  BOTTOM,
+}
+
+export const MapTextTiltRight = (props: MapTextProps) => {
   const tx = props.x + -40;
   const ty = props.y + -220;
   const rotation = `rotate(20, ${tx}, ${ty})`;
@@ -24,7 +31,7 @@ export const MapTextTiltRight = ( props: MapTextProps ) => {
   );
 };
 
-export const MapTextAbove = ( props: MapTextProps ) => {
+export const MapTextAbove = (props: MapTextProps) => {
   const transform = `rotate(20, ${props.x}, ${props.y})`;
   return (
     <text
@@ -39,7 +46,7 @@ export const MapTextAbove = ( props: MapTextProps ) => {
   );
 };
 
-export const MapTextRight = ( props: MapTextProps ) => {
+export const MapTextRight = (props: MapTextProps) => {
 
   return (
     <g>
@@ -56,7 +63,7 @@ export const MapTextRight = ( props: MapTextProps ) => {
   );
 };
 
-export const MapTextLeft = ( props: MapTextProps ) => {
+export const MapTextLeft = (props: MapTextProps) => {
 
   return (
     <g>
@@ -74,7 +81,7 @@ export const MapTextLeft = ( props: MapTextProps ) => {
   );
 };
 
-export const MapText = ( props: MapTextProps ) => {
+export const MapText = (props: MapTextProps) => {
 
   if (!props.node.isVisible) {
     return (
@@ -82,7 +89,40 @@ export const MapText = ( props: MapTextProps ) => {
     );
   }
 
-  const {horizontalText} = props.node;
+  const { textAlignment } = props.node;
+  // the default is left, skip it for now
+  // all this needs to be massively refactored
+  if (textAlignment !== MapTextAlignment.LEFT) {
+    switch (textAlignment) {
+      case MapTextAlignment.RIGHT:
+        return (
+          <MapTextRight
+            x={props.x}
+            y={props.y - 6}
+            node={props.node}
+          />
+        );
+
+      case MapTextAlignment.TOP:
+        return (
+          <MapTextAbove
+            x={props.x}
+            y={props.y}
+            node={props.node}
+          />
+        );
+      default:
+        return (
+          <MapTextLeft
+            x={props.x}
+            y={props.y}
+            node={props.node}
+          />
+        );
+    }
+  }
+
+  const { horizontalText } = props.node;
   if (horizontalText) {
     return (
       <MapTextLeft

@@ -1,3 +1,5 @@
+import { MapTextAlignment } from './MapText';
+
 export interface MapNodeTag {
   name: string;
 }
@@ -20,5 +22,6 @@ export interface MapNode {
   y: number;
   lengthMultiplier?: number; // length multiplier, undefined = 1
   horizontalText: boolean;
+  textAlignment: MapTextAlignment;
   isVisible: boolean;
 }

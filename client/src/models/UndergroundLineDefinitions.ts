@@ -1,4 +1,5 @@
 import { MapNode } from '../components/UndergroundLines';
+import { MapTextAlignment } from '../components/MapText';
 
 const addPropsToNodelist = (nodeList: MapNode[]): MapNode[] => {
   return nodeList.map(n => {
@@ -11,16 +12,18 @@ const getMapNodeDefaults = (name: string,
                             direction: string,
                             lengthMultiplier: number = 1,
                             horizontalText: boolean = false,
+                            textAlignment: MapTextAlignment = MapTextAlignment.LEFT,
                             branches?: number[],
                             branchNodes?: MapNode[][]): MapNode => {
   let s = <MapNode> {
-    direction: direction,
-    name: name,
+    direction,
+    name,
     owner: null,
     x: 0, y: 0,
-    lengthMultiplier: lengthMultiplier,
+    lengthMultiplier,
     isVisible: true,
-    horizontalText: horizontalText,
+    horizontalText,
+    textAlignment,
   };
 
   // TODO: Refactor away and replace with actual branch nodes instead, see next if-statement
@@ -40,18 +43,22 @@ const station = (name: string,
                  direction: string,
                  lengthMultiplier: number = 1,
                  branches?: number[],
-                 branchNodes?: MapNode[][]): MapNode => {
+                 branchNodes?: MapNode[][],
+                 horizontalText: boolean = false,
+                 textAlignment: MapTextAlignment = MapTextAlignment.LEFT,
+                 ): MapNode => {
 
-  return getMapNodeDefaults(name, direction, lengthMultiplier, false, branches, branchNodes);
+  return getMapNodeDefaults(name, direction, lengthMultiplier, horizontalText, textAlignment, branches, branchNodes);
 };
 
-const stationWithRightAlignedText = (name: string,
-                                     direction: string,
-                                     lengthMultiplier: number = 1,
-                                     branches?: number[],
-                                     branchNodes?: MapNode[][]): MapNode => {
+const stationWithTextLeft = (name: string,
+                             direction: string,
+                             lengthMultiplier: number = 1,
+                             textAlignment: MapTextAlignment = MapTextAlignment.LEFT,
+                             branches?: number[],
+                             branchNodes?: MapNode[][]): MapNode => {
 
-  return getMapNodeDefaults(name, direction, lengthMultiplier, true, branches, branchNodes);
+  return getMapNodeDefaults(name, direction, lengthMultiplier, true, textAlignment, branches, branchNodes);
 
 };
 
@@ -151,7 +158,7 @@ const redLineNorthBound: MapNode[] = [
 
 // east from t-centralen
 const blueLineKungstradgardenNodes: MapNode[] = [
-  stationWithRightAlignedText('Kungsträdgården', 'e'),
+  station('Kungsträdgården', 'e', 1, undefined, undefined, false, MapTextAlignment.RIGHT),
 ];
 
 const blueLineAkallaNodes: MapNode[] = [
@@ -164,7 +171,7 @@ const blueLineAkallaNodes: MapNode[] = [
 ];
 
 const blueLineHjulstaNodes: MapNode[] = [
-  stationWithRightAlignedText('Huvudsta', 'w', 3),
+  stationWithTextLeft('Huvudsta', 'w', 3),
   station('Solna strand', 'nw'),
   station('Sundbybergs centrum', 'nw'),
   station('Duvbo', 'nw'),
@@ -176,7 +183,7 @@ const blueLineHjulstaNodes: MapNode[] = [
 
 // west from t-centralen, continuing northwest
 const blueLineWestBoundNodes: MapNode[] = [
-  stationWithRightAlignedText('Rådhuset', 'w', 3.25), // NOTE: Re-align Fridhemsplan if you move Rådhuset
+  stationWithTextLeft('Rådhuset', 'w', 3.25), // NOTE: Re-align Fridhemsplan if you move Rådhuset
   // TODO: Fridhemsplan must be present in both green and blue lines
   // station('Fridhemsplan', 'nw', -1, 1, null, [Branches.GREEN_LINE_ALVIK]),
   station('Fridhemsplan', 'nw', 2),
@@ -189,7 +196,15 @@ const blueLineWestBoundNodes: MapNode[] = [
 ];
 
 const greenLineWestNodes: MapNode[] = [
-  station('Hötorget', 'nw', 2), // NOTE: If you move Hotorget, make sure you also move Rådhuset so Fridhemsplan aligns
+  station(
+      'Hötorget',
+      'nw',
+      2,
+      undefined,
+      undefined,
+      false,
+      MapTextAlignment.TOP
+  ), // NOTE: If you move Hotorget, make sure you also move Rådhuset so Fridhemsplan aligns
   station('Rådmansgatan', 'w', .75),
   station('Odenplan', 'w', .75),
   station('S:t Eriksplan', 'w', .75),
@@ -214,15 +229,15 @@ const greenLineWestNodes: MapNode[] = [
 ];
 
 const greenLineHagsatraNodes: MapNode[] = [
-  stationWithRightAlignedText('Globen', 'sw'),
-  stationWithRightAlignedText('Enskede gård', 'sw'),
-  stationWithRightAlignedText('Sockenplan', 'sw'),
-  stationWithRightAlignedText('Svedmyra', 'sw'),
-  stationWithRightAlignedText('Stureby', 'sw'),
-  stationWithRightAlignedText('Bandhagen', 'sw'),
-  stationWithRightAlignedText('Högdalen', 'sw'),
-  stationWithRightAlignedText('Rågsved', 'sw'),
-  stationWithRightAlignedText('Hagsätra', 'sw'),
+  stationWithTextLeft('Globen', 'sw'),
+  stationWithTextLeft('Enskede gård', 'sw'),
+  stationWithTextLeft('Sockenplan', 'sw'),
+  stationWithTextLeft('Svedmyra', 'sw'),
+  stationWithTextLeft('Stureby', 'sw'),
+  stationWithTextLeft('Bandhagen', 'sw'),
+  stationWithTextLeft('Högdalen', 'sw'),
+  stationWithTextLeft('Rågsved', 'sw'),
+  stationWithTextLeft('Hagsätra', 'sw'),
 ];
 
 const greenLinesSkarpnackNodes: MapNode[] = [
@@ -234,14 +249,14 @@ const greenLinesSkarpnackNodes: MapNode[] = [
 ];
 
 const greenLineFarstaNodes: MapNode[] = [
-  stationWithRightAlignedText('Blåsut', 's'),
-  stationWithRightAlignedText('Sandsborg', 's'),
-  stationWithRightAlignedText('Skogskyrkogården', 's'),
-  stationWithRightAlignedText('Tallkrogen', 's'),
-  stationWithRightAlignedText('Gubbängen', 's'),
-  stationWithRightAlignedText('Hökarängen', 's'),
-  stationWithRightAlignedText('Farsta', 's'),
-  stationWithRightAlignedText('Farsta Strand', 's'),
+  stationWithTextLeft('Blåsut', 's'),
+  stationWithTextLeft('Sandsborg', 's'),
+  stationWithTextLeft('Skogskyrkogården', 's'),
+  stationWithTextLeft('Tallkrogen', 's'),
+  stationWithTextLeft('Gubbängen', 's'),
+  stationWithTextLeft('Hökarängen', 's'),
+  stationWithTextLeft('Farsta', 's'),
+  stationWithTextLeft('Farsta Strand', 's'),
 ];
 
 const greenLineSouthBoundNodesSkarmabrink: MapNode[] = [
