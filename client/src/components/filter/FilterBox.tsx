@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { Toggle } from '../Toggle';
-import { Company, Tag } from '../../models/models';
 import { MapNodeTag } from '../UndergroundLines';
 import { Action } from 'redux';
 import {
   toggleFilterBoxOpenAction,
-  toggleOwnerVisibilityAction,
+  toggleOwnerVisibilityAction, toggleSoldYearVisibilityAction,
   toggleTagVisibilityAction
 } from '../../actions/mapActions';
 import { AppState } from '../../interfaces/AppState';
@@ -16,7 +15,11 @@ interface FilterBoxProps {
   isFilterBoxOpen: boolean;
   tags: MapNodeTag[];
   companies: any[];
+  soldYears: {
+    [key: string]: boolean
+  };
 
+  toggleSoldYearVisibility: Function;
   toggleTagVisible: Function;
   toggleTagVisibilityOnOwner: Function;
   toggleFilterBoxOpen: Function;
@@ -36,6 +39,11 @@ class FilterBox extends React.Component<FilterBoxProps, any> {
     this.props.toggleFilterBoxOpen();
   }
 
+  toggleSoldYearVisibility = (value: string, isOn: boolean) => {
+    console.log('filter box: toggleSoldYearVisibility', value, isOn);
+    this.props.toggleSoldYearVisibility(value, isOn);
+  }
+
   toggleTagVisibility = ( value: string, isOn: boolean ) => {
     this.props.toggleTagVisible(value, isOn);
   }
@@ -49,6 +57,7 @@ class FilterBox extends React.Component<FilterBoxProps, any> {
     return (
       <div className="filter-box shadow">
         <div
+
           onClick={() => {
             this.toggleFilterBoxOpen();
           }}
@@ -60,20 +69,28 @@ class FilterBox extends React.Component<FilterBoxProps, any> {
 
         <div className={`filter-group ${!this.props.isFilterBoxOpen ? 'filter-group-closed' : ''}`}>
           {
-            this.props.tags.map(( t: Tag, id: number ) => {
-              return (<Toggle key={id} value={t.name} toggleTagVisible={this.toggleTagVisibility}/>);
+            Object.keys(this.props.soldYears).map(( year: string ) => {
+              return (<Toggle key={year} value={year} toggleTagVisible={this.toggleSoldYearVisibility}/>);
             })
           }
         </div>
 
-        {/* this could be placed at a sidebar*/}
-        <div className={`filter-group ${!this.props.isFilterBoxOpen ? 'filter-group-closed' : ''}`}>
-          {
-            this.props.companies.map(( t: Company, id: number ) => {
-              return (<Toggle key={id} value={t.name} toggleTagVisible={this.toggleTagVisibilityOnOwner}/>);
-            })
-          }
-        </div>
+        {/*<div className={`filter-group ${!this.props.isFilterBoxOpen ? 'filter-group-closed' : ''}`}>*/}
+        {/*  {*/}
+        {/*    this.props.tags.map(( t: Tag, id: number ) => {*/}
+        {/*      return (<Toggle key={id} value={t.name} toggleTagVisible={this.toggleTagVisibility}/>);*/}
+        {/*    })*/}
+        {/*  }*/}
+        {/*</div>*/}
+
+        {/*/!* this could be placed at a sidebar*!/*/}
+        {/*<div className={`filter-group ${!this.props.isFilterBoxOpen ? 'filter-group-closed' : ''}`}>*/}
+        {/*  {*/}
+        {/*    this.props.companies.map(( t: Company, id: number ) => {*/}
+        {/*      return (<Toggle key={id} value={t.name} toggleTagVisible={this.toggleTagVisibilityOnOwner}/>);*/}
+        {/*    })*/}
+        {/*  }*/}
+        {/*</div>*/}
       </div>
     );
   }
@@ -85,6 +102,7 @@ const mapStateToProps = ( state: AppState ) => {
 
 const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) => {
   return {
+    toggleSoldYearVisibility: (val: string, isOn: boolean) => dispatch(toggleSoldYearVisibilityAction(val, isOn)),
     toggleTagVisible: ( val: string, isOn: boolean ) => dispatch(toggleTagVisibilityAction(val, isOn)),
     toggleTagVisibilityOnOwner: ( val: string, isOn: boolean ) => dispatch(toggleOwnerVisibilityAction(val, isOn)),
     toggleFilterBoxOpen: () => dispatch(toggleFilterBoxOpenAction()),

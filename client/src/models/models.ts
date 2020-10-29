@@ -48,6 +48,7 @@ export interface Centre {
   tags: Tag[];
   images: ImageURL[];
   documents: string[]; // array of URLs
+  sold: string;
 
 }
 

@@ -48,6 +48,9 @@ export interface MapState {
   visibleTags: string[];
   visibleOwners: string[];
   companies: any[];
-
+  soldYears: {
+    [key: string]: boolean;
+  };
   isFilterBoxOpen: boolean;
+  language: string;
 }

@@ -39,8 +39,18 @@ export const getInitialMapState = (): MapState => {
     visibleTags: [],
     visibleOwners: [],
     companies: [],
+    soldYears: {
+      '1960': false,
+      '1970': false,
+      '1980': false,
+      '1990': false,
+      '2000': false,
+      '2010': false,
+      '2020': false,
+    },
 
-    isFilterBoxOpen: true
+    isFilterBoxOpen: true,
+    language: 'en',
   };
 };
 

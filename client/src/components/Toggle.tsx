@@ -22,13 +22,13 @@ export class Toggle extends React.Component<ToggleProps, ToggleState> {
     this.setState(state => ({
       isToggleOn: !state.isToggleOn
     }));
-
+    console.log(' handle click');
     this.props.toggleTagVisible(this.props.value, this.state.isToggleOn);
   }
 
   render() {
     return (
-      <label className="filter-input-container" onClick={this.handleClick}>
+      <label className="filter-input-container">
         {this.props.value}
         <input type="checkbox" onClick={this.handleClick}/>
         <span className="filter-input-checkmark"/>

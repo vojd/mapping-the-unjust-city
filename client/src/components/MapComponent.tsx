@@ -138,8 +138,8 @@ export class MapComponent extends React.Component<MapProps, AppState> {
   constructor( props: MapProps ) {
     super(props);
     props.fetchMapData();
-    props.fetchTagData();
-    props.fetchCompanies();
+    // props.fetchTagData();
+    // props.fetchCompanies();
   }
 
   onMouseDown = ( e: SyntheticEvent ) => {

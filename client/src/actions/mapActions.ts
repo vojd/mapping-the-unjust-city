@@ -50,3 +50,13 @@ export const toggleFilterBoxOpenAction = () => ({
   type: actionTypes.TOGGLE_FILTER_BOX_OPEN,
   data: null
 });
+
+export const toggleSoldYearVisibilityAction = (val: string, isOn: boolean) => (
+  {
+    type: actionTypes.TOGGLE_SOLD_YEAR_VISIBILITY,
+    data: <ToggleActionData> {
+      value: val,
+      isOn
+    }
+  }
+);

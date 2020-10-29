@@ -14,6 +14,7 @@ export interface MapNode {
     slug: string;
   } | null;
   tags: MapNodeTag[];
+  sold: string;
 
   branchIds?: number[];
   branches?: MapNode[][]; // the actual branch nodes
