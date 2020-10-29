@@ -8,6 +8,7 @@ import { Route, Switch, withRouter } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
 import CentreDocuments from './CentreDocuments';
 import { AppState } from '../interfaces/AppState';
+import { trans } from '../trans';
 
 interface RouteParams {
   slug: string;
@@ -65,7 +66,7 @@ const AlsoOwned = ( props: any ) => {
   const {owner} = props;
   return (
     <div>
-      <div className="headline-text">{owner.name.toLocaleUpperCase()} ÄGER FÖLJANDE</div>
+      <div className="headline-text">{owner.name.toLocaleUpperCase()} {trans('owns_the_following', 'en')}</div>
       <div>
         {
           centres.map(( other: any, idx: number ) => {
@@ -92,7 +93,7 @@ const CentreHome = ( props: any ) => {
   return (
     <div>
       <CentreName centre={centre}/>
-      <div className="headline-text">OM CENTRUM</div>
+      <div className="headline-text">{trans('about_centre', 'en')}</div>
 
       <div>
         {centre ? centre.description : ''}
@@ -116,7 +117,7 @@ const CentreDetailPlan = ( props: any ) => {
   return (
     <div>
       <CentreName centre={centre}/>
-      <div className="headline-text">DETALJPLAN</div>
+      <div className="headline-text">{trans('detail_plan', 'en')}</div>
 
       {
         detailPlans
@@ -154,7 +155,7 @@ const CentreOwners = ( props: TheProps ) => {
   return (
     <div>
       <CentreName centre={centre}/>
-      <div className="headline-text">ÄGARHISTORIK</div>
+      <div className="headline-text">{trans('owner_history', 'en')}</div>
 
       <table className="table">
         <thead>
@@ -283,8 +284,10 @@ class Sidebar extends React.Component
         {/* close button */}
         <div className="sidebar-close">
           <Link to="/">
-            <div className="arrow fa fa-angle-left"/>
-          </Link>
+            <div className="sidebar-close-content">
+                <div className="arrow fa fa-angle-left"/>
+            </div>
+            </Link>
         </div>
       </div>
     );

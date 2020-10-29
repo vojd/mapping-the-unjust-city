@@ -101,6 +101,7 @@ const redLineNorsborgNodes: MapNode[] = [
   station('Skärholmen', 'sw'),
   station('Vårberg', 'sw'),
   station('Vårby Gård', 'sw'),
+  station('Masmo', 'sw'),
   station('Fittja', 'sw'),
   station('Alby', 'sw'),
   station('Hallunda', 'sw'),
@@ -110,6 +111,7 @@ const redLineNorsborgNodes: MapNode[] = [
 const redLineMalarhojdenNodes: MapNode[] = [
   station('Aspudden', 'w'),
   station('Örnsberg', 'w'),
+  station('Axelsberg', 'w'),
   station(
     'Mälarhöjden', 'w', 1,
     [ Branches.RED_LINE_NORSBORG ],

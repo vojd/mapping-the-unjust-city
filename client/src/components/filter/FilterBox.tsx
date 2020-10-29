@@ -53,6 +53,10 @@ class FilterBox extends React.Component<FilterBoxProps, any> {
   }
 
   render() {
+    let extra = {
+      prefix: 'Sold ',
+      suffix: 's',
+    };
 
     return (
       <div className="filter-box shadow">
@@ -64,13 +68,13 @@ class FilterBox extends React.Component<FilterBoxProps, any> {
           className="filter-box-head"
         >
           <div className={`arrow fa ${this.props.isFilterBoxOpen ? 'fa-angle-up' : 'fa-angle-down'}`}/>
-          <h4>FILTRERING</h4>
+          <p>Filter</p>
         </div>
 
         <div className={`filter-group ${!this.props.isFilterBoxOpen ? 'filter-group-closed' : ''}`}>
           {
             Object.keys(this.props.soldYears).map(( year: string ) => {
-              return (<Toggle key={year} value={year} toggleTagVisible={this.toggleSoldYearVisibility}/>);
+              return (<Toggle key={year} value={year} extra={extra} toggleTagVisible={this.toggleSoldYearVisibility}/>);
             })
           }
         </div>

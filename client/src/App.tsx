@@ -9,6 +9,7 @@ import Sidebar from './components/Sidebar';
 import SidebarCompany from './components/SidebarCompany';
 import { AppState } from './interfaces/AppState';
 import { SidebarAbout } from './components/SidebarAbout';
+import { trans } from './trans';
 
 class App extends React.Component<any, AppState> {
 
@@ -38,8 +39,8 @@ class App extends React.Component<any, AppState> {
             </Switch>
 
             <div className="about shadow">
-              <Link to={`/about/centrumkartan`}>Om Centrumkartan</Link>
-              <Link to={`/about/us`}>Om oss</Link>
+              <Link to={`/about/centrumkartan`}>{trans('about_map', 'en')}</Link>
+              <Link to={`/about/us`}>{trans('about_us', 'en')}</Link>
             </div>
           </div>
         </HashRouter>

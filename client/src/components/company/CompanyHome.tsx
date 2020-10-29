@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { trans } from '../../trans';
 
 export const CompanyHome = ( props: any ) => {
   const {company} = props;
@@ -10,7 +11,7 @@ export const CompanyHome = ( props: any ) => {
         {company ? company.name : ''}
       </h2>
 
-      <div className="headline-text">OM BOLAGET</div>
+      <div className="headline-text">{trans('about_company', 'en')}</div>
 
       <div className="sidebar-inline-image">
         {
