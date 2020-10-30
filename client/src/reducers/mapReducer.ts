@@ -7,6 +7,7 @@ import { Centre } from '../models/models';
 import { addToggleStateToNodes, createNewTagList } from './toggleOnTag';
 import { addToggleOwnerStateToNodes, createNewOwnerList } from './toggleOnOwner';
 import { toggleNodesBySoldYear } from './toggleSoldYear';
+import { toggleNodesOnPublicPrivate } from './togglePublicPrivate';
 
 interface MapReducer extends Action {
   result: MapState;
@@ -68,6 +69,7 @@ const addDataToNode = (node: MapNode, nodeFromApi: Centre) => {
   node.filled = nodeFromApi.status;
   node.owner = nodeFromApi.owner;
   node.sold = nodeFromApi.sold;
+  node.private = nodeFromApi.private;
   return node;
 };
 
@@ -187,18 +189,22 @@ export default (state: MapState, action: any) => {
 
     case actionTypes.TOGGLE_SOLD_YEAR_VISIBILITY:
       let { soldYears } = state;
-      // console.log(' sold year', soldYears);
-      // console.log(' action', action);
-      // let sy = soldYears[action.data.value] = !soldYears[action.data.value];
-      // console.log(' sy', sy);
-      // let _sy = ...soldYears;
       soldYears[action.data.value] = !soldYears[action.data.value];
-      console.log(' soldYears', soldYears);
       return {
         ...state,
         soldYears,
         mapData: toggleNodesBySoldYear(state, action, soldYears)
       };
+
+    case actionTypes.TOGGLE_PUBLIC_VISIBILITY:
+      let { publicDisplayMode } = state;
+      publicDisplayMode[action.data.value] = !publicDisplayMode[action.data.value];
+      console.log(publicDisplayMode);
+      return {
+        ...state,
+        publicDisplayMode,
+        mapData: toggleNodesOnPublicPrivate(state, action, publicDisplayMode)
+    };
 
     case actionTypes.TOGGLE_FILTER_BOX_OPEN:
       const { isFilterBoxOpen } = state;

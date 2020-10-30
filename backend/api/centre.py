@@ -40,6 +40,7 @@ class CentreSerializer(serializers.HyperlinkedModelSerializer):
     documents = DocumentSerializer(many=True, read_only=True)
     detailPlans = DetailPlanSerializer(many=True, read_only=True, source='detail_plans')
 
+    descriptionEn = serializers.CharField(source='description_en')
     # call `get_active_tags` on the Centre model to get only active tags
     tags = TagSerializer(many=True, read_only=True)
 
@@ -49,10 +50,11 @@ class CentreSerializer(serializers.HyperlinkedModelSerializer):
             'name',
             'slug',
             'description',
-            'description_en',
+            'descriptionEn',
             'status',
             'owner',
             'sold',
+            'private',
             'documents',
             'images',
             'detailPlans',

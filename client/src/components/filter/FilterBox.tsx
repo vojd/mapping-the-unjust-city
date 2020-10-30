@@ -4,7 +4,7 @@ import { MapNodeTag } from '../UndergroundLines';
 import { Action } from 'redux';
 import {
   toggleFilterBoxOpenAction,
-  toggleOwnerVisibilityAction, toggleSoldYearVisibilityAction,
+  toggleOwnerVisibilityAction, togglePublicPrivateAllVisibilityAction, toggleSoldYearVisibilityAction,
   toggleTagVisibilityAction
 } from '../../actions/mapActions';
 import { AppState } from '../../interfaces/AppState';
@@ -19,7 +19,12 @@ interface FilterBoxProps {
     [key: string]: boolean
   };
 
+  publicDisplayMode: {
+    [key: string]: boolean
+  };
+
   toggleSoldYearVisibility: Function;
+  togglePublicVisibility: Function;
   toggleTagVisible: Function;
   toggleTagVisibilityOnOwner: Function;
   toggleFilterBoxOpen: Function;
@@ -42,6 +47,11 @@ class FilterBox extends React.Component<FilterBoxProps, any> {
   toggleSoldYearVisibility = (value: string, isOn: boolean) => {
     console.log('filter box: toggleSoldYearVisibility', value, isOn);
     this.props.toggleSoldYearVisibility(value, isOn);
+  }
+
+  togglePublicVisibility = (value: string, isOn: boolean) => {
+    console.log(' togglePublicVisibility', value, isOn);
+    this.props.togglePublicVisibility(value, isOn);
   }
 
   toggleTagVisibility = ( value: string, isOn: boolean ) => {
@@ -79,6 +89,14 @@ class FilterBox extends React.Component<FilterBoxProps, any> {
           }
         </div>
 
+        <div className={`filter-group ${!this.props.isFilterBoxOpen ? 'filter-group-closed' : ''}`}>
+          {
+            Object.keys(this.props.publicDisplayMode).map(( publicMode: string ) => {
+              return (<Toggle key={publicMode} value={publicMode} toggleTagVisible={this.togglePublicVisibility}/>);
+            })
+          }
+        </div>
+
         {/*<div className={`filter-group ${!this.props.isFilterBoxOpen ? 'filter-group-closed' : ''}`}>*/}
         {/*  {*/}
         {/*    this.props.tags.map(( t: Tag, id: number ) => {*/}
@@ -107,6 +125,7 @@ const mapStateToProps = ( state: AppState ) => {
 const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) => {
   return {
     toggleSoldYearVisibility: (val: string, isOn: boolean) => dispatch(toggleSoldYearVisibilityAction(val, isOn)),
+    togglePublicVisibility: (val: string, isOn: boolean) => dispatch(togglePublicPrivateAllVisibilityAction(val, isOn)),
     toggleTagVisible: ( val: string, isOn: boolean ) => dispatch(toggleTagVisibilityAction(val, isOn)),
     toggleTagVisibilityOnOwner: ( val: string, isOn: boolean ) => dispatch(toggleOwnerVisibilityAction(val, isOn)),
     toggleFilterBoxOpen: () => dispatch(toggleFilterBoxOpenAction()),

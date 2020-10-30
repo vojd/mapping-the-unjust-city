@@ -60,3 +60,13 @@ export const toggleSoldYearVisibilityAction = (val: string, isOn: boolean) => (
     }
   }
 );
+
+export const togglePublicPrivateAllVisibilityAction = (val: string, isOn: boolean) => (
+  {
+    type: actionTypes.TOGGLE_PUBLIC_VISIBILITY,
+    data: <ToggleActionData> {
+      value: val,
+      isOn
+    }
+  }
+);

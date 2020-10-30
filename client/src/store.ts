@@ -48,7 +48,10 @@ export const getInitialMapState = (): MapState => {
       '2010': false,
       '2020': false,
     },
-
+    publicDisplayMode: {
+      'public': false,
+      'private': false,
+    },
     isFilterBoxOpen: true,
     language: 'en',
   };

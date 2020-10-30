@@ -51,6 +51,9 @@ export interface MapState {
   soldYears: {
     [key: string]: boolean;
   };
+  publicDisplayMode: {
+    [key: string]: boolean;
+  };
   isFilterBoxOpen: boolean;
   language: string;
 }

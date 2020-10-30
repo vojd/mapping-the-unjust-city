@@ -89,14 +89,14 @@ const CentreHome = ( props: any ) => {
   const {centre} = props;
   const owner = centre ? centre.owner : null;
   const centres = centre && centre.owner ? centre.owner.centres : [];
-
+  const description = centre ? (centre.descriptionEn === '' ? centre.description : centre.descriptionEn) : '';
   return (
     <div>
       <CentreName centre={centre}/>
       <div className="headline-text">{trans('about_centre', 'en')}</div>
 
       <div>
-        {centre ? centre.description : ''}
+        {description}
       </div>
 
       {owner && centres ? <AlsoOwned centres={centres} owner={owner}/> : ''}

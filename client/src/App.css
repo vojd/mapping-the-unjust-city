@@ -188,7 +188,7 @@ ul li {
     margin: 0;
     padding: 32px;
     position: fixed;
-    overflow: scroll;
+    overflow: hidden;
 
     background: #fff;
     border: 1px solid #eee;

@@ -42,6 +42,7 @@ export interface Centre {
   name: string;
   slug: string;
   description: string;
+  descriptionEn: string;
   status: number;
   owner: Company | null;
   historicalOwners: HistoricalOwner[];
@@ -49,7 +50,7 @@ export interface Centre {
   images: ImageURL[];
   documents: string[]; // array of URLs
   sold: string;
-
+  private: boolean;
 }
 
 export interface CompanyResponse {

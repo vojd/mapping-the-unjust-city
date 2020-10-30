@@ -110,6 +110,7 @@ class Centre(models.Model):
 
     tags = models.ManyToManyField(Tag, blank=True)
     sold = models.CharField(max_length=4, blank=True, null=True, choices=DECADES)
+    private = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
