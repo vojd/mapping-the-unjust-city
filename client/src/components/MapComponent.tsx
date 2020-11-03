@@ -3,7 +3,7 @@ import { SyntheticEvent } from 'react';
 import { matrix, pan, scale } from '../math';
 import { MapNode } from './UndergroundLines';
 import { COLOR_ORANGE, Station } from './Station';
-import { MapText } from './MapText';
+import { MapText, MapTextAlignment } from './MapText';
 import { Action } from 'redux';
 import { connect } from 'react-redux';
 import {
@@ -179,7 +179,13 @@ export class MapComponent extends React.Component<MapProps, AppState> {
       name: 'T-Centralen',
       branch: null,
       x: width / 2,
-      y: height / 2
+      y: height / 2,
+      sold: '',
+      private: true,
+      horizontalText: false,
+      textAlignment: MapTextAlignment.TOP,
+      isVisible: true,
+      tags: []
     };
 
     return (
@@ -236,10 +242,7 @@ export class MapComponent extends React.Component<MapProps, AppState> {
           </g>
         </svg>
 
-        <FilterBox
-          tags={this.props.tags}
-          companies={this.props.companies}
-        />
+        <FilterBox />
       </div>
     );
   }

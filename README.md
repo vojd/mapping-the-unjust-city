@@ -20,6 +20,19 @@ virtualenv -p /usr/bin/python3 env
 
 . env/bin/activate
 
+# install nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+
+# install and use node 8
+nvm install 8.10.0
+nvm use 8
+```
+
+```
+/home/vojd/mapping-the-unjust-city/client/node_modules/@types/history/index.d.ts
+(48,33): Cannot find name 'unknown'.
+
+
 ```
 
 ### Build the backend
@@ -28,6 +41,11 @@ virtualenv -p /usr/bin/python3 env
 cd backend
 mkvirtualenv -p /path/to/python3 mapping-the-unjust-city
 pip install -r requirements.txt
+
+If you run into errors try doing this:
+
+pip install Pillow==8.0.1
+pip install --upgrade django-cors-headers
 
 ## Create the local sqlite db
 

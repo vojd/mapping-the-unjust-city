@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from backend.settings import MEDIA_URL
 from centres.models import Company, Document, Centre, Image, HistoricalOwner, Tag, DetailPlan
 
 
@@ -34,11 +33,14 @@ class CentreAdmin(admin.ModelAdmin):
     inlines = [ImageInline, DocumentInline, OwnershipHistoryInline, DetailPlanInline]
 
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'owner', 'get_tags',)
-    list_filter = ('tags',)
+    list_display = ('name', 'owner', 'sold', 'private', )
+    list_filter = ('sold', 'private', )
 
     def get_tags(self, obj):
         return ', '.join([s.name for s in obj.tags.all()])
+
+    def get_sold(self, obj):
+        return obj.sold
 
 
 @admin.register(Company)
