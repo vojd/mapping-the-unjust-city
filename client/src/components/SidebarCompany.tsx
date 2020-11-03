@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Route, Switch, withRouter } from 'react-router';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -10,6 +10,7 @@ import { fetchCompanyDetailsAction } from '../actions/fetchCompanyDetailsAction'
 import { AppState } from '../interfaces/AppState';
 import { CompanyDocuments } from './company/CompanyDocuments';
 import { RouteLocation, RouteMatch } from './Sidebar';
+import { SidebarClose } from './SidebarClose';
 
 export interface SidebarCompanyProps {
   match: RouteMatch;
@@ -77,10 +78,7 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
           </div>
         </div>
 
-        {/* close button */}
-        <div className="sidebar-close">
-          <Link to="/"><i className="fa fa-angle-left"/></Link>
-        </div>
+        <SidebarClose />
       </div>
     );
   }

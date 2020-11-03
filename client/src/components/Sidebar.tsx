@@ -9,6 +9,7 @@ import { Link, NavLink } from 'react-router-dom';
 import CentreDocuments from './CentreDocuments';
 import { AppState } from '../interfaces/AppState';
 import { trans } from '../trans';
+import { SidebarClose } from './SidebarClose';
 
 interface RouteParams {
   slug: string;
@@ -85,6 +86,36 @@ const AlsoOwned = ( props: any ) => {
   );
 };
 
+export const HTMLOutput = (props: { str: string }) => {
+  let {str} = props;
+
+  return (
+    <span>
+      {
+        str.split(/\r\n|\n/g).map((s: string, i: number) => {
+          return (
+            <p key={i}>
+              {s}
+            </p>
+          );
+        })
+      }
+    </span>
+  );
+};
+
+export const DescriptionTranslated = (props: any) => {
+  let {obj} = props;
+  if (obj && obj.description) {
+    let val = obj.descriptionEn !== '' ? obj.descriptionEn : obj.description;
+    console.log('val', val);
+    return (
+      <HTMLOutput str={val} />
+    );
+  }
+  return null;
+};
+
 const CentreHome = ( props: any ) => {
   const {centre} = props;
   const owner = centre ? centre.owner : null;
@@ -96,7 +127,7 @@ const CentreHome = ( props: any ) => {
       <div className="headline-text">{trans('about_centre', 'en')}</div>
 
       <div>
-        {description}
+         <HTMLOutput str={description} />
       </div>
 
       {owner && centres ? <AlsoOwned centres={centres} owner={owner}/> : ''}
@@ -117,7 +148,7 @@ const CentreDetailPlan = ( props: any ) => {
   return (
     <div>
       <CentreName centre={centre}/>
-      <div className="headline-text">{trans('detail_plan', 'en')}</div>
+      <div className="headline-text">{trans('zoning_plan', 'en')}</div>
 
       {
         detailPlans
@@ -160,8 +191,8 @@ const CentreOwners = ( props: TheProps ) => {
       <table className="table">
         <thead>
         <tr>
-          <th scope="col"> Företag</th>
-          <th scope="col">År</th>
+          <th scope="col">{trans('company', 'en')}</th>
+          <th scope="col">{trans('year', 'en')}</th>
 
         </tr>
         </thead>
@@ -170,7 +201,11 @@ const CentreOwners = ( props: TheProps ) => {
           centre.historicalOwners.map(( owner: any, id: number ) => {
             return (
               <tr key={id}>
-                <td>{owner.company.name}</td>
+                <td>
+                  <Link to={`/company/${owner.company.slug}`}>
+                    {owner.company.name}
+                  </Link>
+                </td>
                 <td>{owner.year}</td>
 
               </tr>
@@ -281,14 +316,7 @@ class Sidebar extends React.Component
           </div>
         </div>
 
-        {/* close button */}
-        <div className="sidebar-close">
-          <Link to="/">
-            <div className="sidebar-close-content">
-                <div className="arrow fa fa-angle-left"/>
-            </div>
-            </Link>
-        </div>
+        <SidebarClose />
       </div>
     );
   }

@@ -12,12 +12,15 @@ class CompanyOwnedCentresSerializer(serializers.ModelSerializer):
 
 class CompanySerializer(serializers.HyperlinkedModelSerializer):
     centres = CompanyOwnedCentresSerializer(many=True, read_only=True,)
-
+    descriptionEn = serializers.CharField(source='description_en')
     documents = DocumentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Company
-        fields = ('name', 'slug', 'description', 'image', 'centres', 'documents',)
+        fields = (
+            'name', 'slug', 'description', 'descriptionEn',
+            'image', 'centres', 'documents',
+        )
         lookup_field = 'company.slug'
 
 

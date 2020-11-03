@@ -10,7 +10,7 @@ const toggleNodeOnSoldYear = (node: MapNode,
     node.isVisible = true;
   } else {
     // Toggle selected to invisible
-  // node.isVisible = node.sold ? soldYears[node.sold] === false : true;
+    // node.isVisible = node.sold ? soldYears[node.sold] === false : true;
     // Toggle selected to visible
     node.isVisible = node.sold ? soldYears[node.sold] : false;
   }
@@ -26,7 +26,6 @@ const toggleNodesRecursively = (branches: MapNode[][],
     return branch.map((node) => {
 
       if (node.branches) {
-        console.log('\t has branch', node.branches);
         node.branches = toggleNodesRecursively(node.branches, soldYears, setAllToVisible);
       }
       return toggleNodeOnSoldYear(node, soldYears, setAllToVisible);

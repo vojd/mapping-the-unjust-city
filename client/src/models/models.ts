@@ -9,6 +9,7 @@ export class Company implements BaseModel {
   constructor( public name: string,
                public slug: string,
                public description: string,
+               public descriptionEn: string,
                public centres: URL[],
                public documents: URL[] ) {
   }
@@ -57,6 +58,7 @@ export interface CompanyResponse {
   name: string;
   slug: string;
   description: string;
+  descriptionEn: string;
   centres: URL[];
   documents: URL[];
 }
@@ -80,6 +82,7 @@ export const createCompany = ( companyResponse: CompanyResponse | null ) => {
     companyResponse.name,
     companyResponse.slug,
     companyResponse.description,
+    companyResponse.descriptionEn,
     companyResponse.centres,
     companyResponse.documents
   );

@@ -40,6 +40,7 @@ class DetailPlan(models.Model):
                                related_name='detail_plans')
 
     description = models.TextField(blank=True)
+    description_en = models.TextField(blank=True, help_text='English description')
     image = models.ImageField(upload_to=settings.UPLOAD_DIR, null=True, blank=True)
     document = models.FileField(upload_to=settings.UPLOAD_DIR, null=True, blank=True)
 
@@ -48,6 +49,7 @@ class Company(models.Model):
     name = models.CharField(blank=False, max_length=255)
     slug = models.SlugField(blank=True)
     description = models.TextField(blank=True)
+    description_en = models.TextField(blank=True, help_text='English description')
     image = models.ImageField(upload_to=settings.UPLOAD_DIR, null=True, blank=True)
 
     def save(self, *args, **kwargs):

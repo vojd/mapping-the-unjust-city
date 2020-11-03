@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { trans } from '../../trans';
+import { DescriptionTranslated } from '../Sidebar';
 
 export const CompanyHome = ( props: any ) => {
   const {company} = props;
@@ -22,7 +23,7 @@ export const CompanyHome = ( props: any ) => {
       </div>
 
       <div>
-        {company ? company.description : ''}
+          <DescriptionTranslated obj={company}/>
       </div>
     </div>
   );

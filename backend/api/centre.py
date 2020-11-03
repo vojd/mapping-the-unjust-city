@@ -28,9 +28,11 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class DetailPlanSerializer(serializers.ModelSerializer):
+    descriptionEn = serializers.CharField(source='description_en')
+
     class Meta:
         model = DetailPlan
-        fields = ('description', 'image', 'document',)
+        fields = ('description', 'descriptionEn', 'image', 'document',)
 
 
 class CentreSerializer(serializers.HyperlinkedModelSerializer):

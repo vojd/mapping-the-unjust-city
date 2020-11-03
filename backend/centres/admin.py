@@ -25,7 +25,7 @@ class OwnershipHistoryInline(admin.StackedInline):
 class DetailPlanInline(admin.StackedInline):
     model = DetailPlan
     extra = 0
-    fields = ('description', 'image', 'document',)
+    fields = ('description', 'description_en', 'image', 'document',)
 
 
 @admin.register(Centre)
@@ -55,7 +55,7 @@ class CompanyAdmin(admin.ModelAdmin):
 
     inlines = [ImageInline, DocumentInline, ]
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'description', 'image_tag',)
+    list_display = ('name', 'description', 'description_en', 'image_tag',)
 
 
 @admin.register(Tag)
