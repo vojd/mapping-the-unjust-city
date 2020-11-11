@@ -185,6 +185,7 @@ export class MapComponent extends React.Component<MapProps, AppState> {
       horizontalText: false,
       textAlignment: MapTextAlignment.TOP,
       isVisible: true,
+      isActive: false,
       tags: []
     };
 
@@ -241,7 +242,7 @@ export class MapComponent extends React.Component<MapProps, AppState> {
             />
           </g>
         </svg>
-
+s
         <FilterBox />
       </div>
     );

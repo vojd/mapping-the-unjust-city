@@ -70,3 +70,16 @@ export const togglePublicPrivateAllVisibilityAction = (val: string, isOn: boolea
     }
   }
 );
+
+export interface SetActiveCentreAction {
+  value: any;
+}
+
+export const setCentreActiveAction = (centre: any) => (
+  {
+    type: actionTypes.SET_CENTRE_ACTIVE_ACTION,
+    data: <SetActiveCentreAction> {
+      value: centre
+    }
+  }
+);

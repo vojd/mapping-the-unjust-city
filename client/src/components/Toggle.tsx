@@ -1,12 +1,9 @@
 import * as React from 'react';
 
 class ToggleProps {
+  label: string;
   value: string;
   toggleTagVisible: Function;
-  extra?: {
-    prefix: string,
-    suffix: string,
-  };
 }
 
 class ToggleState {
@@ -32,9 +29,7 @@ export class Toggle extends React.Component<ToggleProps, ToggleState> {
   render() {
     return (
       <label className="filter-input-container">
-        {this.props.extra ? this.props.extra.prefix : ''}
-        {this.props.value}
-        {this.props.extra ? this.props.extra.suffix : ''}
+        {this.props.label}
         <input type="checkbox" onClick={this.handleClick}/>
         <span className="filter-input-checkmark"/>
       </label>

@@ -107,7 +107,6 @@ ul li {
 
 .centre-name {
     padding-top: 1em;
-    padding-bottom: 1em;
 }
 
 .centre_information__menu {
@@ -238,6 +237,10 @@ ul li {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.filter-input-container:first-letter {
+    text-transform: capitalize;
 }
 
 /* Hide the browser's default checkbox */
@@ -412,8 +415,8 @@ ul li {
     font-weight: bold;
     color: #aaaaaa;
 
-    padding-top: 2.5em;
-    padding-bottom: 2.5em;
+    padding-top: 1em;
+    padding-bottom: 1em;
     text-transform: uppercase;
 }
 

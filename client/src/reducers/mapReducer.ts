@@ -70,6 +70,7 @@ const addDataToNode = (node: MapNode, nodeFromApi: Centre) => {
   node.owner = nodeFromApi.owner;
   node.sold = nodeFromApi.sold;
   node.private = nodeFromApi.private;
+  node.isActive = false;
   return node;
 };
 

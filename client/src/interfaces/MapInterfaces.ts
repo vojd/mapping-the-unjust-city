@@ -56,4 +56,5 @@ export interface MapState {
   };
   isFilterBoxOpen: boolean;
   language: string;
+  activeCentreSlug: string;
 }

@@ -26,4 +26,5 @@ export interface MapNode {
   horizontalText: boolean;
   textAlignment: MapTextAlignment;
   isVisible: boolean;
+  isActive: boolean;
 }

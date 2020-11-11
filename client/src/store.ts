@@ -15,6 +15,7 @@ import { MapState } from './interfaces/MapInterfaces';
 export const getInitialMapState = (): MapState => {
   console.log('window', window.innerWidth, window.innerHeight);
   return {
+    activeCentreSlug: '',
     scaleFactor: 0.6,
     panX: window.innerWidth,
     panY: window.innerHeight / 3.0,
@@ -47,13 +48,14 @@ export const getInitialMapState = (): MapState => {
       '2000': false,
       '2010': false,
       '2020': false,
+      '0': false, // ongoing sale
     },
     publicDisplayMode: {
       'public': false,
       'private': false,
     },
     isFilterBoxOpen: true,
-    language: 'en',
+    language: 'en'
   };
 };
 

@@ -10,6 +10,8 @@ import CentreDocuments from './CentreDocuments';
 import { AppState } from '../interfaces/AppState';
 import { trans } from '../trans';
 import { SidebarClose } from './SidebarClose';
+import { MapNode } from './UndergroundLines';
+import { setCentreActiveAction } from '../actions/mapActions';
 
 interface RouteParams {
   slug: string;
@@ -28,6 +30,7 @@ export interface SidebarProps {
   location: RouteLocation;
   fetchCentre: Function;
   toggleOpenClose: Function;
+  setCentreActive: Function;
   centre: Centre | null;
 }
 
@@ -247,6 +250,7 @@ class Sidebar extends React.Component
   componentDidMount() {
     const slug = this.props.match.params.slug;
     this.props.fetchCentre(slug);
+    console.log('sidebar opened');
   }
 
   componentDidUpdate( previousProps: SidebarProps ) {
@@ -254,6 +258,7 @@ class Sidebar extends React.Component
       const slug = this.props.match.params.slug;
       this.props.fetchCentre(slug);
       console.log('sidebar componentDidUpdate');
+      this.props.setCentreActive(this.props.centre);
     }
   }
 
@@ -334,6 +339,7 @@ const mapStateToProps = ( state: AppState, {params}: any ) => {
 const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) => {
   return {
     fetchCentre: ( slug: string ) => dispatch(fetchCentreAction(slug)),
+    setActiveCentre: (node: MapNode) => dispatch(setCentreActiveAction(node)),
   };
 };
 
