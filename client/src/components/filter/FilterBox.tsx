@@ -77,14 +77,13 @@ class FilterBox extends React.Component<FilterBoxProps, any> {
 
         <div className={`filter-group ${!this.props.isFilterBoxOpen ? 'filter-group-closed' : ''}`}>
           {
-            Object.keys(this.props.soldYears).map(( year: string ) => {
-              let label = year === '0' ? 'Ongoing sale' : `Sold ${year}'s`;
+            Object.keys(this.props.publicDisplayMode).map(( publicMode: string ) => {
               return (
                 <Toggle
-                  key={year}
-                  label={label}
-                  value={year}
-                  toggleTagVisible={this.toggleSoldYearVisibility}
+                  key={publicMode}
+                  label={publicMode}
+                  value={publicMode}
+                  toggleTagVisible={this.togglePublicVisibility}
                 />
               );
             })
@@ -93,13 +92,14 @@ class FilterBox extends React.Component<FilterBoxProps, any> {
 
         <div className={`filter-group ${!this.props.isFilterBoxOpen ? 'filter-group-closed' : ''}`}>
           {
-            Object.keys(this.props.publicDisplayMode).map(( publicMode: string ) => {
+            Object.keys(this.props.soldYears).map(( year: string ) => {
+              let label = year === '0' ? 'Ongoing sale' : `Sold ${year}'s`;
               return (
                 <Toggle
-                  key={publicMode}
-                  label={publicMode}
-                  value={publicMode}
-                  toggleTagVisible={this.togglePublicVisibility}
+                  key={year}
+                  label={label}
+                  value={year}
+                  toggleTagVisible={this.toggleSoldYearVisibility}
                 />
               );
             })

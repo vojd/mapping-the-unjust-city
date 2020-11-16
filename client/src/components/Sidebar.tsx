@@ -190,8 +190,9 @@ const CentreOwners = ( props: TheProps ) => {
     <div>
       <CentreName centre={centre}/>
       <div className="headline-text">{trans('owner_history', 'en')}</div>
-
-      <table className="table">
+      {
+        centre.historicalOwners.length > 0 ?
+          <table className="table">
         <thead>
         <tr>
           <th scope="col">{trans('company', 'en')}</th>
@@ -217,6 +218,13 @@ const CentreOwners = ( props: TheProps ) => {
         }
         </tbody>
       </table>
+          : null
+      }
+      {
+        centre.ownershipDescriptionEn
+          ? <div>{centre.ownershipDescriptionEn}</div>
+          : <div>{centre.ownershipDescription}</div>
+      }
     </div>
   );
 };
@@ -258,7 +266,7 @@ class Sidebar extends React.Component
       const slug = this.props.match.params.slug;
       this.props.fetchCentre(slug);
       console.log('sidebar componentDidUpdate');
-      this.props.setCentreActive(this.props.centre);
+      // this.props.setCentreActive(this.props.centre);
     }
   }
 

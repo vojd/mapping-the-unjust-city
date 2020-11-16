@@ -7,7 +7,6 @@ export const CompanyHome = ( props: any ) => {
 
   return (
     <div className="centre-name">
-
       <h2>
         {company ? company.name : ''}
       </h2>

@@ -10,6 +10,8 @@ export class Company implements BaseModel {
                public slug: string,
                public description: string,
                public descriptionEn: string,
+               public ownershipDescription: string,
+               public ownershipDescriptionEn: string,
                public centres: URL[],
                public documents: URL[] ) {
   }
@@ -44,6 +46,8 @@ export interface Centre {
   slug: string;
   description: string;
   descriptionEn: string;
+  ownershipDescription: string;
+  ownershipDescriptionEn: string;
   status: number;
   owner: Company | null;
   historicalOwners: HistoricalOwner[];
@@ -61,6 +65,8 @@ export interface CompanyResponse {
   descriptionEn: string;
   centres: URL[];
   documents: URL[];
+  ownershipDescription: string;
+  ownershipDescriptionEn: string;
 }
 
 export interface CentreResponse {
@@ -83,7 +89,10 @@ export const createCompany = ( companyResponse: CompanyResponse | null ) => {
     companyResponse.slug,
     companyResponse.description,
     companyResponse.descriptionEn,
+    companyResponse.ownershipDescription,
+    companyResponse.ownershipDescriptionEn,
     companyResponse.centres,
-    companyResponse.documents
+    companyResponse.documents,
+
   );
 };

@@ -33,8 +33,8 @@ class CentreAdmin(admin.ModelAdmin):
     inlines = [ImageInline, DocumentInline, OwnershipHistoryInline, DetailPlanInline]
 
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'owner', 'sold', 'private', )
-    list_filter = ('sold', 'private', )
+    list_display = ('name', 'owner', 'sold', )
+    list_filter = ('sold', )
     search_fields = ('name', )
 
     def get_tags(self, obj):

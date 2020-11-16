@@ -41,10 +41,11 @@ class CentreSerializer(serializers.HyperlinkedModelSerializer):
     historicalOwners = HistoricalOwnerSerializer(many=True, read_only=True, source='historical_owners')
     documents = DocumentSerializer(many=True, read_only=True)
     detailPlans = DetailPlanSerializer(many=True, read_only=True, source='detail_plans')
-
     descriptionEn = serializers.CharField(source='description_en')
     # call `get_active_tags` on the Centre model to get only active tags
     tags = TagSerializer(many=True, read_only=True)
+    ownershipDescription = serializers.CharField(source='ownership_description')
+    ownershipDescriptionEn = serializers.CharField(source='ownership_description_en')
 
     class Meta:
         model = Centre
@@ -53,10 +54,12 @@ class CentreSerializer(serializers.HyperlinkedModelSerializer):
             'slug',
             'description',
             'descriptionEn',
+            'ownershipDescription',
+            'ownershipDescriptionEn',
             'status',
             'owner',
             'sold',
-            'private',
+            'ownership_type',
             'documents',
             'images',
             'detailPlans',

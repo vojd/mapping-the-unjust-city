@@ -4,9 +4,10 @@ import { MapState } from '../interfaces/MapInterfaces';
 
 const toggleNodeOnPublicPrivate = (node: MapNode,
                                    publicDisplayMode: {[key: string]: boolean}) => {
-  let keyPublic = 'public';
-  let keyPrivate = 'private';
-  console.log(' toggling node', node.private);
+  let keyPublic = 'Publicly owned';
+  let keyPrivate = 'Privately owned';
+  let keyNone = 'none';
+  console.log(' toggling node', node.private, keyNone);
 
   node.isVisible = false;
 

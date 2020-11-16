@@ -152,7 +152,7 @@ const redLineRopsten: MapNode[] = [
 // north bound from t-centralen
 const redLineNorthBound: MapNode[] = [
   station(
-    'Östermalms torg', 'n', 1,
+    'Östermalmstorg', 'n', 1,
     [ Branches.RED_LINE_MORBY_CENTRUM, Branches.RED_LINE_ROPSTEN ],
     [ redLineMorbyCentrum, redLineRopsten ]
   ),
@@ -263,7 +263,7 @@ const greenLineFarstaNodes: MapNode[] = [
 
 const greenLineSouthBoundNodesSkarmabrink: MapNode[] = [
   station(
-    'Skarmabrink',
+    'Skärmabrink',
     's',
     1,
     [

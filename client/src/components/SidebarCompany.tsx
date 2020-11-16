@@ -49,7 +49,7 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
         <div className="sidebar-content shadow">
           <div>
             <div className="centre-top-image">
-              &nbsp;
+              <span className="station-information__menu__icon icon icon-owner-history"/>
             </div>
 
             <div>

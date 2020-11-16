@@ -91,6 +91,12 @@ DECADES = (
     ('0', 'Ongoing sale'),
 )
 
+OWNERSHIP_TYPE = (
+    ('Publicly owned', 'Publicly owned'),
+    ('Privately owned', 'Privately owned'),
+    ('none', 'none'),
+)
+
 
 class Centre(models.Model):
     """
@@ -108,12 +114,16 @@ class Centre(models.Model):
                               related_name='centres'
                               )
 
+    ownership_description = models.TextField(default='', blank=True)
+    ownership_description_en = models.TextField(default='', blank=True)
+
     description = models.TextField(blank=True)
     description_en = models.TextField(blank=True, help_text='English description')
 
     tags = models.ManyToManyField(Tag, blank=True)
     sold = models.CharField(max_length=4, blank=True, null=True, choices=DECADES)
-    private = models.BooleanField(default=True)
+    # private = models.BooleanField(default=True)
+    ownership_type = models.CharField(max_length=255, blank=True, null=True, choices=OWNERSHIP_TYPE)
 
     def __str__(self):
         return self.name
