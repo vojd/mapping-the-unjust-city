@@ -56,6 +56,7 @@ export interface Centre {
   documents: string[]; // array of URLs
   sold: string;
   private: boolean;
+  ownershipType: string;
 }
 
 export interface CompanyResponse {

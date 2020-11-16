@@ -56,10 +56,6 @@ const getPan = (state: MapState, action: MapReducer) => {
   return state;
 };
 
-/////////////////////////////////////////////////
-// ADD data to nodes
-/////////////////////////////////////////////////
-
 const addDataToNode = (node: MapNode, nodeFromApi: Centre) => {
   if (!nodeFromApi) {
     return node;
@@ -69,8 +65,10 @@ const addDataToNode = (node: MapNode, nodeFromApi: Centre) => {
   node.filled = nodeFromApi.status;
   node.owner = nodeFromApi.owner;
   node.sold = nodeFromApi.sold;
-  node.private = nodeFromApi.private;
+  // node.private = nodeFromApi.private;
   node.isActive = false;
+  node.ownershipType = nodeFromApi.ownershipType;
+  console.log(' node.ownershipType', nodeFromApi.ownershipType);
   return node;
 };
 

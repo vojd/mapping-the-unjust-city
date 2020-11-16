@@ -4,23 +4,31 @@ import { MapState } from '../interfaces/MapInterfaces';
 
 const toggleNodeOnPublicPrivate = (node: MapNode,
                                    publicDisplayMode: {[key: string]: boolean}) => {
-  let keyPublic = 'Publicly owned';
-  let keyPrivate = 'Privately owned';
-  let keyNone = 'none';
-  console.log(' toggling node', node.private, keyNone);
+  // let keyPublic = 'public';
+  // let keyPrivate = 'private';
+  // let keyNone = 'none';
+  console.log(' toggling node', node, publicDisplayMode);
+
+  let modePublic = publicDisplayMode['Publicly owned'];
+  let modePrivate = publicDisplayMode['Privately owned'];
+  let modeNone = !publicDisplayMode['Privately owned'] && !publicDisplayMode['Publicly owned'];
+  console.log('mod', modePublic, modePrivate, modeNone);
+  if (modeNone) {
+    node.isVisible = true;
+    return node;
+  }
+
+  if (modePublic && node.ownershipType === 'Publicly owned') {
+    node.isVisible = true;
+    return node;
+  }
+
+  if (modePrivate && node.ownershipType === 'Privately owned') {
+    node.isVisible = true;
+    return node;
+  }
 
   node.isVisible = false;
-
-  // are all false? show everything
-  if (!publicDisplayMode[keyPrivate] && !publicDisplayMode[keyPublic]) {
-    node.isVisible = true;
-  }
-  if (publicDisplayMode[keyPrivate] && node.private) {
-    node.isVisible = true;
-  }
-  if (publicDisplayMode[keyPublic] && !node.private) {
-    node.isVisible = true;
-  }
   return node;
 };
 
@@ -49,6 +57,7 @@ export const toggleNodesOnPublicPrivate = (state: MapState,
         console.log('n ', node, ' has branch', node.branches);
         node.branches = toggleNodesRecursively(node.branches, publicDisplayMode);
       }
+      console.log('node', node);
       toggleNodeOnPublicPrivate(node, publicDisplayMode);
     });
   });

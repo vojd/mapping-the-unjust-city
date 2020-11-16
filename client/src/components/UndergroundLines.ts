@@ -15,7 +15,7 @@ export interface MapNode {
   } | null;
   tags: MapNodeTag[];
   sold: string;
-  private: boolean;
+  ownershipType: string;
 
   branchIds?: number[];
   branches?: MapNode[][]; // the actual branch nodes

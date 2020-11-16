@@ -33,7 +33,7 @@ class CentreAdmin(admin.ModelAdmin):
     inlines = [ImageInline, DocumentInline, OwnershipHistoryInline, DetailPlanInline]
 
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'owner', 'sold', )
+    list_display = ('name', 'owner', 'sold', 'ownership_type',)
     list_filter = ('sold', )
     search_fields = ('name', )
 

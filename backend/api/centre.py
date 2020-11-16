@@ -46,6 +46,7 @@ class CentreSerializer(serializers.HyperlinkedModelSerializer):
     tags = TagSerializer(many=True, read_only=True)
     ownershipDescription = serializers.CharField(source='ownership_description')
     ownershipDescriptionEn = serializers.CharField(source='ownership_description_en')
+    ownershipType = serializers.CharField(source='ownership_type')
 
     class Meta:
         model = Centre
@@ -59,7 +60,7 @@ class CentreSerializer(serializers.HyperlinkedModelSerializer):
             'status',
             'owner',
             'sold',
-            'ownership_type',
+            'ownershipType',
             'documents',
             'images',
             'detailPlans',

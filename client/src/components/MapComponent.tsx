@@ -182,6 +182,7 @@ export class MapComponent extends React.Component<MapProps, AppState> {
       y: height / 2,
       sold: '',
       private: true,
+      ownershipType: 'none',
       horizontalText: false,
       textAlignment: MapTextAlignment.TOP,
       isVisible: true,

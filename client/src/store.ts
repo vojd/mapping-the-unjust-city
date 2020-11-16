@@ -51,8 +51,8 @@ export const getInitialMapState = (): MapState => {
       '0': false, // ongoing sale
     },
     publicDisplayMode: {
-      'public': false,
-      'private': false,
+      'Publicly owned': false,
+      'Privately owned': false,
     },
     isFilterBoxOpen: true,
     language: 'en'

@@ -123,7 +123,7 @@ class Centre(models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
     sold = models.CharField(max_length=4, blank=True, null=True, choices=DECADES)
     # private = models.BooleanField(default=True)
-    ownership_type = models.CharField(max_length=255, blank=True, null=True, choices=OWNERSHIP_TYPE)
+    ownership_type = models.CharField(max_length=255, blank=True, null=True, choices=OWNERSHIP_TYPE, default='none')
 
     def __str__(self):
         return self.name
