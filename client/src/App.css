@@ -36,6 +36,21 @@ video {
     overflow: hidden;
 }
 
+.video-overlay-text {
+    position: absolute;
+    background: #fff;
+    width: 50%;
+    /*height: 50%;*/
+    z-index: 110;
+    margin-top: 10%;
+    margin-right: 25%;
+    margin-left: 25%;
+    padding: 24px;
+
+    font-family: Serif, serif;
+    font-size: 14px;
+    color: #000000;
+}
 
 svg text {
     -webkit-touch-callout: none; /* iOS Safari */
