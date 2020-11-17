@@ -3,7 +3,7 @@ import { SyntheticEvent } from 'react';
 import { matrix, pan, scale } from '../math';
 import { MapNode } from './UndergroundLines';
 import { COLOR_ORANGE, Station } from './Station';
-import { MapText, MapTextAlignment } from './MapText';
+import { MapText, MapTextAboveRight, MapTextAlignment } from './MapText';
 import { Action } from 'redux';
 import { connect } from 'react-redux';
 import {
@@ -187,7 +187,7 @@ export class MapComponent extends React.Component<MapProps, AppState> {
       private: true,
       ownershipType: 'none',
       horizontalText: false,
-      textAlignment: MapTextAlignment.TOP,
+      textAlignment: MapTextAlignment.RIGHT,
       isVisible: true,
       isActive: false,
       tags: []
@@ -252,6 +252,7 @@ export class MapComponent extends React.Component<MapProps, AppState> {
               )
             }
           >
+
             <UndergroundLine
               nodes={this.props.nodes.redLineNodes}
               parentNode={centralStation}
@@ -281,6 +282,14 @@ export class MapComponent extends React.Component<MapProps, AppState> {
               nodes={this.props.nodes.greenLineNodesSouth}
               parentNode={centralStation}
             />
+
+            <MapTextAboveRight x={centralStation.x} y={centralStation.y} node={centralStation}/>
+            <Station
+              x={centralStation.x}
+              y={centralStation.y}
+              node={centralStation}
+            />
+
           </g>
         </svg>
 s

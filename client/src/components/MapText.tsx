@@ -12,6 +12,7 @@ export const enum MapTextAlignment {
   RIGHT,
   TOP,
   BOTTOM,
+  TOP_RIGHT,
 }
 
 export const MapTextTiltRight = (props: MapTextProps) => {
@@ -25,6 +26,21 @@ export const MapTextTiltRight = (props: MapTextProps) => {
       y={props.y - 40}
       transform={`${rotation} ${translate}`}
       className="map-text-bold"
+    >
+      {props.node.name}
+    </text>
+  );
+};
+
+export const MapTextAboveRight = (props: MapTextProps) => {
+  const transform = `rotate(0, ${props.x}, ${props.y})`;
+  return (
+    <text
+      x={props.x + 20}
+      y={props.y - 15}
+      transform={transform}
+      className="map-text-bold"
+      textAnchor="start"
     >
       {props.node.name}
     </text>
@@ -110,6 +126,10 @@ export const MapText = (props: MapTextProps) => {
             y={props.y}
             node={props.node}
           />
+        );
+      case MapTextAlignment.TOP_RIGHT:
+        return (
+          <MapTextAboveRight x={props.x} y={props.y} node={props.node} />
         );
       default:
         return (
