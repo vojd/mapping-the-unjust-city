@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     'mapping-the-unjust-city.com'
     '54.77.233.42',
     '18.223.2.133',  # amazon aws
+    '3.20.73.97',  # amazon aws elastic IP
 ]
 
 # Application definition
