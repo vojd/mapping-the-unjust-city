@@ -196,7 +196,7 @@ export class MapComponent extends React.Component<MapProps, AppState> {
     return (
       <div className="full-screen" style={positionFixed}>
         {
-          this.props?.isVideoVisible
+          this.props.isVideoVisible
             ?
             <div className="video-overlay" onClick={this.closeVideo}>
               <div className="video-overlay-text">
