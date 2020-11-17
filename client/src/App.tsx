@@ -22,13 +22,12 @@ class App extends React.Component<any, AppState> {
       <Provider store={store}>
         <HashRouter>
           <div className="box">
-            <header className="row header">
-
+            <div className="row header">
               <Switch>
                 <Route exact path="/centre/:slug" component={MapComponent}/>
                 <Route path="/" component={MapComponent}/>
               </Switch>
-            </header>
+            </div>
 
             <Switch>
               <Route path="/centre/:slug" component={Sidebar}/>

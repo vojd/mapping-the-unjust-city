@@ -83,3 +83,10 @@ export const setCentreActiveAction = (centre: any) => (
     }
   }
 );
+
+export const closeVideoAction = () => (
+  {
+    type: actionTypes.CLOSE_VIDEO_ACTION,
+    data: null
+  }
+);

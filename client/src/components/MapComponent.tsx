@@ -7,6 +7,7 @@ import { MapText, MapTextAlignment } from './MapText';
 import { Action } from 'redux';
 import { connect } from 'react-redux';
 import {
+  closeVideoAction,
   mapMouseDown,
   mapMouseMove,
   mapMouseUp,
@@ -138,8 +139,6 @@ export class MapComponent extends React.Component<MapProps, AppState> {
   constructor( props: MapProps ) {
     super(props);
     props.fetchMapData();
-    // props.fetchTagData();
-    // props.fetchCompanies();
   }
 
   onMouseDown = ( e: SyntheticEvent ) => {
@@ -162,6 +161,10 @@ export class MapComponent extends React.Component<MapProps, AppState> {
 
   toggleTagVisibilityOnOwner = ( value: string, isOn: boolean ) => {
     this.props.toggleTagVisibilityOnOwner(value, isOn);
+  }
+
+  closeVideo = () => {
+    this.props.closeVideo();
   }
 
   render() {
@@ -192,6 +195,16 @@ export class MapComponent extends React.Component<MapProps, AppState> {
 
     return (
       <div className="full-screen" style={positionFixed}>
+        {
+          this.props?.isVideoVisible
+            ?
+            <div className="video-overlay" onClick={this.closeVideo}>
+              <video autoPlay muted loop id="myVideo">
+                <source src="./video_background01.mp4" type="video/mp4"/>
+              </video>
+            </div>
+            : null
+        }
         <svg
           className="map-svg"
           width="100%"
@@ -264,6 +277,7 @@ const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) =
     mouseMove: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseMove(e)),
     toggleTagVisible: ( val: string, isOn: boolean ) => dispatch(toggleTagVisibilityAction(val, isOn)),
     toggleTagVisibilityOnOwner: ( val: string, isOn: boolean ) => dispatch(toggleOwnerVisibilityAction(val, isOn)),
+    closeVideo: () => dispatch(closeVideoAction()),
   };
 };
 

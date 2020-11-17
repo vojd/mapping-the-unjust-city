@@ -55,6 +55,7 @@ export const getInitialMapState = (): MapState => {
       'Privately owned': false,
     },
     isFilterBoxOpen: true,
+    isVideoVisible: true,
     language: 'en'
   };
 };

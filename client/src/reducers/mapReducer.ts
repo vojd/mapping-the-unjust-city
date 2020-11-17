@@ -215,6 +215,9 @@ export default (state: MapState, action: any) => {
       console.log('new state', newState);
       return newState;
 
+    case actionTypes.CLOSE_VIDEO_ACTION:
+      return { ...state, isVideoVisible: false };
+
     default:
       return state || null;
   }

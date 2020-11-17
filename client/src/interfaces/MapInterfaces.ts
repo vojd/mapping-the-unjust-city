@@ -28,6 +28,9 @@ export interface MapProps {
 
   toggleTagVisible: Function;
   toggleTagVisibilityOnOwner: Function;
+
+  closeVideo: Function;
+  isVideoVisible: boolean;
 }
 
 export interface MapState {
@@ -55,6 +58,7 @@ export interface MapState {
     [key: string]: boolean;
   };
   isFilterBoxOpen: boolean;
+  isVideoVisible: boolean;
   language: string;
   activeCentreSlug: string;
 }
