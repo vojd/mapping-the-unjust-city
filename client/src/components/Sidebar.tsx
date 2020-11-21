@@ -222,8 +222,8 @@ const CentreOwners = ( props: TheProps ) => {
       }
       {
         centre.ownershipDescriptionEn
-          ? <div>{centre.ownershipDescriptionEn}</div>
-          : <div>{centre.ownershipDescription}</div>
+          ? <div><HTMLOutput str={centre.ownershipDescriptionEn} /></div>
+          : <div><HTMLOutput str={centre.ownershipDescription} /></div>
       }
     </div>
   );

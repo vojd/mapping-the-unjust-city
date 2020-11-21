@@ -13,14 +13,6 @@ export const CompanyHome = ( props: any ) => {
 
       <div className="headline-text">{trans('about_company', 'en')}</div>
 
-      <div className="sidebar-inline-image">
-        {
-          company && company.image
-            ? <img src={company.image} alt=""/>
-            : ''
-        }
-      </div>
-
       <div>
           <DescriptionTranslated obj={company}/>
       </div>

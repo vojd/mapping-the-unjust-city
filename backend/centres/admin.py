@@ -34,7 +34,7 @@ class CentreAdmin(admin.ModelAdmin):
 
     prepopulated_fields = {'slug': ('name',)}
     list_display = ('name', 'owner', 'sold', 'ownership_type',)
-    list_filter = ('sold', )
+    list_filter = ('sold', 'ownership_type', 'owner', )
     search_fields = ('name', )
 
     def get_tags(self, obj):
