@@ -46,7 +46,7 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
     const slug = this.props.match.params.slug;
     return (
       <div className="sidebar">
-        <div className="sidebar-content shadow">
+        <div className="sidebar-content border shadow">
           <div>
             <div className="centre-top-image">
               <span className="station-information__menu__icon icon icon-owner-history"/>

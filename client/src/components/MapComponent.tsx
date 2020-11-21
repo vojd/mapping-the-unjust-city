@@ -219,7 +219,7 @@ export class MapComponent extends React.Component<MapProps, AppState> {
                 </p>
               </div>
               <video autoPlay muted loop id="myVideo">
-                <source src="./video_background01.mp4" type="video/mp4"/>
+                <source src="./mapping_web_med_25fps.mp4" type="video/mp4"/>
               </video>
             </div>
             : null

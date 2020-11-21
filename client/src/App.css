@@ -190,6 +190,10 @@ ul li {
     font: bold 12pt sans-serif;
 }
 
+.border {
+    border: 1px solid #eee;
+}
+
 .box {
     display: flex;
     flex-flow: column;
@@ -222,10 +226,7 @@ ul li {
     padding: 32px;
     position: fixed;
     overflow: hidden;
-
     background: #fff;
-    border: 1px solid #eee;
-
     right: 0;
     top: 0;
 
@@ -359,7 +360,6 @@ ul li {
     height: 100vh;
     background: #fff;
     overflow-y: scroll;
-    border: 1px solid #eee;
     flex: 1;
 }
 
@@ -369,8 +369,6 @@ ul li {
     top: 0;
     left: 0;
     background: #fff;
-    border: 1px solid #eee;
-
     justify-content: center;
 }
 
