@@ -38,18 +38,19 @@ video {
 
 .video-overlay-text {
     position: absolute;
-    background: #fff;
+    background: rgb(224, 217, 217);
     width: 50%;
     /*height: 50%;*/
     z-index: 110;
-    margin-top: 10%;
+    margin-top: 5%;
     margin-right: 25%;
     margin-left: 25%;
     padding: 24px;
 
-    font-family: Serif, serif;
-    font-size: 14px;
+    font-family: Palatino,Palatino Linotype,Palatino LT STD,Book Antiqua,Georgia,serif;
+    font-size: 22px;
     color: #000000;
+    text-align: justify;
 }
 
 svg text {
@@ -214,7 +215,7 @@ ul li {
 /* component styles */
 /* map filter legend */
 .filter-box {
-    width: 350px;
+    width: 270px;
     max-height: 80vh;
     z-index: 10;
     margin: 0;
@@ -467,7 +468,7 @@ ul li {
     bottom: 0;
     right: 0;
 
-    width: 350px;
+    min-width: 270px;
     background-color: #fff;
     padding: 8px;
 }

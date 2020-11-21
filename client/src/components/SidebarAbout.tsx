@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router';
-import { Link } from 'react-router-dom';
+import { SidebarClose } from './SidebarClose';
 
 const AboutMap = () => {
   return (
@@ -51,11 +51,7 @@ export const SidebarAbout = () => {
       </div>
 
       {/* close button */}
-      <div className="sidebar-close">
-        <Link to="/">
-          <div className="arrow fa fa-angle-left"/>
-        </Link>
-      </div>
+        <SidebarClose />
     </div>
   );
 };

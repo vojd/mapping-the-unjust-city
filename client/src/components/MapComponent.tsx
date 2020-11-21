@@ -200,31 +200,23 @@ export class MapComponent extends React.Component<MapProps, AppState> {
             ?
             <div className="video-overlay" onClick={this.closeVideo}>
               <div className="video-overlay-text">
-                <p>Stockholm, November 2020.</p>
-
-                <p>After decades of deregulation, Swedish infrastructure has been changed
-                  from the roots, the land, the plot, the real estate, the property - ownership.</p>
-
-                <p>Privatization through tenure conversion and gentrification make cities more economically polarized.
-                  The transformation of public property to private is a motor for the financialization.
-                  Property ownership is fundamental for how our lives are organized.
-                  But this fundamental condition is often hidden or obscured from our view.
-                  And when the owner is made visible, it is normally on their terms.
-                  Knowledge about finance and ownership is reserved for a narrow layer of society;
-                  difficult to access and hard to grasp.</p>
-
-                <p>Our collective work responds to this state of disorientation.</p>
-
-                <p>How can we resist normalising corporate presence?</p>
-
-                <p>How can finance and ownership be portrayed without abstraction and mystification?</p>
-
-                <p>The project Mapping the Unjust City aims to explore how mapping and infographics can visualise
-                  ownership and financial relations.
-                  More specifically local centres in the context of Stockholm.
-                  The presentation of data and supplementary narratives are reminders of the stark reality in which we
+                <p>Stockholm, November 2020. After decades of deregulation, Swedish infrastructure has been changed
+                  from the roots, the land, the plot, the real estate, the property – ownership.
+                  Privatization through tenure conversion and gentrification has amplified class tensions in the urban
+                  landscape as city dwellers face rising rents and displacement. The transformation of public property
+                  to private is a motor for the financialization of the city. Property ownership is fundamental for how
+                  our lives are organized. But this fundamental condition is often hidden or obscured from our view.
+                  And when the owner is made visible, it is normally on their terms. Knowledge about finance and
+                  ownership is reserved for a narrow layer of society; difficult to access and hard to grasp.
+                  &nbsp; &nbsp; &nbsp; &nbsp; Grasp.
+                  Our collective work responds to this state of disorientation.
+                  The project Mapping the Unjust City aims to explore how mapping and infographics can
+                  visualise ownership and financial relations. More specifically local centres in the
+                  context of Stockholm.
+                  The presentation of data and supplementary narratives are reminders of the stark reality we
                   unconsciously navigate through.
-                  The map presented here is a map under construction unfolding throughout the online exhibition.</p>
+                  The map presented here is a map under construction unfolding throughout the online exhibition.
+                </p>
               </div>
               <video autoPlay muted loop id="myVideo">
                 <source src="./video_background01.mp4" type="video/mp4"/>
