@@ -36,28 +36,40 @@ video {
     overflow: hidden;
 }
 
-@media only screen and (max-width: 600px) {
+.video-overlay-text {
+    position: absolute;
+    background: rgb(224, 217, 217);
+    z-index: 110;
+    margin: 5% 25% 5% 25%;
+    padding: 24px;
+    font-family: Palatino,Palatino Linotype,Palatino LT STD,Book Antiqua,Georgia,serif;
+    font-size: 22px;
+    text-align: justify;
+    overflow: scroll;
+    max-height: 75%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+@media only screen and (max-width: 768px) {
     .video-overlay-text {
-        position: absolute;
-        margin: 50px 16px 0 16px;
+        margin: 16px 16px 16px 16px;
         padding: 16px;
-        background: rgb(224, 217, 217);
-        z-index: 110;
-        font-family: Palatino,Palatino Linotype,Palatino LT STD,Book Antiqua,Georgia,serif;
-        font-size: 11px;
-        color: #000000;
-        text-align: justify;
+        font-size: 16px;
+        max-height: 100vh;
     }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 768px) {
     .video-overlay-text {
-        position: absolute;
-        background: rgb(224, 217, 217);
-        z-index: 110;
-        margin: 5% 25% 5% 25%;
-        padding: 24px;
-        font-family: Palatino,Palatino Linotype,Palatino LT STD,Book Antiqua,Georgia,serif;
+        margin: 48px 24px 48px 24px;
+        font-size: 22px;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .video-overlay-text {
+        margin: 5% 15% 5% 15%;
         font-size: 22px;
     }
 }
