@@ -10,11 +10,9 @@ interface CentreAction extends Action {
 export default ( state: AppState, action: CentreAction ) => {
   switch (action.type) {
     case actionTypes.STATION_FETCHED:
-      console.log('actionTypes.STATION_FETCHED centre fetched', action.result);
       return {...state, centre: action.result};
 
     case actionTypes.DOCUMENTS_FETCHED:
-      console.log('reducer actionTypes.DOCUMENTS_FETCHED', action);
       return state;
 
     default:

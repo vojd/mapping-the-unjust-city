@@ -31,14 +31,12 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
   componentDidMount() {
     const slug = this.props.match.params.slug;
     this.props.fetchCompany(slug);
-    console.log('sidebar didmount', this.props);
   }
 
   componentDidUpdate( previousProps: SidebarCompanyProps ) {
     if (previousProps.location.pathname !== this.props.location.pathname) {
       const slug = this.props.match.params.slug;
       this.props.fetchCompany(slug);
-      console.log('sidebar componentDidUpdate', this.props);
     }
   }
 

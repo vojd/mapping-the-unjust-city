@@ -154,8 +154,6 @@ export class MapComponent extends React.Component<MapProps, AppState> {
   }
 
   toggleTagVisibility = ( value: string, isOn: boolean ) => {
-    // this.props.toggleTagVisibility(tag);
-    console.log('toggleTagVisibility', value, isOn);
     this.props.toggleTagVisible(value, isOn);
   }
 

@@ -10,14 +10,12 @@ export const fetchMapDataAction = () => {
     const apiService = new APIService();
     try {
       const result = await apiService.getMapData();
-      console.log('data', result);
-
       return dispatch({
         type: actionTypes.MAP_DATA_FETCHED,
         result
       });
     } catch (e) {
-      console.log('error', e);
+      console.error('error', e);
       return dispatch({
         type: actionTypes.MAP_DATA_FETCH_FAILED,
       });

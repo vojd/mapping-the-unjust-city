@@ -14,7 +14,7 @@ export const fetchCompanyDetailsAction = ( slug: string ) => {
         result
       });
     } catch (e) {
-      console.log('error', e);
+      console.error('error', e);
       return dispatch({
         type: actionTypes.COMPANY_DETAILS_FETCH_FAILED
       });

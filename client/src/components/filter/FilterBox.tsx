@@ -40,17 +40,14 @@ class FilterBox extends React.Component<FilterBoxProps, any> {
   }
 
   toggleFilterBoxOpen = () => {
-    console.log('toggleFilterBoxOpen');
     this.props.toggleFilterBoxOpen();
   }
 
   toggleSoldYearVisibility = (value: string, isOn: boolean) => {
-    console.log('filter box: toggleSoldYearVisibility', value, isOn);
     this.props.toggleSoldYearVisibility(value, isOn);
   }
 
   togglePublicVisibility = (value: string, isOn: boolean) => {
-    console.log(' togglePublicVisibility', value, isOn);
     this.props.togglePublicVisibility(value, isOn);
   }
 

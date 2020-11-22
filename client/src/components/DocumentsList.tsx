@@ -2,13 +2,9 @@ import * as React from 'react';
 
 export const DocumentsList = ( props: any ) => {
   const {documents} = props;
-  console.log('DocumentsList', documents);
-
   return (
-
-    documents
+    documents && documents.length > 0
       ? documents.map(( document: any, id: number ) => {
-        console.log('doc', document);
         const title = document.title ? document.title : document.file;
         return (
           <div key={id} className="document-row">
@@ -19,6 +15,9 @@ export const DocumentsList = ( props: any ) => {
           </div>
         );
       })
-      : ''
+      :
+      (
+        <p>News archive coming soon</p>
+      )
   );
 };

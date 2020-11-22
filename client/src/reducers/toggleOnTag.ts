@@ -25,7 +25,6 @@ const toggleNodesRecursively = ( branches: MapNode[][],
     return branch.map(( node ) => {
 
       if (node.branches) {
-        console.log('\t has branch', node);
         node.branches = toggleNodesRecursively(node.branches, data, tagsToShow);
       }
       return toggleNodeOnTag(node, tagsToShow);

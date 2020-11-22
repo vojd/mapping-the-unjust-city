@@ -3,19 +3,14 @@ import { MapNode } from '../components/UndergroundLines';
 import { MapState } from '../interfaces/MapInterfaces';
 
 const toggleNodeOnOwner = ( node: MapNode, tagsToShow: string[] ): MapNode => {
-  // console.log(node.name);
   // If the list is empty then we'll show everything
   if (tagsToShow.length === 0) {
     node.isVisible = true;
     return node;
   }
 
-  if (node.owner && tagsToShow.indexOf(node.owner.name) > -1) {
-    node.isVisible = true;
-  } else {
-    node.isVisible = false;
-  }
-
+  // if tagsToShow contains owner.name the true else false
+  node.isVisible = !!(node.owner && tagsToShow.indexOf(node.owner.name) > -1);
   return node;
 };
 
@@ -27,7 +22,6 @@ const toggleNodesRecursively = ( branches: MapNode[][],
     return branch.map(( node ) => {
 
       if (node.branches) {
-        console.log('\t has branch', node.branches);
         node.branches = toggleNodesRecursively(node.branches, data, tagsToShow);
       }
       return toggleNodeOnOwner(node, tagsToShow);
@@ -38,8 +32,6 @@ const toggleNodesRecursively = ( branches: MapNode[][],
 export const addToggleOwnerStateToNodes = ( state: MapState,
                                             action: ToggleAction,
                                             ownersToShow: string[] ): MapState => {
-
-  console.log('addToggleOwnerStateToNodes', action, ownersToShow);
 
   const data = action.data;
 

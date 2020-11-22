@@ -10,8 +10,6 @@ export const fetchCompaniesAction = () => {
     const apiService = new APIService();
     try {
       const result = await apiService.getCompanies();
-      console.log('COMPANIESfetched', result);
-
       return dispatch({
         type: actionTypes.COMPANIES_FETCHED,
         result

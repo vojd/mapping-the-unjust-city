@@ -36,8 +36,6 @@ const toggleNodesRecursively = (branches: MapNode[][],
 export const toggleNodesBySoldYear = (state: MapState,
                                       action: ToggleActionData,
                                       soldYears: {[key: string]: boolean} ) => {
-  console.log('toggle nodes by sold year', soldYears);
-
   // If no checkbox is checked, show all
   let setAllToVisible = Object.keys(soldYears).map(key => {
     return soldYears[key];

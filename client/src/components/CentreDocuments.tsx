@@ -16,10 +16,6 @@ class CentreDocuments extends React.Component<CentreDocumentsProps, any> {
     super(props);
   }
 
-  componentWillUpdate() {
-    console.log('CentreDocuments.componentWillUpdate');
-  }
-
   render() {
     const {centre} = this.props;
     // if the props changed, fetch new documents
@@ -28,17 +24,13 @@ class CentreDocuments extends React.Component<CentreDocumentsProps, any> {
       <div>
         <CentreName centre={centre}/>
         <div className="headline-text">MEDIA / PRESS</div>
-
         <DocumentsList documents={documents}/>
-
       </div>
     );
   }
 }
 
 const mapStateToProps = ( state: AppState, {params}: any ) => {
-  const {centre} = state;
-  console.log('centre documents map state to props', centre, state);
   return state.centre;
 };
 

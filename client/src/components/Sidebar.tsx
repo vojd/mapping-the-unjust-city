@@ -111,7 +111,6 @@ export const DescriptionTranslated = (props: any) => {
   let {obj} = props;
   if (obj && obj.description) {
     let val = obj.descriptionEn !== '' ? obj.descriptionEn : obj.description;
-    console.log('val', val);
     return (
       <HTMLOutput str={val} />
     );
@@ -258,15 +257,12 @@ class Sidebar extends React.Component
   componentDidMount() {
     const slug = this.props.match.params.slug;
     this.props.fetchCentre(slug);
-    console.log('sidebar opened');
   }
 
   componentDidUpdate( previousProps: SidebarProps ) {
     if (previousProps.location.pathname !== this.props.location.pathname) {
       const slug = this.props.match.params.slug;
       this.props.fetchCentre(slug);
-      console.log('sidebar componentDidUpdate');
-      // this.props.setCentreActive(this.props.centre);
     }
   }
 

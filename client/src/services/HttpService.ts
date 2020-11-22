@@ -3,7 +3,6 @@ export class HttpService {
   APIBase: string = 'http://localhost:8000/api';
 
   public resolve = ( data: any ) => {
-    console.log('resolved::', data);
     return data;
   }
 

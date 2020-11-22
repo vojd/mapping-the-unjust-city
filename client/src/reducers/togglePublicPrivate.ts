@@ -7,12 +7,11 @@ const toggleNodeOnPublicPrivate = (node: MapNode,
   // let keyPublic = 'public';
   // let keyPrivate = 'private';
   // let keyNone = 'none';
-  console.log(' toggling node', node, publicDisplayMode);
 
   let modePublic = publicDisplayMode['Publicly owned'];
   let modePrivate = publicDisplayMode['Privately owned'];
   let modeNone = !publicDisplayMode['Privately owned'] && !publicDisplayMode['Publicly owned'];
-  console.log('mod', modePublic, modePrivate, modeNone);
+
   if (modeNone) {
     node.isVisible = true;
     return node;
@@ -39,7 +38,6 @@ const toggleNodesRecursively = (branches: MapNode[][],
     return branch.map((node) => {
 
       if (node.branches) {
-        console.log('\t', node.name, ' has branch ', node.branches);
         node.branches = toggleNodesRecursively(node.branches, publicDisplayMode);
       }
       return toggleNodeOnPublicPrivate(node, publicDisplayMode);
@@ -54,10 +52,8 @@ export const toggleNodesOnPublicPrivate = (state: MapState,
   Object.keys(state.nodes).forEach((key: string) => {
     state.nodes[key].forEach((node: MapNode) => {
       if (node.branches) {
-        console.log('n ', node, ' has branch', node.branches);
         node.branches = toggleNodesRecursively(node.branches, publicDisplayMode);
       }
-      console.log('node', node);
       toggleNodeOnPublicPrivate(node, publicDisplayMode);
     });
   });

@@ -68,7 +68,6 @@ const addDataToNode = (node: MapNode, nodeFromApi: Centre) => {
   // node.private = nodeFromApi.private;
   node.isActive = false;
   node.ownershipType = nodeFromApi.ownershipType;
-  console.log(' node.ownershipType', nodeFromApi.ownershipType);
   return node;
 };
 
@@ -198,7 +197,6 @@ export default (state: MapState, action: any) => {
     case actionTypes.TOGGLE_PUBLIC_VISIBILITY:
       let { publicDisplayMode } = state;
       publicDisplayMode[action.data.value] = !publicDisplayMode[action.data.value];
-      console.log(publicDisplayMode);
       return {
         ...state,
         publicDisplayMode,
@@ -210,10 +208,7 @@ export default (state: MapState, action: any) => {
       return { ...state, isFilterBoxOpen: !isFilterBoxOpen };
 
     case actionTypes.COMPANIES_FETCHED:
-      console.log('COMPANIES_FETCHED', state);
-      const newState = { ...state, companies: action.result };
-      console.log('new state', newState);
-      return newState;
+      return {...state, companies: action.result};
 
     case actionTypes.CLOSE_VIDEO_ACTION:
       return { ...state, isVideoVisible: false };

@@ -13,7 +13,6 @@ import { AppState } from './interfaces/AppState';
 import { MapState } from './interfaces/MapInterfaces';
 
 export const getInitialMapState = (): MapState => {
-  console.log('window', window.innerWidth, window.innerHeight);
   return {
     activeCentreSlug: '',
     scaleFactor: 0.6,
