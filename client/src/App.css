@@ -67,7 +67,7 @@ video {
         color: #000000;
         text-align: justify;
         overflow: scroll;
-        max-height: 100vh;
+        max-height: 80%;
         overflow-x: hidden;
         overflow-y: auto;
     }
