@@ -54,22 +54,11 @@ video {
     .video-overlay-text {
         position: absolute;
         background: rgb(224, 217, 217);
-        width: 50%;
-        /*height: 50%;*/
         z-index: 110;
-        margin-top: 5%;
-        margin-right: 25%;
-        margin-left: 25%;
+        margin: 5% 25% 5% 25%;
         padding: 24px;
-
         font-family: Palatino,Palatino Linotype,Palatino LT STD,Book Antiqua,Georgia,serif;
         font-size: 22px;
-        color: #000000;
-        text-align: justify;
-        overflow: scroll;
-        max-height: 80%;
-        overflow-x: hidden;
-        overflow-y: auto;
     }
 }
 
