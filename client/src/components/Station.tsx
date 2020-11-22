@@ -33,7 +33,7 @@ const RouteCircle = ( props: RouteCircleProps ) => {
           cy={props.y}
           r={props.isActive ? props.r + 4 : props.r + 4}
           fill={COLOR_ORANGE}
-          onClick={() => history.push(`/centre/${slugify(props.node.name)}/`)}
+          onClick={() => history.push(`/map/centre/${slugify(props.node.name)}/`)}
         />
       )}
     />

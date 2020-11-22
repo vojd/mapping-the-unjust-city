@@ -42,7 +42,7 @@ const CentreOwnerName = ( props: any ) => {
   const {owner} = props;
   return (
     <span className="centre-owner-title color-orange">
-      <Link to={`/company/${owner.slug}`} className="centre-owner-name">{owner.name}</Link>
+      <Link to={`/map/company/${owner.slug}`} className="centre-owner-name">{owner.name}</Link>
     </span>
   );
 };
@@ -76,7 +76,7 @@ const AlsoOwned = ( props: any ) => {
           centres.map(( other: any, idx: number ) => {
             return (
               <div key={idx} className="company-also-owns">
-                <Link to={`/centre/${other.slug}`} className="centre-owner-name">
+                <Link to={`/map/centre/${other.slug}`} className="centre-owner-name">
                   {other.name}
                 </Link>
               </div>
@@ -206,7 +206,7 @@ const CentreOwners = ( props: TheProps ) => {
             return (
               <tr key={id}>
                 <td>
-                  <Link to={`/company/${owner.company.slug}`}>
+                  <Link to={`/map/company/${owner.company.slug}`}>
                     {owner.company.name}
                   </Link>
                 </td>
@@ -283,19 +283,19 @@ class Sidebar extends React.Component
             <div>
               <div className="centre_information__menu">
 
-                <NavLink exact={true} activeClassName="link-is-active" to={`/centre/${slug}`}>
+                <NavLink exact={true} activeClassName="link-is-active" to={`/map/centre/${slug}`}>
                   <div className="station-information__menu__icon icon icon-house"/>
                 </NavLink>
 
-                <NavLink activeClassName="link-is-active" to={`/centre/${slug}/detail-plan`}>
+                <NavLink activeClassName="link-is-active" to={`/map/centre/${slug}/detail-plan`}>
                   <div className="station-information__menu__icon icon icon-detail-plan"/>
                 </NavLink>
 
-                <NavLink activeClassName="link-is-active" to={`/centre/${slug}/owners`}>
+                <NavLink activeClassName="link-is-active" to={`/map/centre/${slug}/owners`}>
                   <div className="station-information__menu__icon icon icon-owner-history"/>
                 </NavLink>
 
-                <NavLink activeClassName="link-is-active" to={`/centre/${slug}/documents`}>
+                <NavLink activeClassName="link-is-active" to={`/map/centre/${slug}/documents`}>
                   <div className="station-information__menu__icon icon icon-media-press"/>
                 </NavLink>
               </div>
@@ -303,23 +303,23 @@ class Sidebar extends React.Component
 
             <div className="centre-main">
               <Switch>
-                <Route exact path="/centre/:slug" render={() => <CentreHome centre={this.props.centre}/>}/>
+                <Route exact path="/map/centre/:slug" render={() => <CentreHome centre={this.props.centre}/>}/>
                 <Route
-                  path="/centre/:slug/detail-plan"
+                  path="/map/centre/:slug/detail-plan"
                   render={() => {
                     return this.props.centre ? <CentreDetailPlan centre={this.props.centre}/> : '';
                   }}
                 />
 
                 <Route
-                  path="/centre/:slug/owners"
+                  path="/map/centre/:slug/owners"
                   render={() => {
                     return this.props.centre ? <CentreOwners centre={this.props.centre}/> : '';
                   }}
                 />
 
                 <Route
-                  path="/centre/:slug/documents"
+                  path="/map/centre/:slug/documents"
                   render={() => {
                     return this.props.centre ? <CentreDocuments centre={this.props.centre}/> : '';
                   }}

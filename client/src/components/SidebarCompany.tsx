@@ -55,11 +55,11 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
             <div>
               <div className="centre_information__menu">
 
-                <NavLink exact={true} activeClassName="link-is-active" to={`/company/${slug}`}>
+                <NavLink exact={true} activeClassName="link-is-active" to={`/map/company/${slug}`}>
                   <div className="station-information__menu__icon icon icon-house"/>
                 </NavLink>
 
-                <NavLink activeClassName="link-is-active" to={`/company/${slug}/documents`}>
+                <NavLink activeClassName="link-is-active" to={`/map/company/${slug}/documents`}>
                   <div className="station-information__menu__icon icon icon-media-press"/>
                 </NavLink>
 
@@ -68,9 +68,9 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
 
             <div className="centre-main">
               <Switch>
-                <Route exact path="/company/:slug" render={() => <CompanyHome company={this.props.company}/>}/>
+                <Route exact path="/map/company/:slug" render={() => <CompanyHome company={this.props.company}/>}/>
                 <Route
-                  path="/company/:slug/documents"
+                  path="/map/company/:slug/documents"
                   render={() => <CompanyDocuments company={this.props.company}/>}
                 />
               </Switch>

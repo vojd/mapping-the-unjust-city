@@ -91,8 +91,8 @@ export const SidebarAbout = () => {
         <div>
           <div className="centre-main">
             <Switch>
-              <Route exact path="/about/centrumkartan" render={() => <AboutMap/>}/>
-              <Route exact path="/about/us" render={() => <AboutContact/>}/>
+              <Route exact path="/map/about/centrumkartan" render={() => <AboutMap/>}/>
+              <Route exact path="/map/about/us" render={() => <AboutContact/>}/>
             </Switch>
           </div>
         </div>

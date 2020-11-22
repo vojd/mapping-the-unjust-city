@@ -57,23 +57,22 @@ class App extends React.Component<any, AppState> {
           <div className="box">
             <div className="header">
               <Switch>
-                <Route exact path="/centre/:slug" component={MapComponent}/>
-                <Route exact path="/map" component={MapComponent}/>
+                <Route path="/map" component={MapComponent}/>
                 <Route exact path="/" component={IntroVideo}/>
               </Switch>
             </div>
 
             <Switch>
-              <Route path="/centre/:slug" component={Sidebar}/>
-              <Route path="/company/:slug" component={SidebarCompany}/>
+              <Route path="/map/centre/:slug" component={Sidebar}/>
+              <Route path="/map/company/:slug" component={SidebarCompany}/>
 
-              <Route path="/about/centrumkartan" component={SidebarAbout}/>
-              <Route path="/about/us" component={SidebarAbout}/>
+              <Route exact path="/map/about/centrumkartan" component={SidebarAbout}/>
+              <Route exact path="/map/about/us" component={SidebarAbout}/>
             </Switch>
 
             <div className="about shadow">
-              <Link to={`/about/centrumkartan`}>{trans('about_map', 'en')}</Link>
-              <Link to={`/about/us`}>{trans('about_us', 'en')}</Link>
+              <Link to={`/map/about/centrumkartan`}>{trans('about_map', 'en')}</Link>
+              <Link to={`/map/about/us`}>{trans('about_us', 'en')}</Link>
             </div>
           </div>
         </HashRouter>
