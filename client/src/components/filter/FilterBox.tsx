@@ -10,6 +10,7 @@ import {
 import { AppState } from '../../interfaces/AppState';
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { sortExcept } from '../../reducers/mapReducer';
 
 interface FilterBoxProps {
   isFilterBoxOpen: boolean;
@@ -89,7 +90,7 @@ class FilterBox extends React.Component<FilterBoxProps, any> {
 
         <div className={`filter-group ${!this.props.isFilterBoxOpen ? 'filter-group-closed' : ''}`}>
           {
-            Object.keys(this.props.soldYears).map(( year: string ) => {
+            Object.keys(this.props.soldYears).sort(sortExcept).map(( year: string ) => {
               let label = year === '0' ? 'Ongoing sale' : `Sold ${year}s`;
               return (
                 <Toggle
@@ -102,23 +103,6 @@ class FilterBox extends React.Component<FilterBoxProps, any> {
             })
           }
         </div>
-
-        {/*<div className={`filter-group ${!this.props.isFilterBoxOpen ? 'filter-group-closed' : ''}`}>*/}
-        {/*  {*/}
-        {/*    this.props.tags.map(( t: Tag, id: number ) => {*/}
-        {/*      return (<Toggle key={id} value={t.name} toggleTagVisible={this.toggleTagVisibility}/>);*/}
-        {/*    })*/}
-        {/*  }*/}
-        {/*</div>*/}
-
-        {/*/!* this could be placed at a sidebar*!/*/}
-        {/*<div className={`filter-group ${!this.props.isFilterBoxOpen ? 'filter-group-closed' : ''}`}>*/}
-        {/*  {*/}
-        {/*    this.props.companies.map(( t: Company, id: number ) => {*/}
-        {/*      return (<Toggle key={id} value={t.name} toggleTagVisible={this.toggleTagVisibilityOnOwner}/>);*/}
-        {/*    })*/}
-        {/*  }*/}
-        {/*</div>*/}
       </div>
     );
   }

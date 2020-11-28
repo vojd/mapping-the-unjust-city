@@ -101,6 +101,22 @@ const recursivelyAddDataToBranches = (branches: MapNode[][], actionData: MapData
   });
 };
 
+export const sortExcept = (a: any, b: any) => {
+  if (a === '0') {
+    return 0;
+  }
+  if (b === '0') {
+    return 0;
+  }
+  if (a < b) {
+    return 1;
+  }
+  if (a > b) {
+    return -1;
+  }
+  return 0;
+};
+
 /**
  * Map data has been fetched from backend and now we'll
  * apply any potential changes to our client state
