@@ -90,7 +90,7 @@ class FilterBox extends React.Component<FilterBoxProps, any> {
         <div className={`filter-group ${!this.props.isFilterBoxOpen ? 'filter-group-closed' : ''}`}>
           {
             Object.keys(this.props.soldYears).map(( year: string ) => {
-              let label = year === '0' ? 'Ongoing sale' : `Sold ${year}'s`;
+              let label = year === '0' ? 'Ongoing sale' : `Sold ${year}s`;
               return (
                 <Toggle
                   key={year}
