@@ -56,6 +56,7 @@ class CompanyAdmin(admin.ModelAdmin):
 
     inlines = [ImageInline, DocumentInline, ]
     prepopulated_fields = {'slug': ('name',)}
+    search_fields = ('name', )
     list_display = ('name', 'description', 'description_en', 'image_tag',)
 
 
