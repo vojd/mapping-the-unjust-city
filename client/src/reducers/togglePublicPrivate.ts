@@ -4,10 +4,6 @@ import { MapState } from '../interfaces/MapInterfaces';
 
 const toggleNodeOnPublicPrivate = (node: MapNode,
                                    publicDisplayMode: {[key: string]: boolean}) => {
-  // let keyPublic = 'public';
-  // let keyPrivate = 'private';
-  // let keyNone = 'none';
-
   let modePublic = publicDisplayMode['Publicly owned'];
   let modePrivate = publicDisplayMode['Privately owned'];
   let modeNone = !publicDisplayMode['Privately owned'] && !publicDisplayMode['Publicly owned'];

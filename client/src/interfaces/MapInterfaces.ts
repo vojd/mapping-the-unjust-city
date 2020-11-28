@@ -31,6 +31,13 @@ export interface MapProps {
 
   closeVideo: Function;
   isVideoVisible: boolean;
+
+  soldYears: {
+    [key: string]: boolean;
+  };
+  publicDisplayMode: {
+    [key: string]: boolean;
+  };
 }
 
 export interface MapState {

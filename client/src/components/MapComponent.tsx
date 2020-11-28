@@ -7,7 +7,6 @@ import { MapText, MapTextAboveRight, MapTextAlignment } from './MapText';
 import { Action } from 'redux';
 import { connect } from 'react-redux';
 import {
-  closeVideoAction,
   mapMouseDown,
   mapMouseMove,
   mapMouseUp,
@@ -17,8 +16,6 @@ import {
 import { positionFixed } from '../react-styles/styles';
 import { fetchMapDataAction } from '../actions/fetchMapDataAction';
 import { ThunkDispatch } from 'redux-thunk';
-import { fetchTagDataAction } from '../actions/fetchTagDataAction';
-import { fetchCompaniesAction } from '../actions/fetchCompaniesAction';
 import { MapProps } from '../interfaces/MapInterfaces';
 import { AppState } from '../interfaces/AppState';
 import { default as FilterBox } from './filter/FilterBox';
@@ -58,6 +55,20 @@ const yFromGrid = ( y: number, direction: string, lengthMultiplier: number = 1 )
     default:
       return y;
   }
+};
+
+const someTrue = (arr: any) => {
+  return Object
+    .keys(arr)
+    .map(k => arr[k])
+    .some(k => k);
+};
+
+const isCentralStationVisible = (props: MapProps) => {
+  return props && (
+    !someTrue(props.soldYears) &&
+    !someTrue(props.publicDisplayMode)
+  );
 };
 
 interface UndergroundLineProps {
@@ -161,10 +172,6 @@ export class MapComponent extends React.Component<MapProps, AppState> {
     this.props.toggleTagVisibilityOnOwner(value, isOn);
   }
 
-  closeVideo = () => {
-    this.props.closeVideo();
-  }
-
   render() {
 
     const mat = [
@@ -244,16 +251,23 @@ export class MapComponent extends React.Component<MapProps, AppState> {
               parentNode={centralStation}
             />
 
-            <MapTextAboveRight x={centralStation.x} y={centralStation.y} node={centralStation}/>
-            <Station
-              x={centralStation.x}
-              y={centralStation.y}
-              node={centralStation}
-            />
+            {
+              isCentralStationVisible(this.props)
+                ?
+                <g>
+                  <MapTextAboveRight x={centralStation.x} y={centralStation.y} node={centralStation}/>
+                  <Station
+                    x={centralStation.x}
+                    y={centralStation.y}
+                    node={centralStation}
+                  />
+                </g>
+                : null
+            }
 
           </g>
         </svg>
-s
+
         <FilterBox />
       </div>
     );
@@ -267,14 +281,11 @@ const mapStateToProps = ( state: AppState ) => {
 const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) => {
   return {
     fetchMapData: () => dispatch(fetchMapDataAction()),
-    fetchTagData: () => dispatch(fetchTagDataAction()),
-    fetchCompanies: () => dispatch(fetchCompaniesAction()),
     mouseDown: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseDown(e)),
     mouseUp: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseUp(e)),
     mouseMove: ( e: MouseEvent | TouchEvent ) => dispatch(mapMouseMove(e)),
     toggleTagVisible: ( val: string, isOn: boolean ) => dispatch(toggleTagVisibilityAction(val, isOn)),
     toggleTagVisibilityOnOwner: ( val: string, isOn: boolean ) => dispatch(toggleOwnerVisibilityAction(val, isOn)),
-    closeVideo: () => dispatch(closeVideoAction()),
   };
 };
 
