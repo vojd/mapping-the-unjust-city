@@ -126,7 +126,6 @@ const CentreHome = ( props: any ) => {
   const {centre, lang} = props;
   const owner = centre ? centre.owner : null;
   const centres = centre && centre.owner ? centre.owner.centres : [];
-  console.log('centre home lang', lang);
 
   return (
     <div>
@@ -135,7 +134,6 @@ const CentreHome = ( props: any ) => {
 
       <div>
          <DescriptionTranslated obj={centre} lang={lang}/>
-         <p>language:{lang}</p>
       </div>
 
       {owner && centres ? <AlsoOwned centres={centres} owner={owner}/> : ''}
