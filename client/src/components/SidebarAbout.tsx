@@ -64,21 +64,22 @@ const AboutContact = () => {
 };
 
 export const SidebarAbout = () => {
+  const lang = 'en';
   return (
     <div className="sidebar">
       <div className="sidebar-content shadow">
         <div>
           <div className="centre-main">
             <Switch>
-              <Route exact path="/map/about/centrumkartan" render={() => <AboutMap/>}/>
-              <Route exact path="/map/about/us" render={() => <AboutContact/>}/>
+              <Route exact path="/:lang/map/about/centrumkartan" render={() => <AboutMap/>}/>
+              <Route exact path="/:lang/map/about/us" render={() => <AboutContact/>}/>
             </Switch>
           </div>
         </div>
       </div>
 
       {/* close button */}
-        <SidebarClose />
+        <SidebarClose lang={lang}/>
     </div>
   );
 };

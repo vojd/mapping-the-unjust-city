@@ -3,7 +3,7 @@ import { trans } from '../../trans';
 import { DescriptionTranslated } from '../Sidebar';
 
 export const CompanyHome = ( props: any ) => {
-  const {company} = props;
+  const {company, lang} = props;
 
   return (
     <div className="centre-name">
@@ -11,10 +11,10 @@ export const CompanyHome = ( props: any ) => {
         {company ? company.name : ''}
       </h2>
 
-      <div className="headline-text">{trans('about_company', 'en')}</div>
+      <div className="headline-text">{trans('about_company', lang)}</div>
 
       <div>
-          <DescriptionTranslated obj={company}/>
+          <DescriptionTranslated obj={company} lang={lang}/>
       </div>
     </div>
   );

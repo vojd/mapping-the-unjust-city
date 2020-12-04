@@ -3,7 +3,7 @@ import { DocumentsList } from '../DocumentsList';
 import { trans } from '../../trans';
 
 export const CompanyDocuments = ( props: any ) => {
-  const {company} = props;
+  const {company, lang} = props;
 
   return (
     <div className="centre-name">
@@ -12,7 +12,7 @@ export const CompanyDocuments = ( props: any ) => {
 
       <div className="headline-text">
         {
-          trans('document', 'en')
+          trans('documents', lang)
         }
       </div>
 

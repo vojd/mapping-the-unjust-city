@@ -74,11 +74,13 @@ const isCentralStationVisible = (props: MapProps) => {
 interface UndergroundLineProps {
   nodes: MapNode[];
   parentNode: MapNode;
+  lang: string;
 }
 
 const UndergroundLine = ( props: UndergroundLineProps ): any => {
   const nodes = props.nodes;
   const parentNode = props.parentNode;
+  const lang = props.lang;
 
   const lines = [];
   const stations = [];
@@ -118,6 +120,7 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
                   key={`${node.name}-${idx}`}
                   nodes={branchNodes}
                   parentNode={node}
+                  lang={lang}
                 />
               );
             })
@@ -132,6 +135,7 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
           x={x}
           y={y}
           node={node}
+          lang={lang}
         />
       </g>
     );
@@ -143,6 +147,20 @@ const UndergroundLine = ( props: UndergroundLineProps ): any => {
       <g>{stations.map(s => s)}</g>
     </g>
   );
+};
+
+const getLangFromUrl = () => {
+  try {
+    const part = location.href.split('#')[1];
+    if (part.startsWith('/en/')) {
+      return 'en';
+    } else if (part.startsWith('/se/')) {
+      return 'se';
+    }
+  } catch (e) {
+    return 'en';
+  }
+  return 'en'; // default language
 };
 
 export class MapComponent extends React.Component<MapProps, AppState> {
@@ -198,6 +216,8 @@ export class MapComponent extends React.Component<MapProps, AppState> {
       tags: []
     };
 
+    const lang = getLangFromUrl();
+
     return (
       <div className="full-screen" style={positionFixed}>
         <svg
@@ -224,31 +244,37 @@ export class MapComponent extends React.Component<MapProps, AppState> {
             <UndergroundLine
               nodes={this.props.nodes.redLineNodes}
               parentNode={centralStation}
+              lang={lang}
             />
 
             <UndergroundLine
               nodes={this.props.nodes.redLineNodesNorth}
               parentNode={centralStation}
+              lang={lang}
             />
 
             <UndergroundLine
               nodes={this.props.nodes.blueLineNodesEast}
               parentNode={centralStation}
+              lang={lang}
             />
 
             <UndergroundLine
               nodes={this.props.nodes.blueLineNodesWest}
               parentNode={centralStation}
+              lang={lang}
             />
 
             <UndergroundLine
               nodes={this.props.nodes.greenLineNodesWest}
               parentNode={centralStation}
+              lang={lang}
             />
 
             <UndergroundLine
               nodes={this.props.nodes.greenLineNodesSouth}
               parentNode={centralStation}
+              lang={lang}
             />
 
             {
@@ -260,6 +286,7 @@ export class MapComponent extends React.Component<MapProps, AppState> {
                     x={centralStation.x}
                     y={centralStation.y}
                     node={centralStation}
+                    lang={lang}
                   />
                 </g>
                 : null

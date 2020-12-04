@@ -229,6 +229,9 @@ export default (state: MapState, action: any) => {
     case actionTypes.CLOSE_VIDEO_ACTION:
       return { ...state, isVideoVisible: false };
 
+    // case actionTypes.SET_LANG_ACTION:
+    //   return { ...state, lang: action.data };
+
     default:
       return state || null;
   }

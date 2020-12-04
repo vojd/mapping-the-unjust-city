@@ -90,3 +90,10 @@ export const closeVideoAction = () => (
     data: null
   }
 );
+
+export const setLangAction = (lang: string) => (
+  {
+    type: actionTypes.SET_LANG_ACTION,
+    data: lang
+  }
+);

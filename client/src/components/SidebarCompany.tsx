@@ -11,12 +11,15 @@ import { AppState } from '../interfaces/AppState';
 import { CompanyDocuments } from './company/CompanyDocuments';
 import { RouteLocation, RouteMatch } from './Sidebar';
 import { SidebarClose } from './SidebarClose';
+import { setLangAction } from '../actions/mapActions';
 
 export interface SidebarCompanyProps {
   match: RouteMatch;
   location: RouteLocation;
   fetchCompany: Function;
   company: Company;
+  lang: string;
+  setLang: Function;
 }
 
 export interface SidebarCompanyState {
@@ -31,6 +34,7 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
   componentDidMount() {
     const slug = this.props.match.params.slug;
     this.props.fetchCompany(slug);
+    this.props.setLang(this.props.match.params.lang);
   }
 
   componentDidUpdate( previousProps: SidebarCompanyProps ) {
@@ -42,6 +46,9 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
 
   render() {
     const slug = this.props.match.params.slug;
+    const lang = this.props.match.params.lang;
+    console.log('lang sidebar comp', lang);
+
     return (
       <div className="sidebar">
         <div className="sidebar-content border shadow">
@@ -53,11 +60,11 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
             <div>
               <div className="centre_information__menu">
 
-                <NavLink exact={true} activeClassName="link-is-active" to={`/map/company/${slug}`}>
+                <NavLink exact={true} activeClassName="link-is-active" to={`/${lang}/map/company/${slug}`}>
                   <div className="station-information__menu__icon icon icon-house"/>
                 </NavLink>
 
-                <NavLink activeClassName="link-is-active" to={`/map/company/${slug}/documents`}>
+                <NavLink activeClassName="link-is-active" to={`/${lang}/map/company/${slug}/documents`}>
                   <div className="station-information__menu__icon icon icon-media-press"/>
                 </NavLink>
 
@@ -66,17 +73,23 @@ class SidebarCompany extends React.Component<SidebarCompanyProps, SidebarCompany
 
             <div className="centre-main">
               <Switch>
-                <Route exact path="/map/company/:slug" render={() => <CompanyHome company={this.props.company}/>}/>
                 <Route
-                  path="/map/company/:slug/documents"
-                  render={() => <CompanyDocuments company={this.props.company}/>}
+                  exact
+                  path="/:lang/map/company/:slug"
+                  render={() =>
+                    <CompanyHome company={this.props.company} lang={lang}/>
+                  }
+                />
+                <Route
+                  path="/:lang/map/company/:slug/documents"
+                  render={() => <CompanyDocuments company={this.props.company} lang={lang}/>}
                 />
               </Switch>
             </div>
           </div>
         </div>
 
-        <SidebarClose />
+        <SidebarClose lang={lang}/>
       </div>
     );
   }
@@ -94,6 +107,7 @@ const mapStateToProps = ( state: AppState, {params}: any ) => {
 const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) => {
   return {
     fetchCompany: ( slug: string ) => dispatch(fetchCompanyDetailsAction(slug)),
+    setLang: (lang: string) => dispatch(setLangAction(lang)),
   };
 };
 

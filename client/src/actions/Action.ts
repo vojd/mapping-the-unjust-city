@@ -41,4 +41,6 @@ export const actionTypes = {
 
   CLOSE_VIDEO_ACTION: '@@map/CLOSE_VIDEO_ACTION',
 
+  SET_LANG_ACTION: '@@map/SET_LANG_ACTION',
+
 };

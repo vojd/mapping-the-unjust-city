@@ -15,8 +15,8 @@ const translations = {
     'en': 'Company info',
     'se': 'Om bolaget'
   },
-  'document': {
-    'en': 'Document',
+  'documents': {
+    'en': 'Documents',
     'se': 'Dokument',
   },
   'company': {
@@ -39,6 +39,10 @@ const translations = {
     'en': 'Zoning plan',
     'se': 'Detaljplan'
   },
+  'zoning_plans_coming_soon': {
+    'en': 'Zoning plans coming soon',
+    'se': 'Detaljplaner kommer inom kort'
+  }
 };
 
 export const trans = (str: string, lang: string): string => {

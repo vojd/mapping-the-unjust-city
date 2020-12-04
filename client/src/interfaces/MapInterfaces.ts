@@ -66,6 +66,5 @@ export interface MapState {
   };
   isFilterBoxOpen: boolean;
   isVideoVisible: boolean;
-  language: string;
   activeCentreSlug: string;
 }

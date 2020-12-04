@@ -15,6 +15,7 @@ interface RouteCircleProps {
   r: number;
   isActive: boolean;
   node: MapNode;
+  lang: string;
 }
 
 /**
@@ -33,7 +34,7 @@ const RouteCircle = ( props: RouteCircleProps ) => {
           cy={props.y}
           r={props.isActive ? props.r + 4 : props.r + 4}
           fill={COLOR_ORANGE}
-          onClick={() => history.push(`/map/centre/${slugify(props.node.name)}/`)}
+          onClick={() => history.push(`/${props.lang}/map/centre/${slugify(props.node.name)}/`)}
         />
       )}
     />
@@ -64,6 +65,7 @@ export interface StationProps {
   x: number;
   y: number;
   node: MapNode;
+  lang: string;
 }
 
 export interface StationState {
@@ -98,6 +100,7 @@ export class Station extends React.Component<StationProps, StationState> {
             r={this.state.isActive ? dim.r + 2 : dim.r}
             isActive={this.state.isActive}
             node={this.props.node}
+            lang={this.props.lang}
           />
         )
     );

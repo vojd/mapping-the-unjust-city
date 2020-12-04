@@ -40,14 +40,14 @@ export const getInitialMapState = (): MapState => {
     visibleOwners: [],
     companies: [],
     soldYears: {
-      '1960': false,
-      '1970': false,
-      '1980': false,
-      '1990': false,
-      '2000': false,
-      '2010': false,
-      '2020': false,
       '0': false, // ongoing sale
+      '2020': false,
+      '2010': false,
+      '2000': false,
+      '1990': false,
+      '1980': false,
+      '1970': false,
+      '1960': false,
     },
     publicDisplayMode: {
       'Publicly owned': false,
@@ -55,7 +55,6 @@ export const getInitialMapState = (): MapState => {
     },
     isFilterBoxOpen: true,
     isVideoVisible: true,
-    language: 'en'
   };
 };
 

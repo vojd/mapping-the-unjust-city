@@ -11,10 +11,11 @@ import { AppState } from '../interfaces/AppState';
 import { trans } from '../trans';
 import { SidebarClose } from './SidebarClose';
 import { MapNode } from './UndergroundLines';
-import { setCentreActiveAction } from '../actions/mapActions';
+import { setCentreActiveAction, setLangAction } from '../actions/mapActions';
 
 interface RouteParams {
   slug: string;
+  lang: string;
 }
 
 export interface RouteMatch {
@@ -23,6 +24,7 @@ export interface RouteMatch {
 
 export interface RouteLocation {
   pathname: string;
+  search: string;
 }
 
 export interface SidebarProps {
@@ -32,6 +34,8 @@ export interface SidebarProps {
   toggleOpenClose: Function;
   setCentreActive: Function;
   centre: Centre | null;
+  lang: string;
+  setLang: Function;
 }
 
 export interface SidebarState {
@@ -39,16 +43,16 @@ export interface SidebarState {
 }
 
 const CentreOwnerName = ( props: any ) => {
-  const {owner} = props;
+  const {owner, lang} = props;
   return (
     <span className="centre-owner-title color-orange">
-      <Link to={`/map/company/${owner.slug}`} className="centre-owner-name">{owner.name}</Link>
+      <Link to={`/${lang}/map/company/${owner.slug}`} className="centre-owner-name">{owner.name}</Link>
     </span>
   );
 };
 
 export const CentreName = ( props: any ) => {
-  const {centre} = props;
+  const {centre, lang} = props;
   const owner = centre && centre.owner ? centre.owner : '';
   return (
     <div className="centre-name">
@@ -56,7 +60,7 @@ export const CentreName = ( props: any ) => {
         {centre ? centre.name : ''}
         {
           owner
-            ? <CentreOwnerName owner={owner}/>
+            ? <CentreOwnerName owner={owner} lang={lang}/>
             : null
         }
       </h2>
@@ -66,17 +70,17 @@ export const CentreName = ( props: any ) => {
 
 const AlsoOwned = ( props: any ) => {
 
-  const {centres} = props;
+  const {centres, lang} = props;
   const {owner} = props;
   return (
     <div>
-      <div className="headline-text">{owner.name.toLocaleUpperCase()} {trans('owns_the_following', 'en')}</div>
+      <div className="headline-text">{owner.name.toLocaleUpperCase()} {trans('owns_the_following', lang)}</div>
       <div>
         {
           centres.map(( other: any, idx: number ) => {
             return (
               <div key={idx} className="company-also-owns">
-                <Link to={`/map/centre/${other.slug}`} className="centre-owner-name">
+                <Link to={`/${lang}/map/centre/${other.slug}`} className="centre-owner-name">
                   {other.name}
                 </Link>
               </div>
@@ -108,9 +112,9 @@ export const HTMLOutput = (props: { str: string }) => {
 };
 
 export const DescriptionTranslated = (props: any) => {
-  let {obj} = props;
+  const {obj, lang} = props;
   if (obj && obj.description) {
-    let val = obj.descriptionEn !== '' ? obj.descriptionEn : obj.description;
+    let val = lang === 'se' ? obj.description : obj.descriptionEn;
     return (
       <HTMLOutput str={val} />
     );
@@ -119,17 +123,19 @@ export const DescriptionTranslated = (props: any) => {
 };
 
 const CentreHome = ( props: any ) => {
-  const {centre} = props;
+  const {centre, lang} = props;
   const owner = centre ? centre.owner : null;
   const centres = centre && centre.owner ? centre.owner.centres : [];
-  const description = centre ? (centre.descriptionEn === '' ? centre.description : centre.descriptionEn) : '';
+  console.log('centre home lang', lang);
+
   return (
     <div>
-      <CentreName centre={centre}/>
-      <div className="headline-text">{trans('about_centre', 'en')}</div>
+      <CentreName centre={centre} lang={lang}/>
+      <div className="headline-text">{trans('about_centre', lang)}</div>
 
       <div>
-         <HTMLOutput str={description} />
+         <DescriptionTranslated obj={centre} lang={lang}/>
+         <p>language:{lang}</p>
       </div>
 
       {owner && centres ? <AlsoOwned centres={centres} owner={owner}/> : ''}
@@ -144,16 +150,16 @@ const documentTypeStr = ( document: string ) => {
 };
 
 const CentreDetailPlan = ( props: any ) => {
-  const {centre} = props;
+  const {centre, lang} = props;
   const {detailPlans} = centre;
 
   return (
     <div>
-      <CentreName centre={centre}/>
-      <div className="headline-text">{trans('zoning_plan', 'en')}</div>
+      <CentreName centre={centre} lang={lang}/>
+      <div className="headline-text">{trans('zoning_plan', lang)}</div>
 
       {
-        detailPlans
+        detailPlans && detailPlans.length > 0
           ? detailPlans.map(( plan: any, idx: number ) => {
             return (
               <div key={idx}>
@@ -171,7 +177,7 @@ const CentreDetailPlan = ( props: any ) => {
               </div>
             );
           })
-          : ';'
+          : trans('zoning_plans_coming_soon', lang)
       }
     </div>
 
@@ -180,22 +186,23 @@ const CentreDetailPlan = ( props: any ) => {
 
 export interface TheProps {
   centre: Centre;
+  lang: string;
 }
 
 const CentreOwners = ( props: TheProps ) => {
-  const {centre} = props;
+  const {centre, lang} = props;
 
   return (
     <div>
-      <CentreName centre={centre}/>
-      <div className="headline-text">{trans('owner_history', 'en')}</div>
+      <CentreName centre={centre} lang={lang}/>
+      <div className="headline-text">{trans('owner_history', lang)}</div>
       {
         centre.historicalOwners.length > 0 ?
           <table className="table">
         <thead>
         <tr>
-          <th scope="col">{trans('company', 'en')}</th>
-          <th scope="col">{trans('year', 'en')}</th>
+          <th scope="col">{trans('company', lang)}</th>
+          <th scope="col">{trans('year', lang)}</th>
 
         </tr>
         </thead>
@@ -205,7 +212,7 @@ const CentreOwners = ( props: TheProps ) => {
             return (
               <tr key={id}>
                 <td>
-                  <Link to={`/map/company/${owner.company.slug}`}>
+                  <Link to={`${lang}/map/company/${owner.company.slug}`}>
                     {owner.company.name}
                   </Link>
                 </td>
@@ -219,11 +226,9 @@ const CentreOwners = ( props: TheProps ) => {
       </table>
           : null
       }
-      {
-        centre.ownershipDescriptionEn
-          ? <div><HTMLOutput str={centre.ownershipDescriptionEn} /></div>
-          : <div><HTMLOutput str={centre.ownershipDescription} /></div>
-      }
+
+      <DescriptionTranslated obj={centre} lang={lang}/>
+
     </div>
   );
 };
@@ -248,8 +253,7 @@ const CentreMainImage = ( props: any ) => {
   );
 };
 
-class Sidebar extends React.Component
-  <SidebarProps, SidebarState> {
+class Sidebar extends React.Component<SidebarProps, SidebarState> {
   constructor( props: SidebarProps ) {
     super(props);
   }
@@ -257,6 +261,7 @@ class Sidebar extends React.Component
   componentDidMount() {
     const slug = this.props.match.params.slug;
     this.props.fetchCentre(slug);
+    this.props.setLang(this.props.match.params.lang);
   }
 
   componentDidUpdate( previousProps: SidebarProps ) {
@@ -268,6 +273,8 @@ class Sidebar extends React.Component
 
   render() {
     const slug = this.props.match.params.slug;
+    const lang = this.props.match.params.lang;
+    console.log('sidebar lang', lang);
     return (
       <div className="sidebar">
         <div className="sidebar-content shadow">
@@ -279,19 +286,19 @@ class Sidebar extends React.Component
             <div>
               <div className="centre_information__menu">
 
-                <NavLink exact={true} activeClassName="link-is-active" to={`/map/centre/${slug}`}>
+                <NavLink exact={true} activeClassName="link-is-active" to={`/${lang}/map/centre/${slug}`}>
                   <div className="station-information__menu__icon icon icon-house"/>
                 </NavLink>
 
-                <NavLink activeClassName="link-is-active" to={`/map/centre/${slug}/detail-plan`}>
+                <NavLink activeClassName="link-is-active" to={`/${lang}/map/centre/${slug}/detail-plan`}>
                   <div className="station-information__menu__icon icon icon-detail-plan"/>
                 </NavLink>
 
-                <NavLink activeClassName="link-is-active" to={`/map/centre/${slug}/owners`}>
+                <NavLink activeClassName="link-is-active" to={`/${lang}/map/centre/${slug}/owners`}>
                   <div className="station-information__menu__icon icon icon-owner-history"/>
                 </NavLink>
 
-                <NavLink activeClassName="link-is-active" to={`/map/centre/${slug}/documents`}>
+                <NavLink activeClassName="link-is-active" to={`/${lang}/map/centre/${slug}/documents`}>
                   <div className="station-information__menu__icon icon icon-media-press"/>
                 </NavLink>
               </div>
@@ -299,25 +306,36 @@ class Sidebar extends React.Component
 
             <div className="centre-main">
               <Switch>
-                <Route exact path="/map/centre/:slug" render={() => <CentreHome centre={this.props.centre}/>}/>
                 <Route
-                  path="/map/centre/:slug/detail-plan"
+                  exact
+                  path="/:lang/map/centre/:slug"
+                  render={() =>
+                    <CentreHome
+                      centre={this.props.centre}
+                      lang={lang}
+                    />
+                  }
+                />
+                <Route
+                  path="/:lang/map/centre/:slug/detail-plan"
                   render={() => {
-                    return this.props.centre ? <CentreDetailPlan centre={this.props.centre}/> : '';
+                    return this.props.centre ? <CentreDetailPlan centre={this.props.centre} lang={lang}/> : '';
                   }}
                 />
 
                 <Route
-                  path="/map/centre/:slug/owners"
+                  path="/:lang/map/centre/:slug/owners"
                   render={() => {
-                    return this.props.centre ? <CentreOwners centre={this.props.centre}/> : '';
+                    return this.props.centre ? <CentreOwners centre={this.props.centre} lang={lang}/> : '';
                   }}
                 />
 
                 <Route
-                  path="/map/centre/:slug/documents"
+                  path="/:lang/map/centre/:slug/documents"
                   render={() => {
-                    return this.props.centre ? <CentreDocuments centre={this.props.centre}/> : '';
+                    return this.props.centre
+                      ? <CentreDocuments centre={this.props.centre} lang={lang}/>
+                      : '';
                   }}
                 />
               </Switch>
@@ -325,7 +343,7 @@ class Sidebar extends React.Component
           </div>
         </div>
 
-        <SidebarClose />
+        <SidebarClose lang={lang}/>
       </div>
     );
   }
@@ -336,13 +354,14 @@ const mapStateToProps = ( state: AppState, {params}: any ) => {
   if (centre) {
     return {...state, centre: centre.centre};
   } else {
-    return state;
+    return {...state};
   }
 };
 
 const mapDispatchToProps = ( dispatch: ThunkDispatch<AppState, void, Action> ) => {
   return {
     fetchCentre: ( slug: string ) => dispatch(fetchCentreAction(slug)),
+    setLang: (lang: string) => dispatch(setLangAction(lang)),
     setActiveCentre: (node: MapNode) => dispatch(setCentreActiveAction(node)),
   };
 };

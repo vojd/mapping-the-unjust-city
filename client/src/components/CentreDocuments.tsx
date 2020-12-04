@@ -17,12 +17,12 @@ class CentreDocuments extends React.Component<CentreDocumentsProps, any> {
   }
 
   render() {
-    const {centre} = this.props;
+    const {centre, lang} = this.props;
     // if the props changed, fetch new documents
     const documents = centre ? centre.documents : null;
     return (
       <div>
-        <CentreName centre={centre}/>
+        <CentreName centre={centre} lang={lang}/>
         <div className="headline-text">MEDIA / PRESS</div>
         <DocumentsList documents={documents}/>
       </div>
