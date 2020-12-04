@@ -109,12 +109,14 @@ class App extends React.Component<any, AppState> {
 
               <Route exact path="/:lang/map/about/centrumkartan" component={SidebarAbout}/>
               <Route exact path="/:lang/map/about/us" component={SidebarAbout}/>
+              <Route exact path="/:lang/map/about/demo" component={SidebarAbout}/>
               <Route exact path="/en/map/lang" component={Pro}/>
             </Switch>
 
             <div className="about shadow">
               <Link to={`/en/map/about/centrumkartan`}>{trans('about_map', 'en')}</Link>
               <Link to={`/en/map/about/us`}>{trans('about_us', 'en')}</Link>
+              <Link to={`/en/map/about/demo`}>Demo</Link>
 
               <LangSwitch lang={'Se'}/>
               <LangSwitch lang={'En'}/>

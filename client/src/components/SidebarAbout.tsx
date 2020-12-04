@@ -63,6 +63,22 @@ const AboutContact = () => {
   );
 };
 
+const AboutDemo = () => {
+  return (
+    <div>
+      <h4>Demo video</h4>
+      <iframe
+        src="https://player.vimeo.com/video/485369508"
+        width="100%"
+        height="347"
+        frameBorder="0"
+        allow="autoplay; fullscreen"
+        allowFullScreen
+      />
+    </div>
+  );
+};
+
 export const SidebarAbout = () => {
   const lang = 'en';
   return (
@@ -73,6 +89,7 @@ export const SidebarAbout = () => {
             <Switch>
               <Route exact path="/:lang/map/about/centrumkartan" render={() => <AboutMap/>}/>
               <Route exact path="/:lang/map/about/us" render={() => <AboutContact/>}/>
+              <Route exact path="/:lang/map/about/demo" render={() => <AboutDemo/>}/>
             </Switch>
           </div>
         </div>
