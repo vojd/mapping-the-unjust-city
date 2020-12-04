@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import MapComponent from './components/MapComponent';
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import { HashRouter, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -104,6 +104,7 @@ class App extends React.Component<any, AppState> {
             </div>
 
             <Switch>
+              <Redirect from="/" to="/en" exact />
               <Route path="/:lang/map/centre/:slug" component={Sidebar}/>
               <Route path="/:lang/map/company/:slug" component={SidebarCompany}/>
 
