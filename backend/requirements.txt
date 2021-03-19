@@ -4,7 +4,7 @@ django==3.0.0
 django-cors-headers==2.3.0
 django-filter==1.1.0
 django-jet==1.0.7
-djangorestframework==3.8.2
+djangorestframework==3.11.2
 idna==2.7
 jet==1.0
 Markdown==2.6.11
